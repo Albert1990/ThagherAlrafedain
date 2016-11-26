@@ -8,15 +8,12 @@ import org.json.JSONObject;
  * Created by Albert on 11/24/16.
  */
 public class ProductModel extends AppBaseModel{
-    private String ID;
-    private String ArabicName;
-    private String EnglishName;
-    private String ArabicDescription;
-    private String EnglishDescription;
-    private String Image;
-    private float Price;
-    private int Status;
-    private BrandModel Brand;
+    private String id;
+    private String name;
+    private String description;
+    private String image;
+    private String price;
+    private String status;
 
     public static ProductModel fromJson(JSONObject json) {
         try {
@@ -26,77 +23,55 @@ public class ProductModel extends AppBaseModel{
         return new ProductModel();
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    @Override
+    public String getId() {
+        return id;
     }
 
-    public String getArabicName() {
-        return ArabicName;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setArabicName(String arabicName) {
-        ArabicName = arabicName;
+    public String getName() {
+        return name;
     }
 
-    public String getEnglishName() {
-        return EnglishName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setEnglishName(String englishName) {
-        EnglishName = englishName;
+    public String getDescription() {
+        return description;
     }
 
-    public String getArabicDescription() {
-        return ArabicDescription;
-    }
-
-    public void setArabicDescription(String arabicDescription) {
-        ArabicDescription = arabicDescription;
-    }
-
-    public String getEnglishDescription() {
-        return EnglishDescription;
-    }
-
-    public void setEnglishDescription(String englishDescription) {
-        EnglishDescription = englishDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
     }
 
-    public float getPrice() {
-        return Price;
+    public String getPrice() {
+        return price;
     }
 
-    public void setPrice(float price) {
-        Price = price;
+    public String getPriceWithUnit() {return price + "$"; }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public int getStatus() {
-        return Status;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatus(int status) {
-        Status = status;
-    }
-
-    public BrandModel getBrand() {
-        return Brand;
-    }
-
-    public void setBrand(BrandModel brand) {
-        Brand = brand;
-    }
-
-    @Override
-    public String getId() {
-        return ID;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public JSONObject getJsonObject(){

@@ -54,7 +54,7 @@ public class CarousellViewPager extends ViewPager {
 
         public void transformPage(View view, float position){
             if(position < -1){ // out of screen
-                view.setBackgroundColor(Color.RED);
+                //view.setBackgroundColor(Color.RED);
                 view.setScaleX(minScale);
                 view.setScaleY(minScale);
             }else if(position >= - 0.5 && position < 0){ //
@@ -65,11 +65,11 @@ public class CarousellViewPager extends ViewPager {
             }
             else if(position >= 0 && position <= 0.5){ //
                 float  scale = minScale + (1.0f-minScale)* (1-Math.abs(position)) ;
-                view.setBackgroundColor(Color.GREEN);
+                //view.setBackgroundColor(Color.GREEN);
                 view.setScaleX(scale);
                 view.setScaleY(scale);
             }else if (position > 0.5 && position <= 1){
-                view.setBackgroundColor(Color.YELLOW);
+                //view.setBackgroundColor(Color.YELLOW);
                 view.setScaleX(minScale);
                 view.setScaleY(minScale);
             }

@@ -22,6 +22,7 @@ import com.brain_socket.thagheralrafedain.data.PhotoProvider;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
+import com.brain_socket.thagheralrafedain.view.RoundedImageView;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private ProductsRecycleViewAdapter productsAdapter;
     private ArrayList<ProductModel> products;
     private ArrayList<BrandModel> brands;
+    private int selectedBrandPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,9 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
                 @Override
                 public void onPageSelected(int position) {
-                    DataStore.getInstance().requestBrandProducts(brands.get(position).getId(),requestBrandProductsCallback);
+                    selectedBrandPosition = position;
+                    products = brands.get(position).getProducts();
+                    productsAdapter.updateAdapter();
                 }
 
                 @Override
@@ -104,18 +108,6 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         }
     }
 
-    private DataStore.DataRequestCallback requestBrandProductsCallback = new DataStore.DataRequestCallback() {
-        @Override
-        public void onDataReady(ServerResult result, boolean success) {
-            try{
-                products = (ArrayList<ProductModel>) result.getValue("products");
-                productsAdapter.updateAdapter();
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
-        }
-    };
-
     public void setActionBarColor(int color) {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
     }
@@ -123,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private void updateBody() {
         brands = DataStore.getInstance().getBrands();
         brandsSliderAdapter.updateAdapter();
-        productsAdapter.updateAdapter();
     }
 
     @Override
@@ -162,7 +153,8 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 try {
                     int itemPosition = (int)v.getTag();
                     Intent myIntent = new Intent(MainActivity.this, ProductDetailsActivity.class);
-                    //myIntent.putExtra("key", value); //Optional parameters
+                    myIntent.putExtra("selectedBrandPosition", selectedBrandPosition);
+                    myIntent.putExtra("selectedProductPosition",itemPosition);
                     startActivity(myIntent);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -196,18 +188,10 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             try {
                 final ProductModel productModel = products.get(position);
                 holder.root.setTag(position);
-                holder.tvName.setText(productModel.getEnglishName());
-                String strPrice = productModel.getPrice()+"$";
+                holder.tvName.setText(productModel.getName());
+                String strPrice = productModel.getPriceWithUnit();
                 holder.tvPrice.setText(strPrice);
-                //PhotoProvider.getInstance().displayPhotoNormal(application.getPhoto(), viewHolder.ivIcon);
-                //viewHolder.ivIcon.setTag(i);
-//                if(selectedCategoriesIds.contains(application.getId())){
-//                    viewHolder.tvName.setAlpha(1f);
-//                    viewHolder.ivIcon.setAlpha(1f);
-//                }else{
-//                    viewHolder.tvName.setAlpha(0.5f);
-//                    viewHolder.ivIcon.setAlpha(0.5f);
-//                }
+                PhotoProvider.getInstance().displayPhotoNormal(productModel.getImage(), holder.ivProduct);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -223,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
     static class ProductViewHolderItem extends RecyclerView.ViewHolder {
         public View root;
-        public ImageView img;
+        public ImageView ivProduct;
         public TextView tvName;
         public TextView tvPrice;
 
@@ -232,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             root = v;
             tvName = (TextView) v.findViewById(R.id.tvName);
             tvPrice = (TextView) v.findViewById(R.id.tvPrice);
+            ivProduct = (RoundedImageView) v.findViewById(R.id.ivProduct);
         }
     }
 
@@ -261,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 ImageView ivBrand = (ImageView)v.findViewById(R.id.ivBrand);
                 TextView tvBrandName = (TextView)v.findViewById(R.id.tvBrandName);
 
-                tvBrandName.setText(brands.get(position).getEnglishName());
+                tvBrandName.setText(brands.get(position).getName());
                 PhotoProvider.getInstance().displayPhotoNormal(brands.get(position).getLogo(), ivBrand);
                 container.addView(v);
             } catch (Exception ex) {

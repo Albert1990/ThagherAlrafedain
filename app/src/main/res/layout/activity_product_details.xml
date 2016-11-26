@@ -157,6 +157,7 @@
         <include layout="@layout/horizontal_seperator"></include>
         <WebView
             android:id="@+id/wvDescription"
+            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></WebView>
 
@@ -164,6 +165,8 @@
         <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
             android:text="More products from Tokkma"/>
         <include layout="@layout/horizontal_seperator"></include>
 

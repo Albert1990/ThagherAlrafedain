@@ -10,12 +10,11 @@ import java.util.ArrayList;
  * Created by Albert on 11/24/16.
  */
 public class BrandModel extends AppBaseModel{
-    private String ID;
-    private String ArabicName;
-    private String EnglishName;
-    private String Logo;
-    private int Status;
-    private ArrayList<ProductModel> Products;
+    private String id;
+    private String name;
+    private String logo;
+    private String status;
+    private ArrayList<ProductModel> products;
 
 
     public static BrandModel fromJson(JSONObject json) {
@@ -28,51 +27,43 @@ public class BrandModel extends AppBaseModel{
 
     @Override
     public String getId() {
-        return ID;
+        return id;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getArabicName() {
-        return ArabicName;
+    public String getName() {
+        return name;
     }
 
-    public void setArabicName(String arabicName) {
-        ArabicName = arabicName;
-    }
-
-    public String getEnglishName() {
-        return EnglishName;
-    }
-
-    public void setEnglishName(String englishName) {
-        EnglishName = englishName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLogo() {
-        return Logo;
+        return logo;
     }
 
     public void setLogo(String logo) {
-        Logo = logo;
+        this.logo = logo;
     }
 
-    public int getStatus() {
-        return Status;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatus(int status) {
-        Status = status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public ArrayList<ProductModel> getProducts() {
-        return Products;
+        return products;
     }
 
     public void setProducts(ArrayList<ProductModel> products) {
-        this.Products = products;
+        this.products = products;
     }
 
     public JSONObject getJsonObject(){

@@ -198,8 +198,8 @@ public class ServerAccess {
         try {
             for(int i = 0;i<20;i++){
                 ProductModel p = new ProductModel();
-                p.setEnglishName("product"+i);
-                p.setPrice(100+i);
+                p.setName("product"+i);
+                p.setPrice("100");
                 retrievedArray.add(p);
             }
         } catch (Exception e) {
@@ -212,8 +212,8 @@ public class ServerAccess {
     public ServerResult getProductById(String productId){
         ServerResult result = new ServerResult();
         ProductModel product = new ProductModel();
-        product.setEnglishName("selected product");
-        product.setPrice(1200);
+        product.setName("selected product");
+        product.setPrice("1200");
         result.addPair("product",product);
         return result;
     }
