@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ThagherAlrafedain</string>
+    <string name="activity_main_products_title">Our Products</string>
+    <string name="place_holder">---</string>
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_card_extruded_bg">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:src="@drawable/brand_corner"/>
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvProductsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_gravity="right|top"
+        android:textSize="@dimen/ts_text_small"
+        app:fontId="1"/>
+
+    <ImageView
+        android:id="@+id/ivBrand"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/lasyer2"/>
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvBrandName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:textSize="@dimen/ts_text_normal"
+        app:fontId="1"/>
+
+</FrameLayout>
