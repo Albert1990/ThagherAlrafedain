@@ -1,16 +1,20 @@
 package com.brain_socket.thagheralrafedain.fragments;
 
+import android.Manifest.permission;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,7 @@ import android.view.ViewGroup;
 
 import com.brain_socket.thagheralrafedain.MapActivity;
 import com.brain_socket.thagheralrafedain.R;
+import com.brain_socket.thagheralrafedain.ThagherApp;
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.DataStore.DataRequestCallback;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
@@ -59,10 +64,10 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
     public enum MAP_TYPE {SEARCH, BRAND}
 
     MAP_TYPE type;
-    ArrayList<LocatableProvider> providers = null;
+    ArrayList<LocatableWorkshop> providers = null;
     ArrayList<WorkshopModel> workshops = null;
-    HashMap<String, LocatableProvider> mapMarkerIdToLocatableProvider;
-    LocatableProvider selectedLocatableProvider;
+    HashMap<String, LocatableWorkshop> mapMarkerIdToLocatableProvider;
+    LocatableWorkshop selectedLocatableWorkshop;
 
     AppWorkshopCard vItemDetailsPreview;
     boolean focusMap;
@@ -87,7 +92,7 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
                 try {
                     if (result.getPairs().containsKey("workshops")) {
                         brands = new ArrayList<>();
-                        ArrayList<WorkshopModel> recievedShops = (ArrayList<WorkshopModel>) result.get("products");
+                        ArrayList<WorkshopModel> recievedShops = (ArrayList<WorkshopModel>) result.get("workshops");
                         brands.addAll(recievedShops);
                         updateView(brands, focusMap);
                     }
@@ -135,6 +140,7 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkPlayServices(getActivity());
+        requestLocationPermissionIfRequired();
         init();
     }
 
@@ -180,13 +186,13 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
         this.googleMap.setOnMapClickListener(new OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                selectedLocatableProvider = null;
+                selectedLocatableWorkshop = null;
                 hidePreview();
             }
         });
 
         // initial data load
-        selectedLocatableProvider = null;
+        selectedLocatableWorkshop = null;
         focusMap = true;
         getNearByBrands();
     }
@@ -201,18 +207,18 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
                 this.providers = new ArrayList<>();
 
                 for (WorkshopModel brand : brands) {
-                    LocatableProvider locatableProvider = new LocatableProvider();
-                    locatableProvider.provider = brand;
-                    locatableProvider.type = LocatableProvider.MarkType.BRAND;
-                    boolean isSelected = selectedLocatableProvider != null
-                            && locatableProvider.provider != null
-                            && locatableProvider.provider.getId().equals(selectedLocatableProvider.provider.getId());
+                    LocatableWorkshop locatableWorkshop = new LocatableWorkshop();
+                    locatableWorkshop.workshop = brand;
+                    locatableWorkshop.type = LocatableWorkshop.MarkType.BRAND;
+                    boolean isSelected = selectedLocatableWorkshop != null
+                            && locatableWorkshop.workshop != null
+                            && locatableWorkshop.workshop.getId().equals(selectedLocatableWorkshop.workshop.getId());
 
-                    locatableProvider.markerOptions = new MarkerOptions()
+                    locatableWorkshop.markerOptions = new MarkerOptions()
                                     .position(brand.getCoords())
-                                    // if its the highlighted provider then draw it with a different marker icon
+                                    // if its the highlighted workshop then draw it with a different marker icon
                                     .icon(BitmapDescriptorFactory.fromResource(isSelected ? R.drawable.ic_marker_active : R.drawable.ic_marker));
-                    this.providers.add(locatableProvider);
+                    this.providers.add(locatableWorkshop);
                 }
                 // Map
                 drawProvidersOnMap(this.providers, reFocusMap);
@@ -226,20 +232,20 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
      * @param providers array of providers that wil be represented on map with markers
      * @param focusMap: if true, we animated the map camera to fit all the markers in view
      */
-    private void drawProvidersOnMap(ArrayList<LocatableProvider> providers, boolean focusMap) {
+    private void drawProvidersOnMap(ArrayList<LocatableWorkshop> providers, boolean focusMap) {
         try {
             if (providers != null && googleMap != null) {
                 googleMap.clear();
 
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                for (LocatableProvider provider : providers) {
+                for (LocatableWorkshop provider : providers) {
                     try {
 
                         Marker marker = googleMap.addMarker(provider.markerOptions);
                         mapMarkerIdToLocatableProvider.put(marker.getId(), provider);
                         LatLng position = provider.markerOptions.getPosition();
                         builder.include(position);
-                        if (selectedLocatableProvider != null && provider.provider.getId().equals(selectedLocatableProvider.provider.getId()))
+                        if (selectedLocatableWorkshop != null && provider.workshop.getId().equals(selectedLocatableWorkshop.workshop.getId()))
                             marker.showInfoWindow();
                     } catch (Exception e) {
                     }
@@ -261,9 +267,9 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
         googleMap.animateCamera(cu);
     }
 
-    public void displayProviderDetailsPreview(LocatableProvider locatableProvider) {
-        if (locatableProvider != null && locatableProvider.provider != null) {
-            vItemDetailsPreview.updateUI(locatableProvider.provider);
+    public void displayProviderDetailsPreview(LocatableWorkshop locatableWorkshop) {
+        if (locatableWorkshop != null && locatableWorkshop.workshop != null) {
+            vItemDetailsPreview.updateUI(locatableWorkshop.workshop);
             vItemDetailsPreview.setVisibility(View.VISIBLE);
         }
     }
@@ -285,10 +291,10 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
     @Override
     public boolean onMarkerClick(Marker marker) {
         try {
-            LocatableProvider locatableProvider = mapMarkerIdToLocatableProvider.get(marker.getId());
-            if (locatableProvider != null) {
-                displayProviderDetailsPreview(locatableProvider);
-                selectedLocatableProvider = locatableProvider;
+            LocatableWorkshop locatableWorkshop = mapMarkerIdToLocatableProvider.get(marker.getId());
+            if (locatableWorkshop != null) {
+                displayProviderDetailsPreview(locatableWorkshop);
+                selectedLocatableWorkshop = locatableWorkshop;
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_active));
                 focusMapOnMarker(marker.getPosition());
             }
@@ -357,8 +363,7 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
     GoogleMap.OnCameraChangeListener onCameraChangeListener = new GoogleMap.OnCameraChangeListener() {
         @Override
         public void onCameraChange(CameraPosition cameraPosition) {
-            if (type == MAP_TYPE.SEARCH)
-                getNearByBrands();
+            getNearByBrands();
         }
     };
 
@@ -374,8 +379,8 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
         getNearByBrands();
     }
 
-    public static class LocatableProvider {
-        WorkshopModel provider;
+    public static class LocatableWorkshop {
+        WorkshopModel workshop;
         MarkerOptions markerOptions;
 
         enum MarkType {BRAND, BRANCH}
@@ -404,5 +409,27 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
             return false;
         }
         return true;
+    }
+
+    public void requestLocationPermissionIfRequired(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(activity, permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(
+                        new String[]{permission.ACCESS_FINE_LOCATION},
+                        ThagherApp.PERMISSIONS_REQUEST_LOCATION);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case ThagherApp.PERMISSIONS_REQUEST_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                }
+            }
+        }
     }
 }

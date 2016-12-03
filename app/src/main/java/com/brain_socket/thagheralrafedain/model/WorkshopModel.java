@@ -11,13 +11,18 @@ import java.util.ArrayList;
  * Created by Albert on 11/24/16.
  */
 public class WorkshopModel extends AppBaseModel {
+
+    public static enum WORKSHOP_TYPE {WORKSHOP, SHOW_ROOM}
+
     private int id;
-    private String name;
-    private String coverImage;
+    private String fullname;
+    private String logo;
     private String address;
+    private String type;
+    private String phone;
     private String email;
-    private String lat;
-    private String lon;
+    private String latitude;
+    private String longitude;
     private AppUser user;
     private ArrayList<BrandModel> brands;
 
@@ -42,19 +47,19 @@ public class WorkshopModel extends AppBaseModel {
     }
 
     public String getName() {
-        return name;
+        return fullname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String fullname) {
+        this.fullname = fullname;
     }
 
-    public String getCoverImage() {
-        return coverImage;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
+    public String getLogo() {
+        return logo;
     }
 
     public String getAddress() {
@@ -74,19 +79,19 @@ public class WorkshopModel extends AppBaseModel {
     }
 
     public String getLon() {
-        return lon;
+        return longitude;
     }
 
     public void setLon(String lon) {
-        this.lon = lon;
+        this.longitude = lon;
     }
 
     public String getLat() {
-        return lat;
+        return latitude;
     }
 
     public void setLat(String lat) {
-        this.lat = lat;
+        this.latitude = lat;
     }
 
     public AppUser getUser() {
@@ -95,6 +100,14 @@ public class WorkshopModel extends AppBaseModel {
 
     public void setUser(AppUser user) {
         this.user = user;
+    }
+
+    public WORKSHOP_TYPE getType() {
+        if (type == null)
+            return WORKSHOP_TYPE.WORKSHOP;
+        if(type.equals("S"))
+            return WORKSHOP_TYPE.SHOW_ROOM;
+        return WORKSHOP_TYPE.WORKSHOP;
     }
 
     public ArrayList<BrandModel> getBrands() {
@@ -107,7 +120,7 @@ public class WorkshopModel extends AppBaseModel {
 
     public LatLng getCoords(){
         try {
-            LatLng coords = new LatLng(Float.valueOf(lat), Float.valueOf(lon));
+            LatLng coords = new LatLng(Float.valueOf(latitude), Float.valueOf(longitude));
             return coords;
         }catch (Exception e){
             return new LatLng(0, 0);

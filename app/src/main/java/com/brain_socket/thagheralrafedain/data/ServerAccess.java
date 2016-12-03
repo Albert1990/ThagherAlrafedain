@@ -306,6 +306,44 @@ public class ServerAccess {
         return result;
     }
 
+    public ServerResult getNearbyWorkshops(float centerLat, float centerLng, float radius, ArrayList<BrandModel> brands) {
+        ServerResult result = new ServerResult();
+        ArrayList<WorkshopModel> workshops = null;
+        try{
+            JSONObject params = new JSONObject();
+
+            params.put("lat",centerLat);
+            params.put("lon",centerLng);
+            params.put("dist",radius);
+
+            if(brands != null) {
+                ArrayList<String> brandsIdsArray = new ArrayList<>();
+                for (BrandModel brand : brands) {
+                    brandsIdsArray.add(brand.getId());
+                }
+                String commaSeperatedArray = brandsIdsArray.toString();
+                commaSeperatedArray = commaSeperatedArray.replace("[", "").replace("]", "").replaceAll("\\s", "").trim();
+                params.put("brands",commaSeperatedArray);
+            }
+
+            String url = BASE_SERVICE_URL+"/getNearby.php";
+            ApiRequestResult apiResult = httpRequest(url,params,"post",null);
+            JSONArray jsonResponse = apiResult.getResponseJsonArray();
+            if(jsonResponse != null){
+                workshops = new ArrayList<>();
+                for(int i=0;i<jsonResponse.length();i++){
+                    JSONObject ob = jsonResponse.getJSONObject(i);
+                    workshops.add(WorkshopModel.fromJson(ob));
+                }
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        result.addPair("workshops",workshops);
+        return result;
+    }
+
     /**
      * send Https request through connection
      * @param method  get or post

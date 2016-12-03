@@ -1,15 +1,21 @@
 package com.brain_socket.thagheralrafedain;
 
+import android.Manifest;
+import android.Manifest.permission;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +41,8 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
     public static ThagherApp appContext;
     private static Gson sharedGsonParser;
     private static GoogleApiClient mGoogleApiClient;
+
+    public static final int PERMISSIONS_REQUEST_LOCATION = 33;
 
     @Override
     public void onCreate() {

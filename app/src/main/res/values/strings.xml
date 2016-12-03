@@ -11,4 +11,7 @@
     <string name="filters_group_types">Choose category</string>
     <string name="filters_select_all">Select all</string>
 
+    <string name="workshop_details_workshop">Workshop</string>
+    <string name="workshop_details_show_room">Showroom</string>
+
 </resources>

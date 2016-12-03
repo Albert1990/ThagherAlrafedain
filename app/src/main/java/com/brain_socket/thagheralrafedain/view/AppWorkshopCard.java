@@ -12,18 +12,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brain_socket.thagheralrafedain.R;
+import com.brain_socket.thagheralrafedain.data.PhotoProvider;
 import com.brain_socket.thagheralrafedain.model.WorkshopModel;
+import com.brain_socket.thagheralrafedain.model.WorkshopModel.WORKSHOP_TYPE;
 
 
 public class AppWorkshopCard extends FrameLayout implements OnClickListener {
 
     // views
-    TextView tvProviderPreviewName;
-    TextView tvProviderPreviewType;
-    ImageView ivProviderPreviewLogo;
-    View btnCall;
+    TextView tvName;
+    TextView tvType;
+    TextView tvPhone;
+    TextView tvAddress;
+    ImageView ivLogo;
     View btnLocation;
-    View vSep;
 
     //Data
     WorkshopModel item;
@@ -53,13 +55,13 @@ public class AppWorkshopCard extends FrameLayout implements OnClickListener {
                 inflate(getContext(), R.layout.row_workshop_map, this);
 
                 // views
-                tvProviderPreviewName = (TextView) findViewById(R.id.tvName);
-                tvProviderPreviewType = (TextView) findViewById(R.id.tvType);
-                ivProviderPreviewLogo = (ImageView) findViewById(R.id.ivLogo);
-                btnCall = findViewById(R.id.btnCall);
-                vSep = findViewById(R.id.vSep);
-                btnCall.setOnClickListener(this);
+                tvName = (TextView) findViewById(R.id.tvName);
+                tvType = (TextView) findViewById(R.id.tvType);
+                tvPhone = (TextView) findViewById(R.id.tvPhone);
+                tvAddress = (TextView) findViewById(R.id.tvType);
+                ivLogo = (ImageView) findViewById(R.id.ivLogo);
 
+                tvPhone.setOnClickListener(this);
             }
         } catch (Exception e) {
         }
@@ -72,18 +74,22 @@ public class AppWorkshopCard extends FrameLayout implements OnClickListener {
         try {
             this.item = item;
 
-
-            ///fill Data
-            tvProviderPreviewName.setText(item.getName());
-//            if (item.get() != null)
-//                tvProviderPreviewType.setText(item.getCategory().getName());
-            //PhotoProvider.getInstance().displayPhotoNormal(item.getLogo(), ivProviderPreviewLogo);
-
-            //phone = SindContact.getContactInfoByType(item.getContacts(), SindContact.contactType.MOBILE);
-            if (phone == null || phone.isEmpty())
-                btnCall.setVisibility(GONE);
+            //fill Data
+            tvName.setText(item.getName());
+            tvAddress.setText(item.getAddress());
+            if (item.getType() == WORKSHOP_TYPE.SHOW_ROOM)
+                tvType.setText(R.string.workshop_details_show_room);
             else
-                btnCall.setVisibility(VISIBLE);
+                tvType.setText(R.string.workshop_details_workshop);
+
+            PhotoProvider.getInstance().displayPhotoNormal(item.getLogo(), ivLogo);
+
+            phone = item.getPhone();
+            tvPhone.setText(item.getPhone());
+            if (phone == null || phone.isEmpty())
+                tvPhone.setEnabled(false);
+            else
+                tvPhone.setEnabled(true);
 
         } catch (Exception e) {
             e.printStackTrace();

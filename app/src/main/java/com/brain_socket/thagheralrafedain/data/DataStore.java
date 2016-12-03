@@ -416,12 +416,12 @@ public class DataStore {
         }).start();
     }
 
-    public void requestNearbyWorkshops(final float centerLat, final float centerLng, final float radius, ArrayList<BrandModel> brands, final DataRequestCallback callback) {
+    public void requestNearbyWorkshops(final float centerLat, final float centerLng, final float radius, final ArrayList<BrandModel> brands, final DataRequestCallback callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.getWorkshops("");
+                ServerResult result = serverHandler.getNearbyWorkshops(centerLat, centerLng, radius, brands);
                 if (result.connectionFailed()) {
                     success = false;
                 } else {
@@ -429,11 +429,9 @@ public class DataStore {
                         ArrayList<WorkshopModel> arrayRecieved = (ArrayList<WorkshopModel>) result.get("workshops");
                         if (arrayRecieved != null && !arrayRecieved.isEmpty()) {
                             workshops = arrayRecieved;
-                            DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_WORKSHOPS, arrayRecieved);
                         }
                     }
                 }
-                broadcastDataStoreUpdate();
                 invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();

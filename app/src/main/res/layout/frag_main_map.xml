@@ -13,21 +13,11 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <com.brain_socket.thagheralrafedain.view.AppWorkshopCard
+        android:id="@+id/vProviderPreview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.brain_socket.thagheralrafedain.view.AppWorkshopCard
-            android:id="@+id/vProviderPreview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="70dp"
-            android:clickable="true"
-            android:layoutDirection="ltr"
-            />
-    </LinearLayout>
-
+        android:layout_gravity="bottom"
+        android:clickable="true"
+        />
 </FrameLayout>
