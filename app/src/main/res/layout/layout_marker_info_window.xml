@@ -1,0 +1,20 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- just an empty text View -->
+    <!-- this layout is used to force Google maps bring -->
+    <!-- the marker to top onClick by showing an empty info window-->
+        <TextView
+            android:id="@+id/tvMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=" "
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/ts_text_xxsmall"/>
+
+</LinearLayout>

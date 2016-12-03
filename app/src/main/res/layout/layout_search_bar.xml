@@ -1,0 +1,30 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/layer_card_with_shadow">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="8dp"
+        android:padding="7dp"
+        android:src="@drawable/ic_back"/>
+
+    <ImageView
+        android:id="@+id/btnFilter"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="4dp"
+        android:padding="7dp"
+        android:src="@drawable/ic_filter"/>
+
+</FrameLayout>
+

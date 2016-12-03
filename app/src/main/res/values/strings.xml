@@ -2,4 +2,13 @@
     <string name="app_name">ThagherAlrafedain</string>
     <string name="activity_main_products_title">Our Products</string>
     <string name="place_holder">---</string>
+
+    <!--filters -->
+    <string name="filters_title">Search Filters</string>
+    <string name="menu_action_done">OK</string>
+    <string name="filters_cancel">Cancel</string>
+    <string name="filters_ok">Ok</string>
+    <string name="filters_group_types">Choose category</string>
+    <string name="filters_select_all">Select all</string>
+
 </resources>

@@ -1,0 +1,70 @@
+<RelativeLayout
+    android:id="@+id/row_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:background="@drawable/shape_rounded_media_element_overlay"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="70dp"
+            android:layout_height="75dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitCenter"
+            />
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/place_holder"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="80dp"
+                android:layout_toRightOf="@id/ivLogo"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_text_big"
+                android:textStyle="bold"
+                android:lines="1"
+                app:fontId="2"/>
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
+                android:gravity="left"
+                android:text="@string/place_holder"
+                android:layout_below="@id/tvName"
+                android:layout_alignLeft="@id/tvName"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_text_normal"
+                android:layout_marginRight="80dp"
+                android:lines="1"
+                app:fontId="1"/>
+
+    <View
+        android:id="@+id/vSep"
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@color/txt_black"
+        android:layout_below="@id/ivLogo"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
+
+    <ImageView
+        android:id="@+id/btnCall"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/vSep"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        />
+
+</RelativeLayout>

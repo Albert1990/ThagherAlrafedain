@@ -1,6 +1,7 @@
 package com.brain_socket.thagheralrafedain.model;
 
 import com.brain_socket.thagheralrafedain.ThagherApp;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONObject;
 
@@ -102,5 +103,14 @@ public class WorkshopModel extends AppBaseModel {
 
     public void setBrands(ArrayList<BrandModel> brands) {
         this.brands = brands;
+    }
+
+    public LatLng getCoords(){
+        try {
+            LatLng coords = new LatLng(Float.valueOf(lat), Float.valueOf(lon));
+            return coords;
+        }catch (Exception e){
+            return new LatLng(0, 0);
+        }
     }
 }

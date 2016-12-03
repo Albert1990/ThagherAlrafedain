@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.PhotoProvider;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
+import com.brain_socket.thagheralrafedain.fragments.FragMap.MAP_TYPE;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
@@ -56,13 +57,16 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 break;
             case R.id.action_profile:
                 try{
-                    Intent i =new Intent(MainActivity.this,LoginActivity.class);
+                    Intent i = new Intent(MainActivity.this,LoginActivity.class);
                     startActivity(i);
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
                 break;
             case R.id.action_workshops:
+                Intent mapIntent = new Intent(MainActivity.this,MapActivity.class);
+                mapIntent.putExtras(MapActivity.getLauncherBundle(MAP_TYPE.SEARCH, null));
+                startActivity(mapIntent);
                 break;
         }
         return super.onOptionsItemSelected(menuItem);

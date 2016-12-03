@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/vHeaderContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+        android:background="@color/white"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
+
+        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="3dp"
+            android:padding="10dp"
+            android:text="@string/filters_ok"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/ts_text_small"
+            app:fontId="1"/>
+
+        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="3dp"
+            android:padding="10dp"
+            android:text="@string/filters_cancel"
+            android:textColor="@color/txt_black"
+            android:textSize="@dimen/ts_text_small"
+            app:fontId="1"/>
+
+        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:text="@string/filters_title"
+            android:textColor="@color/txt_black"
+            android:textSize="@dimen/ts_text_normal"
+            app:fontId="2"/>
+
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/countryList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fafafa"
+        android:footerDividersEnabled="false"
+        android:groupIndicator="@null"
+        android:headerDividersEnabled="false">
+        <!--android:childDivider="@drawable/shape_divider"-->
+    </ExpandableListView>
+
+
+</LinearLayout>

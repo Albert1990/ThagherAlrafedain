@@ -416,6 +416,29 @@ public class DataStore {
         }).start();
     }
 
+    public void requestNearbyWorkshops(final float centerLat, final float centerLng, final float radius, ArrayList<BrandModel> brands, final DataRequestCallback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = true;
+                ServerResult result = serverHandler.getWorkshops("");
+                if (result.connectionFailed()) {
+                    success = false;
+                } else {
+                    if (result.isValid()) {
+                        ArrayList<WorkshopModel> arrayRecieved = (ArrayList<WorkshopModel>) result.get("workshops");
+                        if (arrayRecieved != null && !arrayRecieved.isEmpty()) {
+                            workshops = arrayRecieved;
+                            DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_WORKSHOPS, arrayRecieved);
+                        }
+                    }
+                }
+                broadcastDataStoreUpdate();
+                invokeCallback(callback, success, result); // invoking the callback
+            }
+        }).start();
+    }
+
     //--------------------
     // Getters
     //----------------------------------------------
