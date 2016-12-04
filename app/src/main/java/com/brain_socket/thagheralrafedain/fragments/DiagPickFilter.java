@@ -42,13 +42,15 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
 
     //Filterstypes
     //Filter brands according the selected categories ids
-    private ArrayList<BrandModel> providersTypes;
-    private ArrayList<BrandModel> selectedProviderTypes;
+    private ArrayList<BrandModel> brandsTypes;
+    private ArrayList<BrandModel> selectedBrandsTypes;
 
-    public DiagPickFilter(Context context, ArrayList<BrandModel> selectedCategories, FiltersPickerCallback callback) {
+    public DiagPickFilter(Context context, ArrayList<BrandModel> selectedBrands, FiltersPickerCallback callback) {
         super(context, R.style.full_screen_dialog);
         this.context = context;
-        this.selectedProviderTypes = selectedCategories;
+        this.selectedBrandsTypes = selectedBrands;
+        if(selectedBrandsTypes == null)
+            selectedBrandsTypes = new ArrayList<>();
         this.callback = callback;
     }
 
@@ -70,7 +72,7 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
         selectButton.setOnClickListener(this);
 
         //Data
-        providersTypes = DataStore.getInstance().getBrands();
+        brandsTypes = DataStore.getInstance().getBrands();
 
         /// Note ----------
         // dont swipe the following 2 blocks of code, we need to get the data before creating the adapter;
@@ -97,7 +99,7 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
 
     private void setFilters() {
         if (callback != null)
-            callback.onFiltersSelected(selectedProviderTypes);
+            callback.onFiltersSelected(selectedBrandsTypes);
     }
 
     @Override
@@ -116,13 +118,13 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
         if (i1 <= 0) { // the first element in every group is "select all", so we do nothing here
-            selectedProviderTypes.clear();
+            selectedBrandsTypes.clear();
         } else {
-            BrandModel type = providersTypes.get(i1 - 1);
-            if (AppBaseModel.getById(selectedProviderTypes, type.getId()) != null) {
-                AppBaseModel.removeFromListById(selectedProviderTypes, type.getId());
+            BrandModel type = brandsTypes.get(i1 - 1);
+            if (AppBaseModel.getById(selectedBrandsTypes, type.getId()) != null) {
+                AppBaseModel.removeFromListById(selectedBrandsTypes, type.getId());
             } else {
-                selectedProviderTypes.add(type);
+                selectedBrandsTypes.add(type);
             }
         }
         adapter.notifyDataSetChanged();
@@ -157,8 +159,8 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
 
         @Override
         public int getChildrenCount(int i) {
-            if (providersTypes != null)
-                return providersTypes.size() + 1;
+            if (brandsTypes != null)
+                return brandsTypes.size() + 1;
             return 0;
         }
 
@@ -226,7 +228,7 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
                     /// first element in this group is "select All"
                     if (i1 == 0) {
                         title = getContext().getString(R.string.filters_select_all);
-                        if (selectedProviderTypes == null || selectedProviderTypes.isEmpty()) {
+                        if (selectedBrandsTypes == null || selectedBrandsTypes.isEmpty()) {
                             holder.ivIndicator.setImageResource(R.drawable.ic_check_active);
                             holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg_active);
                         } else {
@@ -234,9 +236,9 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
                             holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg);
                         }
                     } else {
-                        BrandModel type = providersTypes.get(i1 - 1);
+                        BrandModel type = brandsTypes.get(i1 - 1);
                         title = type.getName();
-                        if (AppBaseModel.getById(selectedProviderTypes, type.getId()) != null) {
+                        if (AppBaseModel.getById(selectedBrandsTypes, type.getId()) != null) {
                             holder.ivIndicator.setImageResource(R.drawable.ic_check_active);
                             holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg_active);
                         } else {
