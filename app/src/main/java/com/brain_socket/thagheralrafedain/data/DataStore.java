@@ -48,7 +48,7 @@ public class DataStore {
 
 
     // internal data
-    private final int UPDATE_INTERVAL = 30000; // update Data each 30 sec
+    private final int UPDATE_INTERVAL = 60000; // update Data each 60 sec
     private static boolean isUpdatingDataStore = false;
 
 
@@ -366,7 +366,7 @@ public class DataStore {
                         }
                     }
                 }
-                broadcastDataStoreUpdate();
+                //broadcastDataStoreUpdate();
                 invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();

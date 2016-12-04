@@ -54,6 +54,7 @@
                     android:layout_toRightOf="@id/ivProduct"
                     android:layout_below="@id/tvProductNameLabel"
                     android:text="Nokia 7710"
+                    android:maxHeight="35dp"
                     android:textSize="@dimen/ts_text_big"
                     android:textColor="@color/txt_white"
                     app:fontId="1"/>

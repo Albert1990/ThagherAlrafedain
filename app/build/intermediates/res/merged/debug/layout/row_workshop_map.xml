@@ -1,0 +1,106 @@
+<RelativeLayout
+    android:id="@+id/row_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layer_map_details_card_bg"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="25dp">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp"
+        android:scaleType="fitCenter"
+        />
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@id/ivLogo"
+        android:layout_toRightOf="@id/ivLogo"
+        android:gravity="left|start"
+        android:lines="1"
+        android:text="@string/place_holder"
+        android:textColor="@color/txt_black"
+        android:textSize="@dimen/ts_text_big"
+        android:textStyle="bold"
+        app:fontId="2"/>
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvName"
+        android:layout_alignStart="@id/tvName"
+        android:layout_below="@id/tvName"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="0dp"
+        android:gravity="left|start"
+        android:lines="1"
+        android:text="@string/place_holder"
+        android:textColor="@color/txt_black"
+        android:textSize="@dimen/ts_text_normal"
+        app:fontId="1"/>
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvName"
+        android:layout_alignStart="@id/tvName"
+        android:layout_below="@id/tvType"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left|start"
+        android:lines="1"
+        android:text="@string/place_holder"
+        android:textColor="@color/txt_black"
+        android:textSize="@dimen/ts_text_small"
+        app:fontId="1"/>
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvName"
+        android:layout_alignStart="@id/tvName"
+        android:layout_below="@id/tvPhone"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left|start"
+        android:lines="1"
+        android:text="@string/place_holder"
+        android:textColor="@color/txt_black"
+        android:textSize="@dimen/ts_text_small"
+        app:fontId="1"/>
+
+
+    <ImageView
+        android:id="@+id/btnCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_directions"
+        />
+
+</RelativeLayout>

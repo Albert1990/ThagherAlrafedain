@@ -21,7 +21,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="190dp"
                 android:layout_marginTop="50dp">
 
                 <com.brain_socket.thagheralrafedain.view.CarousellViewPager

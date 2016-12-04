@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
             tvProductName.setText(selectedProduct.getName());
             tvPrice.setText(selectedProduct.getPriceWithUnit());
             tvBrandName.setText(selectedBrand.getName());
-            wvDescription.loadData(selectedProduct.getDescription(),"text/html; charset=UTF-8", null);
+            String decodedHtml = Html.fromHtml(selectedProduct.getDescription()).toString();
+            wvDescription.loadData(decodedHtml,"text/html; charset=UTF-8", null);
 
             setSupportActionBar(toolbar);
             rvProducts.setLayoutManager(new GridLayoutManager(this, 2));

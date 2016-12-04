@@ -1,0 +1,36 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/flMainFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentTop="true"
+        android:drawableRight="@drawable/ic_close"
+        android:drawablePadding="14dp"
+        android:gravity="center"
+        android:hint="@string/place_holder"
+        android:padding="10dp"
+        android:textColor="@color/txt_gray"
+        android:textColorHint="@color/txt_gray_light"
+        android:textSize="@dimen/ts_text_normal"
+        app:fontId="1"
+        android:background="@drawable/layer_card_with_shadow"/>
+
+</RelativeLayout>

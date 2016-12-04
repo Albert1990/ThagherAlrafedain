@@ -20,12 +20,12 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_view.xml"
     },
     {
-        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu.xml"
-    },
-    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_template_lines.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_lines.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/messenger_button_send_blue_round.xml",
@@ -50,6 +50,10 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/row_workshop_map.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/row_workshop_map.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_media_cancel_action.xml",
@@ -112,12 +116,12 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item.xml"
     },
     {
-        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
-    },
-    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
@@ -126,6 +130,10 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/horizontal_seperator.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/horizontal_seperator.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/layout_marker_info_window.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/layout_marker_info_window.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
@@ -144,6 +152,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_menu_item_action_area.xml"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/layout_search_bar.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/layout_search_bar.xml"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/messenger_button_send_white_large.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.2/res/layout/messenger_button_send_white_large.xml"
     },
@@ -154,6 +166,10 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/row_diag_filter_group.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/row_diag_filter_group.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/messenger_button_send_white_small.xml",
@@ -170,6 +186,10 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/frag_main_map.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/frag_main_map.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
@@ -220,6 +240,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/layout_product_card.xml"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/diag_selecter.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/diag_selecter.xml"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
     },
@@ -244,12 +268,20 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_select_dialog_material.xml"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/row_diag_filter_child.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/row_diag_filter_child.xml"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_media.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/com_facebook_login_fragment.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.2/res/layout/com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/activity_map.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/activity_map.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",

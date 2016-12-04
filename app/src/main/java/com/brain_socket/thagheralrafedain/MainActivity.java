@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.PhotoProvider;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private ArrayList<ProductModel> products;
     private ArrayList<BrandModel> brands;
     private int selectedBrandPosition = 0;
+    private ViewPager vpBrands;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +58,15 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 finish();
                 break;
             case R.id.action_profile:
-                try{
-                    Intent i = new Intent(MainActivity.this,LoginActivity.class);
+                try {
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(i);
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
                 break;
             case R.id.action_workshops:
-                Intent mapIntent = new Intent(MainActivity.this,MapActivity.class);
+                Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
                 mapIntent.putExtras(MapActivity.getLauncherBundle(MAP_TYPE.SEARCH, null));
                 startActivity(mapIntent);
                 break;
@@ -74,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
     private void init() {
         try {
-            Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
             RecyclerView rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
-            ViewPager vpBrands = (ViewPager) findViewById(R.id.vpBrands);
+            vpBrands = (ViewPager) findViewById(R.id.vpBrands);
 
             brands = DataStore.getInstance().getBrands();
             brandsSliderAdapter = new SliderAdapter();
@@ -106,11 +108,28 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             rvProducts.setAdapter(productsAdapter);
             rvProducts.scheduleLayoutAnimation();
 
+            DataStore.getInstance().requestBrandsWithProducts(requestBrandsWithProductsCallback);
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
+    DataStore.DataRequestCallback requestBrandsWithProductsCallback = new DataStore.DataRequestCallback() {
+        @Override
+        public void onDataReady(ServerResult result, boolean success) {
+            if (success) {
+                brands = (ArrayList<BrandModel>) result.getValue("brands");
+                if (brands != null && brands.size() > 0) {
+                    int middleBrand = (int) Math.floor(brands.size() / 2);
+                    if(middleBrand <= brands.size())
+                        vpBrands.setCurrentItem(middleBrand,true);
+                }
+            }
+        }
+    };
 
     public void setActionBarColor(int color) {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
@@ -155,10 +174,10 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             @Override
             public void onClick(View v) {
                 try {
-                    int itemPosition = (int)v.getTag();
+                    int itemPosition = (int) v.getTag();
                     Intent myIntent = new Intent(MainActivity.this, ProductDetailsActivity.class);
                     myIntent.putExtra("selectedBrandPosition", selectedBrandPosition);
-                    myIntent.putExtra("selectedProductPosition",itemPosition);
+                    myIntent.putExtra("selectedProductPosition", itemPosition);
                     startActivity(myIntent);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -172,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
         public void updateAdapter() {
             try {
-                if(products != null)
+                if (products != null)
                     notifyDataSetChanged();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -247,11 +266,15 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             View v = null;
             try {
                 v = inflater.inflate(R.layout.layout_brand_card, container, false);
-                ImageView ivBrand = (ImageView)v.findViewById(R.id.ivBrand);
-                TextView tvBrandName = (TextView)v.findViewById(R.id.tvBrandName);
+                ImageView ivBrand = (ImageView) v.findViewById(R.id.ivBrand);
+                TextView tvBrandName = (TextView) v.findViewById(R.id.tvBrandName);
+                TextView tvProductsCount = (TextView) v.findViewById(R.id.tvProductsCount);
+                TextView tvCategory = (TextView) v.findViewById(R.id.tvCategory);
 
-                tvBrandName.setText(brands.get(position).getName());
-                PhotoProvider.getInstance().displayPhotoNormal(brands.get(position).getLogo(), ivBrand);
+                BrandModel selectedBrand = brands.get(position);
+                tvBrandName.setText(selectedBrand.getName());
+                PhotoProvider.getInstance().displayPhotoNormal(selectedBrand.getLogo(), ivBrand);
+                tvProductsCount.setText(Integer.toString(selectedBrand.getProducts().size()));
                 container.addView(v);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -261,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
         @Override
         public int getCount() {
-            if(brands == null)
+            if (brands == null)
                 return 0;
             return brands.size();
         }

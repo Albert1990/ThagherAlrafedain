@@ -31,38 +31,67 @@
             android:paddingTop="15dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:background="@drawable/shape_login_badge"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_gray_light"
                 android:hint="Your Email" />
 
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_gray_light"
                 android:hint="Your Password" />
 
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_frame_white"
                 android:text="Login" />
         </LinearLayout>
 
-        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="OR" />
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"/>
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/white"
+                android:text="OR" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
+            android:id="@+id/btnFBLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:layout_width="30dp"
@@ -74,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="login with facebook"
-                android:textColor="@color/txt_gray"
+                android:textColor="@color/white"
                 android:textSize="@dimen/ts_text_big"
                 app:fontId="1" />
         </LinearLayout>
@@ -84,26 +113,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
         android:layout_gravity="bottom"
-        android:gravity="center_horizontal|center_vertical"
-        android:background="@color/gray_light">
+        android:gravity="center"
+        android:background="#f2f2f2">
+
         <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Don't have an account ?"
             android:textColor="@color/txt_black"
             android:textSize="@dimen/ts_text_big"
             app:fontId="1"/>
+
         <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
             android:id="@+id/tvSignup"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:text="Sign up!"
-            android:textColor="@color/txt_green"
+            android:textColor="#1cd366"
             android:textSize="@dimen/ts_text_big"
             app:fontId="1"/>
     </LinearLayout>

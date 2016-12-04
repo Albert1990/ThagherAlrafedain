@@ -7,6 +7,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
+import com.brain_socket.thagheralrafedain.R;
 
 public class CarousellViewPager extends ViewPager {
 
@@ -53,25 +56,32 @@ public class CarousellViewPager extends ViewPager {
         private float minScale = 0.92f;
 
         public void transformPage(View view, float position){
+            float scaleX = (float) ((-15.55*Math.pow(position,2)) + (9.33*position) + 0.4);
+            float scaleY = (float) ((-3.33*Math.pow(position,2)) + (2.33*position) + 0.4);
+            //TextView tvx = (TextView)view.findViewById(R.id.tvProductsCount);
+            //tvx.setText(Float.toString(position));
+            //view.setBackgroundColor(Color.BLACK);
             if(position < -1){ // out of screen
                 //view.setBackgroundColor(Color.RED);
                 view.setScaleX(minScale);
                 view.setScaleY(minScale);
-            }else if(position >= - 0.5 && position < 0){ //
-                float  scale = minScale + (1.0f-minScale)* (1-Math.abs(position)) ;
-                view.setBackgroundColor(Color.BLUE);
-                view.setScaleX(scale);
-                view.setScaleY(scale);
+            }else if(position >=0 && position < 0.2){ //
+                //float  scale = minScale + (1.0f-minScale)* (1-Math.abs(position)) ;
+                //view.setBackgroundColor(Color.BLUE);
+                //float scaleX = (float) ((7*position) + 0.4);
+                view.setScaleX(scaleX);
+                view.setScaleY(scaleY);
             }
-            else if(position >= 0 && position <= 0.5){ //
-                float  scale = minScale + (1.0f-minScale)* (1-Math.abs(position)) ;
+            else if(position >= 0.2 && position <= 0.6){ //
+                //float  scale = minScale + (1.0f-minScale)* (1-Math.abs(position)) ;
+
                 //view.setBackgroundColor(Color.GREEN);
-                view.setScaleX(scale);
-                view.setScaleY(scale);
-            }else if (position > 0.5 && position <= 1){
+                view.setScaleX(scaleX);
+                view.setScaleY(scaleY);
+            }else if (position > 0.6 && position <= 1){
                 //view.setBackgroundColor(Color.YELLOW);
-                view.setScaleX(minScale);
-                view.setScaleY(minScale);
+                view.setScaleX((float)0.4);
+                view.setScaleY((float)0.4);
             }
         }
 

@@ -4,51 +4,45 @@
     api-level="23"
     density="560dpi"
     format="7"
-    timestamp="142313621529904"
-    token="9187811537798599795" >
+    timestamp="249028655514206"
+    token="9187811537798599795"
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="732" />
+        duration="388" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="567" />
     <task
         name="instant-run-transform"
-        duration="109" />
+        duration="12" />
     <task
         name="verifier"
-        duration="5" />
+        duration="2" />
 
     <artifact
-        location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6/classes.dex"
-        type="DEX" />
-    <artifact
-        location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
-        type="DEX" />
+        location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/reload-dex/debug/classes.dex"
+        type="RELOAD_DEX" />
 
-    <build timestamp="137444864025304" >
+    <build timestamp="248874961521992" >
         <artifact
             location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
     </build>
-    <build timestamp="137766478873458" >
+    <build
+        timestamp="248983693063557"
+        verifier="COMPATIBLE" >
         <artifact
-            location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_9/classes.dex"
-            type="DEX" />
+            location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/builds/debug/248983693063557/classes.dex"
+            type="RELOAD_DEX" />
     </build>
-    <build timestamp="141913062754279" >
+    <build
+        timestamp="249028655514206"
+        verifier="COMPATIBLE" >
         <artifact
-            location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/resources-debug.ap_"
-            type="RESOURCES" />
-    </build>
-    <build timestamp="142313621529904" >
-        <artifact
-            location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6/classes.dex"
-            type="DEX" />
-        <artifact
-            location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
-            type="DEX" />
+            location="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/reload-dex/debug/classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>
