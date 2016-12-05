@@ -55,7 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerClickListener, GoogleMap.InfoWindowAdapter, FiltersPickerCallback{
+public class FragMap extends Fragment implements View.OnClickListener, OnMapReadyCallback, OnMarkerClickListener, GoogleMap.InfoWindowAdapter, FiltersPickerCallback{
 
 
     SupportMapFragment fragment;
@@ -146,12 +146,16 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
 
     private void init() {
 
-        focusMap = false;
-
         vItemDetailsPreview = (AppWorkshopCard) getView().findViewById(R.id.vProviderPreview);
-        mapMarkerIdToLocatableProvider = new HashMap<>();
+        View btnFilter = getView().findViewById(R.id.btnFilter);
+        View btnClose = getView().findViewById(R.id.btnClose);
 
+        focusMap = false;
+        mapMarkerIdToLocatableProvider = new HashMap<>();
         handler = new Handler();
+
+        btnClose.setOnClickListener(this);
+        btnFilter.setOnClickListener(this);
 
         // load Map Frag
         FragmentManager fm = getChildFragmentManager();
@@ -196,7 +200,6 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
         focusMap = true;
         getNearByBrands();
     }
-
 
     @SuppressLint("StringFormatMatches")
     private void updateView(ArrayList<WorkshopModel> brands, boolean reFocusMap) {
@@ -318,8 +321,8 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
     }
 
     /**
-     * update the camer to make the marker at the bottom half of the screen and zoom in to focus on marker
-     * by first zoomin in
+     * update the camera to make the marker at the bottom half of the screen and zoom in to focus on marker
+     * by first zooming in
      */
     private void focusMapOnMarker(LatLng latLng) {
         try {
@@ -342,7 +345,7 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
         centerLat = vr.latLngBounds.getCenter().latitude;
         centerLon = vr.latLngBounds.getCenter().longitude;
 
-        //calculate distane between middleSouthEdge and screen center map location
+        //calculate distance between middleSouthEdge and screen center map location
 
         //center location
         Location centerLoc = new Location("center");
@@ -354,7 +357,6 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
         middlleSouthLocation.setLatitude(vr.latLngBounds.southwest.latitude);
 
         radius = centerLoc.distanceTo(middlleSouthLocation);
-
         focusMap = false;
         Log.i("Params", centerLat + "," + centerLon + "," + radius);
         DataStore.getInstance().requestNearbyWorkshops((float) centerLat, (float) centerLon, radius, selectedBrands, searchResultCallback);
@@ -375,7 +377,7 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
     public void onFiltersSelected(ArrayList<BrandModel> categories) {
         hidePreview();
         setFocusMap(true);
-        this.selectedBrands = selectedBrands;
+        this.selectedBrands = categories;
         getNearByBrands();
     }
 
@@ -385,6 +387,19 @@ public class FragMap extends Fragment implements OnMapReadyCallback, OnMarkerCli
 
         enum MarkType {BRAND, BRANCH}
         MarkType type;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnClose:
+                getActivity().finish();
+            break;
+            case R.id.btnFilter:
+                DiagPickFilter diag = new DiagPickFilter(getContext(), selectedBrands, this);
+                diag.show();
+                break;
+        }
     }
 
     public static boolean checkPlayServices(final Activity activity) {
