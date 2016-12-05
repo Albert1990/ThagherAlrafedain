@@ -37,6 +37,10 @@ public class ServerResult {
         return  null;
     }
 
+    public boolean containsKey(String key){
+        return pairs.containsKey(key);
+    }
+
     public void setPairs(HashMap<String, Object> pairs) {
         this.pairs = pairs;
     }

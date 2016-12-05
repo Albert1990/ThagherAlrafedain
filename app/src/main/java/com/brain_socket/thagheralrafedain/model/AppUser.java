@@ -9,14 +9,18 @@ import org.json.JSONObject;
  */
 public class AppUser extends AppBaseModel{
 
-    String id ;
-    String token;
-    String name;
-    String email;
+    private String id ;
+    private String token;
+    private String fullname;
+    private String email;
+    private String phone;
+    private String address;
+    private String longitude;
+    private String latitude;
+    private String logo;
+    private String type;
+    private String active;
 
-    // to be cleared
-    String profileImage;
-    String coverImage;
 
     public static AppUser fromJson(JSONObject json) {
         try {
@@ -27,42 +31,92 @@ public class AppUser extends AppBaseModel{
 
     public AppUser() {}
 
-    public AppUser(JSONObject json) {
-        if (json == null)
-            return;
-        try {
-            id = json.getString("id");
-        }catch (Exception ignored){}
-        try {
-            email = json.getString("email");
-        }catch (Exception ignored){}
-        try {
-            profileImage = json.getString("profileImage");
-        }catch (Exception ignored){}
-        try {
-            coverImage = json.getString("coverImage");
-        }catch (Exception ignored){}
+    @Override
+    public String getId() {
+        return id;
     }
 
-    public String getId() { return id; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getAccessToken() {
+    public String getToken() {
         return token;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getCoverImage() {
-        return coverImage;
+    public String getFullname() {
+        return fullname;
     }
 
-    public String getName() {
-        return name;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 }

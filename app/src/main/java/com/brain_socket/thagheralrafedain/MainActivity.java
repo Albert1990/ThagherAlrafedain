@@ -1,5 +1,6 @@
 package com.brain_socket.thagheralrafedain;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private ArrayList<BrandModel> brands;
     private int selectedBrandPosition = 0;
     private ViewPager vpBrands;
+    private Dialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private void init() {
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+            loadingDialog = ThagherApp.getNewLoadingDilaog(this);
             RecyclerView rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
             vpBrands = (ViewPager) findViewById(R.id.vpBrands);
 
@@ -108,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             rvProducts.setAdapter(productsAdapter);
             rvProducts.scheduleLayoutAnimation();
 
+            loadingDialog.show();
             DataStore.getInstance().requestBrandsWithProducts(requestBrandsWithProductsCallback);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -120,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     DataStore.DataRequestCallback requestBrandsWithProductsCallback = new DataStore.DataRequestCallback() {
         @Override
         public void onDataReady(ServerResult result, boolean success) {
+            loadingDialog.dismiss();
             if (success) {
                 brands = (ArrayList<BrandModel>) result.getValue("brands");
                 if (brands != null && brands.size() > 0) {

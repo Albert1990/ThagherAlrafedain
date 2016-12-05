@@ -204,8 +204,8 @@ public class DataStore {
                 } else {
                     try {
                         AppUser me = (AppUser) result.getPairs().get("appUser");
-                        apiAccessToken = me.getAccessToken();
-                        setApiAccessToken(apiAccessToken);
+                        //apiAccessToken = me.getAccessToken();
+                        //setApiAccessToken(apiAccessToken);
                         setMe(me);
                         broadcastloginStateChange();
                     } catch (Exception e) {
@@ -217,28 +217,19 @@ public class DataStore {
         }).start();
     }
 
-    /**
-     * attempting login using phone number
-     *
-     * @param phoneNumfinal if the phone number was found in the DB the user will be logged in otherwise error code will be returned
-     */
-    public void attemptLogin(final String phoneNumfinal, final DataRequestCallback callback) {
+    public void attemptLogin(final String email,final String password, final DataRequestCallback callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.login(phoneNumfinal);
-                if (result.getRequestStatusCode() >= 600) {
-                    success = false;
-                } else {
-                    if (result.isValid()) {
+                ServerResult result = serverHandler.login(email,password);
+                    if (result.isValid() && !result.containsKey("msg")) {
                         me = (AppUser) result.getPairs().get("appUser");
-                        apiAccessToken = me.getAccessToken();
-                        setApiAccessToken(apiAccessToken);
+                        //apiAccessToken = me.getAccessToken();
+                        //setApiAccessToken(apiAccessToken);
                         setMe(me);
                         broadcastloginStateChange();
                     }
-                }
                 invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();
@@ -285,20 +276,6 @@ public class DataStore {
                 }
                 if (callback != null)
                     invokeCallback(callback, success, result);
-            }
-        }).start();
-    }
-
-    public void searchForKeyword(String keyWord, final DataRequestCallback callback) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                boolean success = true;
-                ServerResult result = serverHandler.getPickedForYouProducts();
-                if (result.connectionFailed()) {
-                    success = false;
-                }
-                invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();
     }

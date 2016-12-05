@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -79,6 +80,14 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
 
         }
         return res;
+    }
+
+    public final static boolean isValidEmail(String target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 
     private static final long oneDayMillies = 24 * 60 * 60 * 1000;

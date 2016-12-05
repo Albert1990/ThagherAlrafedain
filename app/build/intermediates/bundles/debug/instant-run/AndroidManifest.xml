@@ -75,6 +75,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name="com.brain_socket.thagheralrafedain.RegisterActivity" />
+        <activity android:name="com.brain_socket.thagheralrafedain.WorkshopDetails" />
+
         <provider
             android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"
             android:authorities="com.brain_socket.thagheralrafedain.google_measurement_service"

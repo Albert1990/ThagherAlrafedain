@@ -14,4 +14,22 @@
     <string name="workshop_details_workshop">Workshop</string>
     <string name="workshop_details_show_room">Showroom</string>
 
+    <string name="activity_register_new_account">Register new account</string>
+    <string name="activity_register_workshop_type">I am workshop Or showroom owner</string>
+
+    <!--errors-->
+    <string name="error_incorrect_email">Email is not valid</string>
+    <string name="error_required_field">Required field</string>
+
+    <string-array name="workshop_array">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+
 </resources>

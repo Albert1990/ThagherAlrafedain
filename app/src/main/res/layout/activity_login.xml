@@ -38,15 +38,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/txt_white"
-                android:textColorHint="@color/txt_gray_light"
+                android:textColorHint="@color/txt_light_purple"
                 android:hint="Your Email" />
+
 
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:textColor="@color/txt_white"
-                android:textColorHint="@color/txt_gray_light"
+                android:textColorHint="@color/txt_light_purple"
                 android:hint="Your Password" />
 
             <Button

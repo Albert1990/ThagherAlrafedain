@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:2:1-66:12
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:2:1-71:12
 	package
 		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:3:5-49
 		INJECTED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml
@@ -55,7 +55,7 @@ ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/An
 	android:name
 		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:19:22-76
 uses-feature#0x00020000
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:21:5-23:34
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:21:5-23:35
 MERGED from [com.google.android.gms:play-services-maps:8.3.0] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.3.0/AndroidManifest.xml:22:5-24:33
 MERGED from [com.google.android.gms:play-services-maps:8.3.0] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.3.0/AndroidManifest.xml:22:5-24:33
 	android:glEsVersion
@@ -63,7 +63,7 @@ MERGED from [com.google.android.gms:play-services-maps:8.3.0] /Users/Albert/Andr
 	android:required
 		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:23:9-32
 application
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:25:5-64:19
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:25:5-69:19
 MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.1.1] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:23.1.1] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:22:5-20
@@ -105,41 +105,41 @@ MERGED from [com.android.support:support-v4:23.1.1] /Users/Albert/AndroidStudioP
 	android:name
 		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:26:9-35
 activity#com.brain_socket.thagheralrafedain.MainActivity
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:32:9-39:20
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:32:9-40:20
 	android:theme
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:33:13-55
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:34:13-55
 	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:32:19-47
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:33:13-41
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:34:13-38:29
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:35:13-39:29
 action#android.intent.action.MAIN
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:35:17-69
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:36:17-69
 	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:35:25-66
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:36:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:37:17-77
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:38:17-77
 	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:37:27-74
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:38:27-74
 activity#com.brain_socket.thagheralrafedain.LoginActivity
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:40:9-41:57
-	android:theme
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:41:13-55
-	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:40:19-48
-activity#com.brain_socket.thagheralrafedain.ProductDetailsActivity
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:42:9-43:67
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:41:9-43:58
 	android:theme
 		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:43:13-55
 	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:42:19-57
-activity#com.brain_socket.thagheralrafedain.MapActivity
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:45:9-46:73
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:42:13-42
+activity#com.brain_socket.thagheralrafedain.ProductDetailsActivity
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:44:9-46:58
 	android:theme
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:46:19-61
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:46:13-55
 	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:45:19-46
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:45:13-51
+activity#com.brain_socket.thagheralrafedain.MapActivity
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:47:9-49:58
+	android:theme
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:49:13-55
+	android:name
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:48:13-40
 meta-data#com.google.android.gms.version
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:48:9-50:69
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:51:9-53:69
 MERGED from [com.google.android.gms:play-services-basement:8.3.0] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:8.3.0] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:8.3.0] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/AndroidManifest.xml:21:9-23:69
@@ -147,15 +147,23 @@ MERGED from [com.google.android.gms:play-services-basement:8.3.0] /Users/Albert/
 MERGED from [com.google.android.gms:play-services-basement:8.3.0] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:8.3.0] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/AndroidManifest.xml:21:9-23:69
 	android:value
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:50:13-66
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:53:13-66
 	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:49:13-58
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:52:13-58
 meta-data#com.google.android.geo.API_KEY
-ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:60:9-62:54
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:63:9-65:55
 	android:value
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:62:13-52
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:65:13-52
 	android:name
-		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:61:13-58
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:64:13-58
+activity#com.brain_socket.thagheralrafedain.RegisterActivity
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:67:9-54
+	android:name
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:67:19-51
+activity#com.brain_socket.thagheralrafedain.WorkshopDetails
+ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:68:9-62
+	android:name
+		ADDED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml:68:19-50
 uses-sdk
 INJECTED from /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43

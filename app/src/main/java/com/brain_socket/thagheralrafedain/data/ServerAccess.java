@@ -56,34 +56,32 @@ public class ServerAccess {
     //////////////////
     // login
     /////////////////
-    public ServerResult login(String phoneNum) {
+    public ServerResult login(String email,String password) {
         ServerResult result = new ServerResult();
         AppUser me  = null ;
         boolean isRegistered = false;
         try {
             // parameters
             JSONObject jsonPairs = new JSONObject();
-            jsonPairs.put("mobile_number", phoneNum);
-            try{
-                String deviceId = Settings.Secure.getString(ThagherApp.getAppContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-                jsonPairs.put("imei", deviceId);
-            } catch(Exception e){
-                e.printStackTrace();
-            }
+            jsonPairs.put("userEmail", email);
+            jsonPairs.put("userPassword",password);
             // url
-            String url = BASE_SERVICE_URL + "/auth/mobileLogin";
+            String url = BASE_SERVICE_URL + "/userLogin.php";
             // send request
             ApiRequestResult apiResult = httpRequest(url, jsonPairs, "post", null);
             result.setStatusCode(apiResult.getStatusCode());
             result.setApiError(apiResult.getApiError());
-            JSONObject jsonResponse = new JSONObject(apiResult.response);
-            if (jsonResponse != null && apiResult.statusCode != 400) { // check if response is empty
-                me = AppUser.fromJson(jsonResponse);
-                isRegistered = true;
-            }
-            if(apiResult.statusCode == 400 && result.getApiError().equals("MODEL_NOT_FOUND")){
-                isRegistered = false;
-                result.setStatusCode(ERROR_CODE_userNotExists);
+            JSONArray jsonResponse = new JSONArray(apiResult.response);
+            if(jsonResponse != null && jsonResponse.length() > 0)
+            {
+                JSONObject jsonObject = jsonResponse.getJSONObject(0);
+                if(jsonObject.has("msg")) {
+                    result.addPair("msg", jsonObject.get("msg"));
+                }
+                else{ // check if response is empty
+                    me = AppUser.fromJson(jsonObject);
+                    isRegistered = true;
+                }
             }
         } catch (Exception e) {
             result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);
@@ -186,26 +184,6 @@ public class ServerAccess {
             result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);
         }
         result.addPair("verified", verified);
-        return result;
-    }
-
-    //////////////////
-    // products
-    /////////////////
-    public ServerResult getPickedForYouProducts() {
-        ServerResult result = new ServerResult();
-        ArrayList<ProductModel> retrievedArray  = new ArrayList<>() ;
-        try {
-            for(int i = 0;i<20;i++){
-                ProductModel p = new ProductModel();
-                p.setName("product"+i);
-                p.setPrice("100");
-                retrievedArray.add(p);
-            }
-        } catch (Exception e) {
-            result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);
-        }
-        result.addPair("products", retrievedArray);
         return result;
     }
 
