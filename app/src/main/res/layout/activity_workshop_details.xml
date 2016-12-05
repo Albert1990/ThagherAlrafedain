@@ -83,6 +83,7 @@
                 android:padding="7dp"
                 android:src="@drawable/ic_check"/>
             <Spinner
+                android:id="@+id/spinnerWorkshopType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/workshop_array"></Spinner>
@@ -99,6 +100,7 @@
                 android:padding="7dp"
                 android:src="@drawable/ic_check"/>
             <EditText
+                android:id="@+id/etAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pick your address"

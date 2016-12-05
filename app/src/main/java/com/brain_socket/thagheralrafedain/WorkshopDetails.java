@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.brain_socket.thagheralrafedain.data.DataStore;
@@ -20,6 +22,11 @@ import java.util.ArrayList;
 public class WorkshopDetails extends AppCompatActivity implements View.OnClickListener{
     private LayoutInflater inflater;
     private ArrayList<BrandModel> brands;
+    private EditText etWorkshopName;
+    private EditText etPhone;
+    private Spinner spinnerWorkshopType;
+    private EditText etAddress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,10 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
     }
 
     private void init(){
+        etWorkshopName = (EditText)findViewById(R.id.etWorkshopName);
+        etPhone = (EditText)findViewById(R.id.etPhone);
+        spinnerWorkshopType = (Spinner)findViewById(R.id.spinnerWorkshopType);
+        etAddress = (EditText)findViewById(R.id.etAddress);
         ListView lvBrands = (ListView)findViewById(R.id.lvBrands);
 
 
