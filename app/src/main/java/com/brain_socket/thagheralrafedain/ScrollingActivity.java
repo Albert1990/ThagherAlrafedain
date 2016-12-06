@@ -28,6 +28,7 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvBrands);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new AppsAdapter(this));
     }
 
 

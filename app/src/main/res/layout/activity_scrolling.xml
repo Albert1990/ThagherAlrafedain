@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="#e2e2e2"
             app:contentScrim="?attr/colorPrimary">
 
             <android.support.v7.widget.Toolbar
@@ -27,7 +28,14 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
                 app:layout_collapseMode="pin"
+
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_pic_placeholder"
+                android:scaleType="center"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

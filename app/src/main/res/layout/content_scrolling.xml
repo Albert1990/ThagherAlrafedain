@@ -41,11 +41,11 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:padding="7dp"
-                android:src="@drawable/ic_check"/>
+                android:padding="3dp"
+                android:src="@drawable/ic_workshop_type"/>
             <Spinner
                 android:id="@+id/spinnerWorkshopType"
                 android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             android:id="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:drawableLeft="@drawable/ic_phone"
+            android:drawableLeft="@drawable/ic_location"
             android:drawablePadding="16dp"
             android:hint="Workshop Name"
             android:textColorHint="@color/txt_gray_light" />
@@ -65,11 +65,13 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvBrands"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="-10dp"
+            android:layout_height="400dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_weight="1"
             android:paddingTop="15dp"
             android:overScrollMode="always"
             android:clipToPadding="false"
+            android:background="@color/colorPrimary"
             android:scrollbars="none"/>
 
 
