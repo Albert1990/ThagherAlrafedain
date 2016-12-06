@@ -11,12 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brain_socket.thagheralrafedain.data.DataStore;
+import com.brain_socket.thagheralrafedain.data.FacebookProvider;
+import com.brain_socket.thagheralrafedain.data.FacebookProviderListener;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
+import com.facebook.Profile;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText etEmail;
     private EditText etPassword;
     private Dialog loadingDialog;
+    private TextView tvLoginStatusMessage;
+    private String FbToken = null;
+    private boolean linkWithFB = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etPassword = (EditText)findViewById(R.id.etPassword);
         Button btnLogin = (Button)findViewById(R.id.btnLogin);
         TextView tvSignup = (TextView)findViewById(R.id.tvSignup);
+        tvLoginStatusMessage = (TextView)findViewById(R.id.tvLoginStatusMessage);
 
         btnLogin.setOnClickListener(this);
         tvSignup.setOnClickListener(this);
@@ -77,6 +84,58 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     };
+
+    FacebookProviderListener facebookLoginListner = new FacebookProviderListener() {
+
+        @Override
+        public void onFacebookSessionOpened(String accessToken, String userId) {
+            tvLoginStatusMessage.setText(R.string.login_progress_signing_in);
+
+            FbToken = accessToken;
+            Profile profile = com.facebook.Profile.getCurrentProfile();
+            String fname = profile.getFirstName();
+            String lname = profile.getLastName();
+            String id = profile.getId();
+
+
+            //DataStore.getInstance().attemptSignUp("t1@gmail.com", fname, lname, attemptingCountryCode, DataStore.VERSIOIN_ID, id, apiLoginCallback);
+            linkWithFB = true;
+            FacebookProvider.getInstance().unregisterListener();
+        }
+
+        @Override
+        public void onFacebookSessionClosed() {
+        }
+
+        @Override
+        public void onFacebookException(Exception exception) {
+
+        }
+    };
+
+    /**
+     * try login first using facebook if success then singning up to the API Server using the
+     * facebook Id and phone number entered in the previous stage
+     */
+    public void attempFBtLogin() {
+        //Session.openActiveSession(this, true, permissions, callback)
+        FacebookProvider.getInstance().registerListener(facebookLoginListner);
+        FacebookProvider.getInstance().requestFacebookLogin(this);
+        //Session.StatusCallback callback =  new LoginStatsCallback() ;
+        //Session.openActiveSession(LoginActivity.this, true, perm1, callback ) ;
+        loadingDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FacebookProvider.getInstance().onActiviyResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            setResult(RESULT_OK);
+            finish();
+        }
+        //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
 
     @Override
     public void onClick(View v) {

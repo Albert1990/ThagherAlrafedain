@@ -192,12 +192,13 @@ public class DataStore {
      * @param FBID     : pass null if signing-up without facebook
      * @param callback
      */
-    public void attemptSignUp(final String phoneNum, final String firstName, final String lastName, final String countryCode, final String versionId, final String FBID, final DataRequestCallback callback) {
+    public void attemptSignUp(final String email, final String firstName, final String lastName, final String countryCode, final String versionId, final String FBID, final DataRequestCallback callback) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
+                String phoneNum = "2";
                 ServerResult result = serverHandler.registerUser(firstName, lastName, phoneNum, countryCode, versionId, FBID);
                 if (result.connectionFailed()) {
                     success = false;

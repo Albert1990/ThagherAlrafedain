@@ -33,6 +33,14 @@
             android:paddingRight="5dp"
             android:orientation="vertical">
 
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvLoginStatusMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/txt_light_purple"
+                android:textSize="@dimen/ts_text_normal"
+                app:fontId="1"/>
+
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"

@@ -20,6 +20,11 @@
     <!--errors-->
     <string name="error_incorrect_email">Email is not valid</string>
     <string name="error_required_field">Required field</string>
+    <string name="err_check_connection">Check internet connection</string>
+    <string name="err_login_failed" >Login failed</string>
+    <string name="err_operation_failed">Operation failed</string>
+    <string name="err_fb_not_installed">Facebook app not installed</string>
+    <string name="err_sharing_failed">Sharing failed</string>
 
     <string-array name="workshop_array">
         <item>Malaysia</item>
@@ -31,5 +36,8 @@
         <item>New Zealand</item>
         <item>India</item>
     </string-array>
+
+    <string name="facebook_app_id">721986314644284</string>
+    <string name="login_progress_signing_in">Login in progress</string>
 
 </resources>
