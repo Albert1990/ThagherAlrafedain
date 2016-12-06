@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             brands = DataStore.getInstance().getBrands();
             brandsSliderAdapter = new SliderAdapter();
             vpBrands.setAdapter(brandsSliderAdapter);
-            vpBrands.setPageMargin(ThagherApp.getPXSize(15));
+            vpBrands.setPageMargin(ThagherApp.getPXSize(0));
             vpBrands.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
