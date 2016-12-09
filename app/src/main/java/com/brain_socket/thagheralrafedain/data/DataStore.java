@@ -8,6 +8,7 @@ import com.brain_socket.thagheralrafedain.model.AppUser;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.model.WorkshopModel;
+import com.google.android.gms.location.places.Place;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -255,14 +256,14 @@ public class DataStore {
         }).start();
     }
 
-    public void attemptUpdateUser(final String fullName,final String phone,final String type,final DataRequestCallback callback){
+    public void attemptUpdateUser(final String fullName,final String phone,final String type, final float lat, final float lng, final String address, final String imagePath, final DataRequestCallback callback){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
                 AppUser currentUser = getMe();
                 ServerResult result = serverHandler.updateUser(currentUser.getId(),fullName,currentUser.getEmail(),
-                        phone,"address","100","100",type);
+                        phone,address,String.valueOf(lat), String.valueOf(lng), imagePath, type);
                 if (result.connectionFailed()) {
                     success = false;
                 } else {

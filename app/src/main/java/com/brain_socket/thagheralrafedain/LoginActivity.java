@@ -16,6 +16,8 @@ import com.brain_socket.thagheralrafedain.data.FacebookProviderListener;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
 import com.facebook.Profile;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText etEmail;
     private EditText etPassword;
@@ -91,16 +93,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     FacebookProviderListener facebookLoginListner = new FacebookProviderListener() {
 
         @Override
-        public void onFacebookSessionOpened(String accessToken, String userId) {
+        public void onFacebookSessionOpened(String accessToken, String userId, HashMap<String, Object> map) {
             tvLoginStatusMessage.setText(R.string.login_progress_signing_in);
 
             FbToken = accessToken;
             Profile profile = com.facebook.Profile.getCurrentProfile();
             String fullName = profile.getFirstName()+" "+profile.getLastName();
             String id = profile.getId();
-            String email = "t1@gmail.com";
-
-            loadingDialog.dismiss();
+            String email = (String) map.get("email");
 
             linkWithFB = true;
             FacebookProvider.getInstance().unregisterListener();
@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     DataStore.DataRequestCallback attemptSocialLoginCallback = new DataStore.DataRequestCallback() {
         @Override
         public void onDataReady(ServerResult result, boolean success) {
-
+            loadingDialog.dismiss();
         }
     };
 

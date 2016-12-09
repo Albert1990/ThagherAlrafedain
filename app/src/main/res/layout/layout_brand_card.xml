@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
+        android:visibility="gone"
         android:src="@drawable/brand_corner"/>
 
     <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
@@ -20,6 +21,7 @@
         android:textColor="@color/txt_white"
         android:layout_gravity="right|top"
         android:textSize="@dimen/ts_text_small"
+        android:visibility="gone"
         app:fontId="1"
         android:text="3"/>
 

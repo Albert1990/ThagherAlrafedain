@@ -1,151 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_app_theme"
-    tools:context="com.brain_socket.thagheralrafedain.LoginActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="18dp"
-        tools:context="com.brain_socket.thageralforat.LoginActivity">
-
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/login_logo" />
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_app_theme">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:paddingTop="15dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:orientation="vertical">
-
-            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
-                android:id="@+id/tvLoginStatusMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/txt_light_purple"
-                android:textSize="@dimen/ts_text_normal"
-                app:fontId="1"/>
-
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/txt_white"
-                android:textColorHint="@color/txt_light_purple"
-                android:hint="Your Email" />
-
-
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:textColor="@color/txt_white"
-                android:textColorHint="@color/txt_light_purple"
-                android:hint="Your Password" />
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_frame_white"
-                android:text="Login" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="@color/white"/>
-
-            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textColor="@color/white"
-                android:text="OR" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="@color/white"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/btnFBLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="12dp"
+            tools:context="com.brain_socket.thageralforat.LoginActivity">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_fb" />
+                android:layout_width="260dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/login_logo"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="8dp">
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/tvLoginStatusMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_light_purple"
+                    android:textSize="@dimen/ts_text_normal"
+                    app:fontId="1"/>
+
+                <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your Email"
+                    android:textColor="@color/txt_white"
+                    android:textColorHint="@color/txt_light_purple"/>
+
+
+                <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your Password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/txt_white"
+                    android:textColorHint="@color/txt_light_purple"/>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shape_frame_white"
+                    android:textColor="@color/white"
+                    android:text="Login"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="OR"
+                    android:textColor="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btnFBLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_fb"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="login with facebook"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ts_text_big"
+                    app:fontId="1"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btnGmailLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_g_plus"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/login_with_gmail"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ts_text_big"
+                    app:fontId="1"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="#f2f2f2"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="login with facebook"
-                android:textColor="@color/white"
+                android:text="Don't have an account ?"
+                android:textColor="@color/txt_black"
                 android:textSize="@dimen/ts_text_big"
-                app:fontId="1" />
+                app:fontId="1"/>
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvSignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Sign up!"
+                android:textColor="#1cd366"
+                android:textSize="@dimen/ts_text_big"
+                app:fontId="1"/>
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:background="#f2f2f2">
-
-        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account ?"
-            android:textColor="@color/txt_black"
-            android:textSize="@dimen/ts_text_big"
-            app:fontId="1"/>
-
-        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
-            android:id="@+id/tvSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="Sign up!"
-            android:textColor="#1cd366"
-            android:textSize="@dimen/ts_text_big"
-            app:fontId="1"/>
-    </LinearLayout>
-
-</FrameLayout>
+    </FrameLayout>
+</ScrollView>

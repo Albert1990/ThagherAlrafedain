@@ -1,6 +1,10 @@
 package com.brain_socket.thagheralrafedain.data;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.Settings;
+import android.util.Base64;
+import android.util.Log;
 
 import com.brain_socket.thagheralrafedain.ThagherApp;
 import com.brain_socket.thagheralrafedain.model.AppUser;
@@ -13,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -323,7 +328,7 @@ public class ServerAccess {
         return result;
     }
 
-    public ServerResult updateUser(String userId,String fullName,String email,String phone,String address,String lon,String lat,String type){
+    public ServerResult updateUser(String userId,String fullName,String email,String phone,String address,String lon,String lat, String imagePath, String type){
         ServerResult result = new ServerResult();
         try{
             String url = BASE_SERVICE_URL+"/userUpdate.php";
@@ -336,6 +341,20 @@ public class ServerAccess {
             jsonPairs.put("userLat",lat);
             jsonPairs.put("userType",type);
             jsonPairs.put("userID",userId);
+
+            // image
+            try{
+                if(imagePath != null) {
+                    Bitmap bm = BitmapFactory.decodeFile(imagePath);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG, 80, baos); //bm is the bitmap object
+                    byte[] byteArrayImage = baos.toByteArray();
+                    String encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+                    jsonPairs.put("userLogo", encodedImage);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             ApiRequestResult apiResult = httpRequest(url,jsonPairs,"post",null);
             JSONArray jsonResponse = apiResult.getResponseJsonArray();
             if(jsonResponse != null && jsonResponse.length() > 0){

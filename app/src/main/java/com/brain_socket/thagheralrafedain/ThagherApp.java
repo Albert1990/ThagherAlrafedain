@@ -30,6 +30,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -193,6 +194,26 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         if (mLastLocation != null) {
             DataStore.getInstance().setMeLastLocation(mLastLocation);
         }
+    }
+
+    /// -----
+    /// ------ utils ----
+    ///
+    public final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+    public static File getNewFile(){
+        File f = new File(android.os.Environment.getExternalStorageDirectory(), "Thagher/DCIM_"+System.currentTimeMillis()+".jpg");
+        File parentDir = f.getParentFile();
+        if(parentDir != null && ! parentDir.exists() ) {
+            parentDir.mkdirs();
+        }
+        return f;
     }
 
     public static String MD5(String md5) {

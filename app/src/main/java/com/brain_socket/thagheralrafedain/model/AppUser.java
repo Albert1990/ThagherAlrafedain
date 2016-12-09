@@ -9,6 +9,8 @@ import org.json.JSONObject;
  */
 public class AppUser extends AppBaseModel{
 
+    public static enum USER_TYPE {USER, WORKSHOP, SHPWROOM}
+
     private String id ;
     private String token;
     private String fullname;
@@ -118,5 +120,16 @@ public class AppUser extends AppBaseModel{
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+    public USER_TYPE getUserType() {
+        if ("I".equals(type)) {
+            return USER_TYPE.USER;
+        } else if ("W".equals(type)) {
+            return USER_TYPE.WORKSHOP;
+        } else if ("S".equals(type)) {
+            return USER_TYPE.SHPWROOM;
+        }
+        return USER_TYPE.USER;
     }
 }
