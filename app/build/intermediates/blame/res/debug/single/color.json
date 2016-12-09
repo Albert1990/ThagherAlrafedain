@@ -13,11 +13,11 @@
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/color/common_plus_signin_btn_text_light.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/color/common_plus_signin_btn_text_light.xml"
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.0/res/color/common_plus_signin_btn_text_light.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/color/common_google_signin_btn_text_dark.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/color/common_google_signin_btn_text_dark.xml"
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.0/res/color/common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
@@ -45,10 +45,10 @@
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/color/common_google_signin_btn_text_light.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/color/common_google_signin_btn_text_light.xml"
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.0/res/color/common_google_signin_btn_text_light.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/color/common_plus_signin_btn_text_dark.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/color/common_plus_signin_btn_text_dark.xml"
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.0/res/color/common_plus_signin_btn_text_dark.xml"
     }
 ]
