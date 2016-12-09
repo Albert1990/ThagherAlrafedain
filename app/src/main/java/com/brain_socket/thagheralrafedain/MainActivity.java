@@ -52,6 +52,17 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         return true;
     }
 
+    private void getDummyBrandCard(){
+        BrandModel brandModel = new BrandModel();
+        brandModel.setId("-1");
+        brandModel.setName("dummy");
+        brandModel.setProducts(null);
+    }
+
+    private void addDummyData2Brands(){
+        //brands.i
+    }
+
     private void actionProfileClicked(){
         try {
 //            AppUser user = DataStore.getInstance().getMe();
@@ -158,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
     private void updateBody() {
         brands = DataStore.getInstance().getBrands();
+
         brandsSliderAdapter.updateAdapter();
     }
 
