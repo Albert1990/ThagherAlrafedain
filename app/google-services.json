@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1080827400507",
+    "project_id": "thagheralrafedain"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080827400507:android:d42564261fe1d0ae",
+        "android_client_info": {
+          "package_name": "com.brain_socket.thagheralrafedain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080827400507-fsg1b6vqle20lj5pj77uih0lqr4ftsgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brain_socket.thagheralrafedain",
+            "certificate_hash": "59C88E2B7397F5271F94E09ACF38539573E42D48"
+          }
+        },
+        {
+          "client_id": "1080827400507-nki4u4ev05cjoqtv875vg8hg2fddalur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaSr9_EmqPzrs3IKwPAENB39-zIj8wkr0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

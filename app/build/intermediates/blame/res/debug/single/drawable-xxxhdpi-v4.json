@@ -4,10 +4,6 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable-xxxhdpi/abc_btn_check_to_on_mtrl_015.png"
     },
     {
-        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/ic_check_.png",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xxxhdpi/ic_check_.png"
-    },
-    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/abc_ic_menu_moreoverflow_mtrl_alpha.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable-xxxhdpi/abc_ic_menu_moreoverflow_mtrl_alpha.png"
     },
@@ -122,14 +118,6 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/ic_back.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xxxhdpi/ic_back.png"
-    },
-    {
-        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/ic_marker.png",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xxxhdpi/ic_marker.png"
-    },
-    {
-        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/ic_check.png",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xxxhdpi/ic_check.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/abc_ic_menu_share_mtrl_alpha.png",

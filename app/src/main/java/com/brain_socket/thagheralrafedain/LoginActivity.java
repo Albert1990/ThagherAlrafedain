@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView tvLoginStatusMessage;
     private String FbToken = null;
     private boolean linkWithFB = false;
+    private View btnFBLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button btnLogin = (Button)findViewById(R.id.btnLogin);
         TextView tvSignup = (TextView)findViewById(R.id.tvSignup);
         tvLoginStatusMessage = (TextView)findViewById(R.id.tvLoginStatusMessage);
+        btnFBLogin = findViewById(R.id.btnFBLogin);
 
         btnLogin.setOnClickListener(this);
         tvSignup.setOnClickListener(this);
+        btnFBLogin.setOnClickListener(this);
         loadingDialog = ThagherApp.getNewLoadingDilaog(this);
     }
 
@@ -80,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             loadingDialog.dismiss();
             if(success){
                 if(result.containsKey("msg"))
-                    Toast.makeText(getApplicationContext(),(String)result.getValue("msg"),Toast.LENGTH_SHORT).show();
+                    ThagherApp.Toast((String)result.getValue("msg"));
             }
         }
     };
@@ -93,14 +96,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             FbToken = accessToken;
             Profile profile = com.facebook.Profile.getCurrentProfile();
-            String fname = profile.getFirstName();
-            String lname = profile.getLastName();
+            String fullName = profile.getFirstName()+" "+profile.getLastName();
             String id = profile.getId();
+            String email = "t1@gmail.com";
 
+            loadingDialog.dismiss();
 
-            //DataStore.getInstance().attemptSignUp("t1@gmail.com", fname, lname, attemptingCountryCode, DataStore.VERSIOIN_ID, id, apiLoginCallback);
             linkWithFB = true;
             FacebookProvider.getInstance().unregisterListener();
+            DataStore.getInstance().attemptSocialLogin(fullName,email,"facebook",id,attemptSocialLoginCallback);
         }
 
         @Override
@@ -126,6 +130,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loadingDialog.show();
     }
 
+    private DataStore.DataRequestCallback forgetPasswordCallback = new DataStore.DataRequestCallback() {
+        @Override
+        public void onDataReady(ServerResult result, boolean success) {
+            if(success)
+            {
+                String msg = result.getValue("msg").toString();
+                if(msg.equals("1"))
+                    ThagherApp.Toast("Done");
+                else
+                    ThagherApp.Toast(msg);
+            }
+        }
+    };
+
+    DataStore.DataRequestCallback attemptSocialLoginCallback = new DataStore.DataRequestCallback() {
+        @Override
+        public void onDataReady(ServerResult result, boolean success) {
+
+        }
+    };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -140,12 +165,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        if(viewId == R.id.btnLogin)
-            attemptLogin();
-
-        else if(viewId == R.id.tvSignup){
-            Intent i = new Intent(LoginActivity.this,RegisterActivity.class);
-            startActivity(i);
+        switch(viewId)
+        {
+            case R.id.btnLogin:
+                attemptLogin();
+                break;
+            case R.id.btnFBLogin:
+                attempFBtLogin();
+                break;
+            case 22:
+                loadingDialog.show();
+                DataStore.getInstance().requestForgetPassword("",forgetPasswordCallback);
+                break;
+            case R.id.tvSignup:
+                Intent i = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(i);
+                break;
         }
     }
 }

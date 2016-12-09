@@ -23,6 +23,7 @@ import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.PhotoProvider;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
 import com.brain_socket.thagheralrafedain.fragments.FragMap.MAP_TYPE;
+import com.brain_socket.thagheralrafedain.model.AppUser;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
@@ -51,6 +52,26 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         return true;
     }
 
+    private void actionProfileClicked(){
+        try {
+//            AppUser user = DataStore.getInstance().getMe();
+//            Intent i =null;
+//            if(user == null) {
+//                i = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(i);
+//            }
+//            else{
+//                i = new Intent(MainActivity.this, RegisterActivity.class);
+//                startActivity(i);
+//            }
+            Intent i = new Intent(MainActivity.this,WorkshopDetails.class);
+            startActivity(i);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -60,12 +81,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 finish();
                 break;
             case R.id.action_profile:
-                try {
-                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(i);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                actionProfileClicked();
                 break;
             case R.id.action_workshops:
                 Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);

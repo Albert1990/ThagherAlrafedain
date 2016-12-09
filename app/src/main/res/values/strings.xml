@@ -3,6 +3,19 @@
     <string name="activity_main_products_title">Our Products</string>
     <string name="place_holder">---</string>
 
+    <!-- workshop activity -->
+    <string name="activity_workshop_details_workshop_name">Workshop Name</string>
+    <string name="activity_workshop_details_workshop_phone">Workshop Phone</string>
+    <string name="activity_workshop_details_workshop_location">Workshop Location</string>
+
+    <!-- register activity -->
+    <string name="activity_register_full_name">Full Name</string>
+    <string name="activity_register_email">Email</string>
+    <string name="activity_register_phone">Phone</string>
+    <string name="activity_register_password">Password</string>
+    <string name="activity_register_signup">Sign up</string>
+    <string name="activity_register_success">Success, please check your inbox to activate your account</string>
+
     <!--filters -->
     <string name="filters_title">Search Filters</string>
     <string name="menu_action_done">OK</string>

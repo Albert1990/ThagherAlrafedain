@@ -12,6 +12,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_tab_text.xml"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/row_brand_select.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/row_brand_select.xml"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_expanded_menu_layout.xml"
     },
@@ -48,12 +52,12 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_radio.xml"
     },
     {
-        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
-    },
-    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/activity_workshop_details.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/activity_workshop_details.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/row_workshop_map.xml",
@@ -118,6 +122,10 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/design_navigation_item.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/content_scrolling.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/content_scrolling.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
@@ -232,6 +240,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/activity_scrolling.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/activity_scrolling.xml"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_item_material.xml"
     },
@@ -252,12 +264,12 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/diag_selecter.xml"
     },
     {
-        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
-        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
-    },
-    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/activity_register.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/layout/activity_register.xml"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/layout/abc_action_bar_up_container.xml",

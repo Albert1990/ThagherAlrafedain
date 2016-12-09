@@ -21,13 +21,16 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:layout_marginTop="50dp">
+                android:layout_height="180dp"
+                android:layout_marginTop="25dp">
 
                 <com.brain_socket.thagheralrafedain.view.CarousellViewPager
                     android:id="@+id/vpBrands"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="-100dp"
+                    android:layout_marginRight="-100dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></com.brain_socket.thagheralrafedain.view.CarousellViewPager>
+                    android:layout_height="120dp"></com.brain_socket.thagheralrafedain.view.CarousellViewPager>
 
             </FrameLayout>
 

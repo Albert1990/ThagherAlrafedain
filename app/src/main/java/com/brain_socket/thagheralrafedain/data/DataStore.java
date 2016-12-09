@@ -3,6 +3,7 @@ package com.brain_socket.thagheralrafedain.data;
 import android.location.Location;
 import android.os.Handler;
 
+import com.brain_socket.thagheralrafedain.ThagherApp;
 import com.brain_socket.thagheralrafedain.model.AppUser;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
@@ -188,30 +189,18 @@ public class DataStore {
     // Login
     //-------------------------------------------
 
-    /**
-     * @param FBID     : pass null if signing-up without facebook
-     * @param callback
-     */
-    public void attemptSignUp(final String email, final String firstName, final String lastName, final String countryCode, final String versionId, final String FBID, final DataRequestCallback callback) {
+
+    public void attemptSignUp(final String email, final String password, final String fullName,
+                              final String phone, final String userType, final DataRequestCallback callback) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
-                String phoneNum = "2";
-                ServerResult result = serverHandler.registerUser(firstName, lastName, phoneNum, countryCode, versionId, FBID);
+                String md5Password = ThagherApp.MD5(password);
+                ServerResult result = serverHandler.registerUser(email, md5Password,fullName,phone,userType);
                 if (result.connectionFailed()) {
                     success = false;
-                } else {
-                    try {
-                        AppUser me = (AppUser) result.getPairs().get("appUser");
-                        //apiAccessToken = me.getAccessToken();
-                        //setApiAccessToken(apiAccessToken);
-                        setMe(me);
-                        broadcastloginStateChange();
-                    } catch (Exception e) {
-                        success = false;
-                    }
                 }
                 invokeCallback(callback, success, result); // invoking the callback
             }
@@ -223,7 +212,8 @@ public class DataStore {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.login(email,password);
+                String md5Password = ThagherApp.MD5(password);
+                ServerResult result = serverHandler.login(email,md5Password);
                     if (result.isValid() && !result.containsKey("msg")) {
                         me = (AppUser) result.getPairs().get("appUser");
                         //apiAccessToken = me.getAccessToken();
@@ -231,6 +221,60 @@ public class DataStore {
                         setMe(me);
                         broadcastloginStateChange();
                     }
+                invokeCallback(callback, success, result); // invoking the callback
+            }
+        }).start();
+    }
+
+    public void attemptSocialLogin(final String fullName, final String email,final String providerName,final String providerId, final DataRequestCallback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = true;
+                ServerResult result = serverHandler.socialLogin(fullName, email,providerName,providerId);
+                if (result.isValid() && !result.containsKey("msg")) {
+                    me = (AppUser) result.getPairs().get("appUser");
+                    //apiAccessToken = me.getAccessToken();
+                    //setApiAccessToken(apiAccessToken);
+                    setMe(me);
+                    broadcastloginStateChange();
+                }
+                invokeCallback(callback, success, result); // invoking the callback
+            }
+        }).start();
+    }
+
+    public void requestForgetPassword(final String email, final DataRequestCallback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = true;
+                ServerResult result = serverHandler.forgetPassword(email);
+                invokeCallback(callback, success, result); // invoking the callback
+            }
+        }).start();
+    }
+
+    public void attemptUpdateUser(final String fullName,final String phone,final String type,final DataRequestCallback callback){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = true;
+                AppUser currentUser = getMe();
+                ServerResult result = serverHandler.updateUser(currentUser.getId(),fullName,currentUser.getEmail(),
+                        phone,"address","100","100",type);
+                if (result.connectionFailed()) {
+                    success = false;
+                } else {
+                    if (result.isValid()) {
+                        ArrayList<BrandModel> arrayRecieved = (ArrayList<BrandModel>) result.get("brands");
+                        if (arrayRecieved != null && !arrayRecieved.isEmpty()) {
+                            brands = arrayRecieved;
+                            DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_BRANDS, arrayRecieved);
+                        }
+                    }
+                }
+                //broadcastDataStoreUpdate();
                 invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();

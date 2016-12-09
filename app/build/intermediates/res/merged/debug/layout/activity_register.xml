@@ -44,12 +44,30 @@
                 app:fontId="1"/>
 
             <EditText
-                android:id="@+id/etEmail"
+                android:id="@+id/etFullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/txt_white"
                 android:textColorHint="@color/txt_light_purple"
-                android:hint="Your Email" />
+                android:hint="@string/activity_register_full_name" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_light_purple"
+                android:hint="@string/activity_register_email" />
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_light_purple"
+                android:inputType="phone"
+                android:hint="@string/activity_register_phone" />
 
 
             <EditText
@@ -59,7 +77,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/txt_white"
                 android:textColorHint="@color/txt_light_purple"
-                android:hint="Your Password" />
+                android:hint="@string/activity_register_password" />
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/cbWorkshop"
@@ -86,6 +104,6 @@
         android:layout_gravity="bottom"
         android:textColor="@color/txt_white"
         android:background="@drawable/shape_frame_white"
-        android:text="Sign up" />
+        android:text="@string/activity_register_signup" />
 
 </FrameLayout>

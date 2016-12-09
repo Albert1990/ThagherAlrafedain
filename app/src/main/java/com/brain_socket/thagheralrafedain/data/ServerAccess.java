@@ -91,44 +91,100 @@ public class ServerAccess {
         return result;
     }
 
-    /**
-     * register a new user with UserName and phoneNumber
-     */
-    public ServerResult registerUser(String fName,String lName, String phoneNum, String countryCode, String versionId, String FBID) {
+    public ServerResult socialLogin(String fullName,String email,String providerName,String providerId) {
         ServerResult result = new ServerResult();
         AppUser me  = null ;
+        boolean isRegistered = false;
         try {
             // parameters
             JSONObject jsonPairs = new JSONObject();
-            jsonPairs.put("country_id", 1);
-            jsonPairs.put("mobile_number", phoneNum);
-            jsonPairs.put("name", fName);
-            jsonPairs.put("country_code", countryCode);
-            jsonPairs.put("facebook_token", FBID);
-
-            try{
-                String deviceId = Settings.Secure.getString(ThagherApp.getAppContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-                jsonPairs.put("imei", deviceId);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            jsonPairs.put("userFullName", fullName);
+            jsonPairs.put("userEmail",email);
+            jsonPairs.put("providerName",providerName);
+            jsonPairs.put("providerID",providerId);
             // url
-            String url = BASE_SERVICE_URL + "/auth/register";
+            String url = BASE_SERVICE_URL + "/userSocialLogin.php";
             // send request
             ApiRequestResult apiResult = httpRequest(url, jsonPairs, "post", null);
             result.setStatusCode(apiResult.getStatusCode());
             result.setApiError(apiResult.getApiError());
-            JSONObject jsonResponse = new JSONObject(apiResult.response);
-            if (jsonResponse != null) { // check if response is empty
-                me = AppUser.fromJson(jsonResponse);
-            }
-            if(apiResult.statusCode == 409 && result.getApiError().equals("USER_EXIST_BEFORE")){
-                result.setStatusCode(ERROR_CODE_userExistsBefore);
+            JSONArray jsonResponse = new JSONArray(apiResult.response);
+            if(jsonResponse != null && jsonResponse.length() > 0)
+            {
+                JSONObject jsonObject = jsonResponse.getJSONObject(0);
+                if(jsonObject.has("msg")) {
+                    result.addPair("msg", jsonObject.get("msg"));
+                }
+                else{ // check if response is empty
+                    me = AppUser.fromJson(jsonObject);
+                    isRegistered = true;
+                }
             }
         } catch (Exception e) {
             result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);
         }
         result.addPair("appUser", me);
+        result.addPair("isRegistered",isRegistered);
+        return result;
+    }
+
+    /**
+     * register a new user with UserName and phoneNumber
+     */
+    public ServerResult registerUser(String email, String password,String fullName,String phone,String userType) {
+        ServerResult result = new ServerResult();
+        AppUser me  = null ;
+        try {
+            // parameters
+            JSONObject jsonPairs = new JSONObject();
+            jsonPairs.put("userFullName", fullName);
+            jsonPairs.put("userEmail", email);
+            jsonPairs.put("userPhone",phone);
+            jsonPairs.put("userPassword", password);
+            jsonPairs.put("userType",userType);
+
+            // url
+            String url = BASE_SERVICE_URL + "/userRegister.php";
+            // send request
+            ApiRequestResult apiResult = httpRequest(url, jsonPairs, "post", null);
+            result.setStatusCode(apiResult.getStatusCode());
+            result.setApiError(apiResult.getApiError());
+            JSONArray jsonResponse = new JSONArray(apiResult.response);
+            if(jsonResponse != null && jsonResponse.length() > 0) {
+                JSONObject jsonObject = jsonResponse.getJSONObject(0);
+                if(jsonObject.has("msg"))
+                    result.addPair("msg", jsonObject.get("msg"));
+            }
+        } catch (Exception e) {
+            result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);
+        }
+
+        return result;
+    }
+
+    public ServerResult forgetPassword(String email) {
+        ServerResult result = new ServerResult();
+        AppUser me  = null ;
+        try {
+            // parameters
+            JSONObject jsonPairs = new JSONObject();
+            jsonPairs.put("email", email);
+
+            // url
+            String url = BASE_SERVICE_URL + "/userForgetPwd.php";
+            // send request
+            ApiRequestResult apiResult = httpRequest(url, jsonPairs, "post", null);
+            result.setStatusCode(apiResult.getStatusCode());
+            result.setApiError(apiResult.getApiError());
+            JSONArray jsonResponse = new JSONArray(apiResult.response);
+            if(jsonResponse != null && jsonResponse.length() > 0) {
+                JSONObject jsonObject = jsonResponse.getJSONObject(0);
+                if(jsonObject.has("msg"))
+                    result.addPair("msg", jsonObject.get("msg"));
+            }
+        } catch (Exception e) {
+            result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);
+        }
 
         return result;
     }
@@ -264,6 +320,35 @@ public class ServerAccess {
             ex.printStackTrace();
         }
         result.addPair("brands",brands);
+        return result;
+    }
+
+    public ServerResult updateUser(String userId,String fullName,String email,String phone,String address,String lon,String lat,String type){
+        ServerResult result = new ServerResult();
+        try{
+            String url = BASE_SERVICE_URL+"/userUpdate.php";
+            JSONObject jsonPairs = new JSONObject();
+            jsonPairs.put("userFullName",fullName);
+            jsonPairs.put("userEmail",email);
+            jsonPairs.put("userPhone",phone);
+            jsonPairs.put("userAddress",address);
+            jsonPairs.put("userLon",lon);
+            jsonPairs.put("userLat",lat);
+            jsonPairs.put("userType",type);
+            jsonPairs.put("userID",userId);
+            ApiRequestResult apiResult = httpRequest(url,jsonPairs,"post",null);
+            JSONArray jsonResponse = apiResult.getResponseJsonArray();
+            if(jsonResponse != null && jsonResponse.length() > 0){
+                JSONObject jsonObject = jsonResponse.getJSONObject(0);
+                if(jsonObject.has("msg")) {
+                    String msg = jsonObject.getString("msg");
+                    if(!msg.equals("1"))
+                        result.addPair("msg", msg);
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
         return result;
     }
 

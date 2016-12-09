@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.google.android.gms.common.ConnectionResult;
@@ -194,6 +195,20 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         }
     }
 
+    public static String MD5(String md5) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+        }
+        return null;
+    }
+
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Log.i("Google Api connection", "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
@@ -215,6 +230,18 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         }
         if(!mGoogleApiClient.isConnected())
             mGoogleApiClient.connect();
+    }
+
+    public static boolean isNullOrEmpty(String str){
+        if(str == null)
+            return true;
+        if(str.isEmpty())
+            return true;
+        return false;
+    }
+
+    public static void Toast(String msg){
+        Toast.makeText(getAppContext(),msg,Toast.LENGTH_LONG).show();
     }
 
     public static void disconnectGoogleApiClient(){

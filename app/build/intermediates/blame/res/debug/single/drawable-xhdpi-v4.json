@@ -44,6 +44,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable-xhdpi/abc_ic_ab_back_mtrl_am_alpha.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_has_details.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_has_details.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_google_signin_btn_text_dark_disabled.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_google_signin_btn_text_dark_disabled.9.png"
     },
@@ -92,12 +96,20 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_google_signin_btn_icon_dark_pressed.9.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_done.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_done.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_plus_signin_btn_text_dark_normal.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_plus_signin_btn_text_dark_normal.9.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_location.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_location.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_google_signin_btn_text_light_pressed.9.png",
@@ -164,6 +176,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable-xhdpi/abc_ic_menu_share_mtrl_alpha.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_phone.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_phone.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_google_signin_btn_text_dark_focused.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_google_signin_btn_text_dark_focused.9.png"
     },
@@ -208,6 +224,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_plus_signin_btn_text_dark_pressed.9.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_pic_placeholder.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_pic_placeholder.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_plus_signin_btn_text_dark_disabled.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_plus_signin_btn_text_dark_disabled.9.png"
     },
@@ -226,6 +246,10 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/com_facebook_tooltip_blue_background.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.2/res/drawable-xhdpi-v4/com_facebook_tooltip_blue_background.9.png"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic1.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic1.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_plus_signin_btn_icon_dark_focused.9.png",
@@ -272,12 +296,20 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_plus_signin_btn_icon_light_normal.9.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_workshop_type.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_workshop_type.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_directions.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_directions.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_plus_signin_btn_text_dark_focused.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_plus_signin_btn_text_dark_focused.9.png"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_drop.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_drop.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png",
@@ -340,12 +372,28 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.3.0/res/drawable-xhdpi/powered_by_google_light.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_workshop_name.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_workshop_name.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable-xhdpi/abc_switch_track_mtrl_alpha.9.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_check_sign.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_check_sign.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_google_signin_btn_text_light_disabled.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_google_signin_btn_text_light_disabled.9.png"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_marker.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_marker.png"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_check.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_check.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/com_facebook_tooltip_black_background.9.png",
@@ -370,6 +418,10 @@
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/common_plus_signin_btn_icon_dark_normal.9.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/res/drawable-xhdpi/common_plus_signin_btn_icon_dark_normal.9.png"
+    },
+    {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_cam.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_cam.png"
     },
     {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/com_facebook_button_icon.png",

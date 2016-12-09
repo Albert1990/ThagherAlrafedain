@@ -62,6 +62,20 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider567498840098940"
+            android:exported="true" />
 
         <!--
             The API key for Google Maps-based APIs is defined as a string resource.
@@ -76,7 +90,14 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name="com.brain_socket.thagheralrafedain.RegisterActivity" />
-        <activity android:name="com.brain_socket.thagheralrafedain.WorkshopDetails" />
+        <activity
+            android:name="com.brain_socket.thagheralrafedain.WorkshopDetails"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.brain_socket.thagheralrafedain.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
 
         <provider
             android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"

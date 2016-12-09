@@ -82,6 +82,6 @@ public class ServerResult {
     }
 
     public boolean connectionFailed (){
-        return  apiError != null || statusCode >= 600 ;//(statusCode == ServerAccess.RESPONCE_FORMAT_ERROR_CODE || flag == ServerAccess.CONNECTION_ERROR_CODE );
+        return  statusCode >= 600 ;//(statusCode == ServerAccess.RESPONCE_FORMAT_ERROR_CODE || flag == ServerAccess.CONNECTION_ERROR_CODE );
     }
 }

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/menu/menu_scrolling.xml",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/menu/menu_scrolling.xml"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/menu/menu_home.xml",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/menu/menu_home.xml"
     }

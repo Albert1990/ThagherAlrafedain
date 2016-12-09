@@ -34,6 +34,14 @@ public class WorkshopModel extends AppBaseModel {
         return new WorkshopModel();
     }
 
+    public static WorkshopModel fromJsonString(String json) {
+        try {
+            WorkshopModel workshopModel = ThagherApp.getSharedGsonParser().fromJson(json, WorkshopModel.class);
+            return workshopModel;
+        }catch (Exception ignored){}
+        return new WorkshopModel();
+    }
+
     public JSONObject getJsonObject(){
         try {
             return new JSONObject(ThagherApp.getSharedGsonParser().toJson(this));
