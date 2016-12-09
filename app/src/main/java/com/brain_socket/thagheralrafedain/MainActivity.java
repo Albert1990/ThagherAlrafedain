@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.provider.ContactsContract.Data;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import com.brain_socket.thagheralrafedain.data.PhotoProvider;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
 import com.brain_socket.thagheralrafedain.fragments.FragMap.MAP_TYPE;
 import com.brain_socket.thagheralrafedain.model.AppUser;
+import com.brain_socket.thagheralrafedain.model.AppUser.USER_TYPE;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
@@ -48,24 +50,29 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        AppUser me = DataStore.getInstance().getMe();
+        if(me == null) {
+            getMenuInflater().inflate(R.menu.menu_home, menu);
+        }else if(me.getUserType() == USER_TYPE.USER){
+            getMenuInflater().inflate(R.menu.menu_home_no_profile, menu);
+        }else
+            getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
     private void actionProfileClicked(){
         try {
-//            AppUser user = DataStore.getInstance().getMe();
-//            Intent i =null;
-//            if(user == null) {
-//                i = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(i);
-//            }
-//            else{
-//                i = new Intent(MainActivity.this, RegisterActivity.class);
-//                startActivity(i);
-//            }
-            Intent i = new Intent(MainActivity.this,WorkshopDetails.class);
-            startActivity(i);
+            AppUser user = DataStore.getInstance().getMe();
+            Intent i =null;
+            if(user == null) {
+                i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+            }else{
+                i = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(i);
+            }
+//            Intent i = new Intent(MainActivity.this,WorkshopDetails.class);
+//            startActivity(i);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -185,7 +192,11 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
     @Override
     public void onLoginStateChange() {
+        AppUser me = DataStore.getInstance().getMe();
+        if(me!= null){
 
+        }
+        invalidateOptionsMenu();
     }
 
     class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {

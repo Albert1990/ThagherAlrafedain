@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#82435a</color>
     <color name="colorPrimaryDark">#4a2737</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="app_theme_loading_bg">#443783dd</color>
+    <color name="colorAccent">#82435a</color>
+    <color name="app_theme_loading_bg">#444a2737</color>
     
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
