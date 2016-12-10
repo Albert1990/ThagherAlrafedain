@@ -137,25 +137,25 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.google.android.gms.common.SignInButton
-                    android:id="@+id/btn_sign_in"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
-
-                <!--<ImageView-->
-                    <!--android:layout_width="25dp"-->
-                    <!--android:layout_height="25dp"-->
-                    <!--android:src="@drawable/ic_g_plus"/>-->
-                <!---->
-                <!--<com.brain_socket.thagheralrafedain.view.TextViewCustomFont-->
-                    <!--android:layout_width="wrap_content"-->
+                <!--<com.google.android.gms.common.SignInButton-->
+                    <!--android:id="@+id/btnGoogleSignin"-->
+                    <!--android:layout_width="fill_parent"-->
                     <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="15dp"-->
-                    <!--android:text="@string/login_with_gmail"-->
-                    <!--android:textColor="@color/white"-->
-                    <!--android:textSize="@dimen/ts_text_big"-->
-                    <!--app:fontId="1"/>-->
+                    <!--android:layout_marginBottom="20dp"/>-->
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_g_plus"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/login_with_gmail"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ts_text_big"
+                    app:fontId="1"/>
             </LinearLayout>
 
         </LinearLayout>

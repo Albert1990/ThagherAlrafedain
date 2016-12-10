@@ -52,9 +52,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         TextView tvSignup = (TextView)findViewById(R.id.tvSignup);
         tvLoginStatusMessage = (TextView)findViewById(R.id.tvLoginStatusMessage);
         btnFBLogin = findViewById(R.id.btnFBLogin);
-        SignInButton btnSignIn = (SignInButton)findViewById(R.id.btn_sign_in);
+        View btnGmailLogin = findViewById(R.id.btnGmailLogin);
 
-        btnSignIn.setOnClickListener(this);
+        btnGmailLogin.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         tvSignup.setOnClickListener(this);
         btnFBLogin.setOnClickListener(this);
@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .build();
 
         // Customizing G+ button
-        btnSignIn.setSize(SignInButton.SIZE_STANDARD);
-        btnSignIn.setScopes(gso.getScopeArray());
+        //googleSigninButton.setSize(SignInButton.SIZE_STANDARD);
+        //googleSigninButton.setScopes(gso.getScopeArray());
     }
 
     private void attemptLogin(){
@@ -180,18 +180,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        FacebookProvider.getInstance().onActiviyResult(requestCode, resultCode, data);
-//        if(resultCode == RESULT_OK){
-//            setResult(RESULT_OK);
-//            finish();
-//        }
-
+        FacebookProvider.getInstance().onActiviyResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
-
+        if(resultCode == RESULT_OK){
+            setResult(RESULT_OK);
+            finish();
+        }
         //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
     }
 
@@ -229,7 +227,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnFBLogin:
                 attempFBtLogin();
                 break;
-            case R.id.btn_sign_in:
+            case R.id.btnGmailLogin:
                 googleSignin();
                 break;
             case 22:
