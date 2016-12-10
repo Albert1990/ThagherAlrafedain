@@ -12,6 +12,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class will be responsible for requesting new data from the data providers
@@ -464,7 +465,8 @@ public class DataStore {
     // Getters
     //----------------------------------------------
 
-    public ArrayList<BrandModel> getBrands() {
+    public ArrayList<BrandModel> getBrands()
+    {
         return brands;
     }
 

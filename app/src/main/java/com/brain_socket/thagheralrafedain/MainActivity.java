@@ -31,6 +31,7 @@ import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DataStore.DataStoreUpdateListener {
     private SliderAdapter brandsSliderAdapter;
@@ -58,17 +59,6 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         }else
             getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
-    }
-
-    private void getDummyBrandCard(){
-        BrandModel brandModel = new BrandModel();
-        brandModel.setId("-1");
-        brandModel.setName("dummy");
-        brandModel.setProducts(null);
-    }
-
-    private void addDummyData2Brands(){
-        //brands.i
     }
 
     private void actionProfileClicked(){
@@ -117,7 +107,8 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             RecyclerView rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
             vpBrands = (ViewPager) findViewById(R.id.vpBrands);
 
-            brands = DataStore.getInstance().getBrands();
+            //brands = DataStore.getInstance().getBrands();
+            //addDummyCards2Brands();
             brandsSliderAdapter = new SliderAdapter();
             vpBrands.setAdapter(brandsSliderAdapter);
             vpBrands.setPageMargin(ThagherApp.getPXSize(0));
@@ -129,9 +120,12 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
                 @Override
                 public void onPageSelected(int position) {
-                    selectedBrandPosition = position;
-                    products = brands.get(position).getProducts();
-                    productsAdapter.updateAdapter();
+                    position++;
+                    if(position <= brands.size()) {
+                        selectedBrandPosition = position;
+                        products = brands.get(position).getProducts();
+                        productsAdapter.updateAdapter();
+                    }
                 }
 
                 @Override
@@ -155,12 +149,30 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         }
     }
 
+    private BrandModel getDummyBrandCard(){
+        BrandModel dummyBrandModel = new BrandModel();
+        dummyBrandModel.setId("-1");
+        dummyBrandModel.setName("dummy");
+        dummyBrandModel.setProducts(null);
+        return dummyBrandModel;
+    }
+
+    private void addDummyCards2Brands(){
+        ArrayList<BrandModel> tempBrands = new ArrayList<>();
+        tempBrands.add(getDummyBrandCard());
+        tempBrands.addAll(brands);
+        tempBrands.add(getDummyBrandCard());
+        brands = tempBrands;
+    }
+
     DataStore.DataRequestCallback requestBrandsWithProductsCallback = new DataStore.DataRequestCallback() {
         @Override
         public void onDataReady(ServerResult result, boolean success) {
             loadingDialog.dismiss();
             if (success) {
                 brands = (ArrayList<BrandModel>) result.getValue("brands");
+                addDummyCards2Brands();
+                brandsSliderAdapter.updateAdapter();
                 if (brands != null && brands.size() > 0) {
                     int middleBrand = (int) Math.floor(brands.size() / 2);
                     if(middleBrand <= brands.size())
@@ -175,9 +187,8 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     }
 
     private void updateBody() {
-        brands = DataStore.getInstance().getBrands();
-
-        brandsSliderAdapter.updateAdapter();
+        //brands = DataStore.getInstance().getBrands();
+        //brandsSliderAdapter.updateAdapter();
     }
 
     @Override

@@ -2,8 +2,10 @@ package com.brain_socket.thagheralrafedain;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,10 +17,17 @@ import com.brain_socket.thagheralrafedain.data.FacebookProvider;
 import com.brain_socket.thagheralrafedain.data.FacebookProviderListener;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
 import com.facebook.Profile;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.HashMap;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
     private EditText etEmail;
     private EditText etPassword;
     private Dialog loadingDialog;
@@ -26,6 +35,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String FbToken = null;
     private boolean linkWithFB = false;
     private View btnFBLogin;
+    private static final int RC_SIGN_IN = 007;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +52,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         TextView tvSignup = (TextView)findViewById(R.id.tvSignup);
         tvLoginStatusMessage = (TextView)findViewById(R.id.tvLoginStatusMessage);
         btnFBLogin = findViewById(R.id.btnFBLogin);
+        SignInButton btnSignIn = (SignInButton)findViewById(R.id.btn_sign_in);
 
+        btnSignIn.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         tvSignup.setOnClickListener(this);
         btnFBLogin.setOnClickListener(this);
         loadingDialog = ThagherApp.getNewLoadingDilaog(this);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        // Customizing G+ button
+        btnSignIn.setSize(SignInButton.SIZE_STANDARD);
+        btnSignIn.setScopes(gso.getScopeArray());
     }
 
     private void attemptLogin(){
@@ -154,12 +180,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        FacebookProvider.getInstance().onActiviyResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            setResult(RESULT_OK);
-            finish();
+//        FacebookProvider.getInstance().onActiviyResult(requestCode, resultCode, data);
+//        if(resultCode == RESULT_OK){
+//            setResult(RESULT_OK);
+//            finish();
+//        }
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
         }
+
         //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            String fullName = acct.getDisplayName();
+            //String personPhotoUrl = acct.getPhotoUrl().toString();
+            String email = acct.getEmail();
+            String id = acct.getId();
+            DataStore.getInstance().attemptSocialLogin(fullName,email,"google",id,attemptSocialLoginCallback);
+
+//            Glide.with(getApplicationContext()).load(personPhotoUrl)
+//                    .thumbnail(0.5f)
+//                    .crossFade()
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(imgProfilePic);
+        }
+    }
+
+    private void googleSignin(){
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
@@ -173,6 +229,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnFBLogin:
                 attempFBtLogin();
                 break;
+            case R.id.btn_sign_in:
+                googleSignin();
+                break;
             case 22:
                 loadingDialog.show();
                 DataStore.getInstance().requestForgetPassword("",forgetPasswordCallback);
@@ -182,5 +241,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(i);
                 break;
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
