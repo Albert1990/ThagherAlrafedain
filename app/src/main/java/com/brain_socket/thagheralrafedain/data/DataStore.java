@@ -189,9 +189,7 @@ public class DataStore {
 
     //--------------------
     // Login
-    //-------------------------------------------
-
-
+    //--------------------
     public void attemptSignUp(final String email, final String password, final String fullName,
                               final String phone, final String userType, final DataRequestCallback callback) {
 
@@ -200,9 +198,11 @@ public class DataStore {
             public void run() {
                 boolean success = true;
                 String md5Password = ThagherApp.MD5(password);
-                ServerResult result = serverHandler.registerUser(email, md5Password,fullName,phone,userType);
-                if (result.connectionFailed()) {
-                    success = false;
+                ServerResult result = serverHandler.registerUser(email, md5Password, fullName, phone, userType);
+                if (result.isValid() && !result.containsKey("msg") && result.containsKey("appUser")) {
+                    me = (AppUser) result.getPairs().get("appUser");
+                    setMe(me);
+                    broadcastloginStateChange();
                 }
                 invokeCallback(callback, success, result); // invoking the callback
             }
@@ -215,11 +215,9 @@ public class DataStore {
             public void run() {
                 boolean success = true;
                 String md5Password = ThagherApp.MD5(password);
-                ServerResult result = serverHandler.login(email,md5Password);
+                ServerResult result = serverHandler.login(email, md5Password);
                     if (result.isValid() && !result.containsKey("msg")) {
                         me = (AppUser) result.getPairs().get("appUser");
-                        //apiAccessToken = me.getAccessToken();
-                        //setApiAccessToken(apiAccessToken);
                         setMe(me);
                         broadcastloginStateChange();
                     }
@@ -233,7 +231,7 @@ public class DataStore {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.socialLogin(fullName, email,providerName,providerId);
+                ServerResult result = serverHandler.socialLogin(fullName, email, providerName, providerId);
                 if (result.isValid() && !result.containsKey("msg")) {
                     me = (AppUser) result.getPairs().get("appUser");
                     //apiAccessToken = me.getAccessToken();
@@ -268,15 +266,12 @@ public class DataStore {
                 if (result.connectionFailed()) {
                     success = false;
                 } else {
-                    if (result.isValid()) {
-                        ArrayList<BrandModel> arrayRecieved = (ArrayList<BrandModel>) result.get("brands");
-                        if (arrayRecieved != null && !arrayRecieved.isEmpty()) {
-                            brands = arrayRecieved;
-                            DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_BRANDS, arrayRecieved);
-                        }
+                    if (result.isValid() && !result.containsKey("msg") && result.containsKey("appUser")) {
+                        me = (AppUser) result.getPairs().get("appUser");
+                        setMe(me);
+                        broadcastloginStateChange();
                     }
                 }
-                //broadcastDataStoreUpdate();
                 invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();

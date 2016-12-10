@@ -50,11 +50,12 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
     private EditText etEmail;
     private EditText etPhone;
     private Spinner spinnerUserType;
-    private TextView etAddress;
+    private EditText etAddress;
     private AppUser user;
     private Dialog loadingDialog;
     private ImageView ivLogo;
     private AppsAdapter brandsAdapter;
+    private TextView btnAddress;
 
     boolean isFirstRegister;
 
@@ -69,6 +70,7 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
     DataStore.DataRequestCallback updateUserCallback = new DataStore.DataRequestCallback() {
         @Override
         public void onDataReady(ServerResult result, boolean success) {
+            loadingDialog.dismiss();
             if(!success)
                 Toast.makeText(WorkshopDetails.this, R.string.err_check_connection,Toast.LENGTH_LONG).show();
         }
@@ -118,9 +120,9 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPhone = (EditText)findViewById(R.id.etPhone);
         spinnerUserType = (Spinner)findViewById(R.id.spinnerUserType);
-        etAddress = (TextView)findViewById(R.id.tvAddress);
+        etAddress = (EditText) findViewById(R.id.etAddress);
         ivLogo = (ImageView) findViewById(R.id.ivLogo);
-        View btnAddress = findViewById(R.id.btnAddress);
+        btnAddress = (TextView) findViewById(R.id.btnAddress);
         View fabPickPhoto = findViewById(R.id.fabPickPhoto);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -148,12 +150,14 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
             int selectedUserTypePosition = 0;
             String[] userTypes = getResources().getStringArray(R.array.workshop_array);
             for (int i = 0; i < userTypes.length; i++) {
-                if (userTypes[i].equals(user.getType())) {
+                if (userTypes[i].substring(0,1).equalsIgnoreCase(user.getType())) {
                     selectedUserTypePosition = i;
                     break;
                 }
             }
             spinnerUserType.setSelection(selectedUserTypePosition);
+            if(user.getLogo() != null && !user.getLogo().isEmpty())
+                PhotoProvider.getInstance().displayPhotoFade(user.getLogo(), ivLogo);
         }
     }
 
@@ -161,10 +165,18 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
         try{
             boolean cancel = false;
             View focusView = null;
-            String fullName = etFullName.getText().toString().trim();
+            String fullName = etFullName.getText().toString();
             String phone = etPhone.getText().toString().trim();
             String email = etEmail.getText().toString().trim();
-            String type =  (String)spinnerUserType.getSelectedItem();
+            String address = etAddress.getText().toString();
+            String type = "W";
+            if(spinnerUserType.getSelectedItemPosition() == 1)
+                type = "S";
+
+            etEmail.setError(null);
+            etAddress.setError(null);
+            etFullName.setError(null);
+            etPhone.setError(null);
 
             if(ThagherApp.isNullOrEmpty(fullName)){
                 cancel = true;
@@ -184,10 +196,17 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
                 focusView = etEmail;
             }
 
-            if(lat == 0 && lng == 0){
+
+            if(address == null || address.isEmpty()){
                 cancel = true;
                 etAddress.setError(getString(R.string.error_required_field));
                 focusView = etAddress;
+            }
+
+            if(lat == 0 && lng == 0){
+                cancel = true;
+                btnAddress.setError(getString(R.string.error_required_field));
+                focusView = btnAddress;
             }
 
             if(!cancel){

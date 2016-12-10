@@ -50,7 +50,9 @@
             android:name=".MapActivity"
             android:theme="@style/AppThemeNoActionBar" />
 
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+            />
 
         <activity android:name=".WorkshopDetails"
                   android:theme="@style/AppTheme.NoActionBar"/>

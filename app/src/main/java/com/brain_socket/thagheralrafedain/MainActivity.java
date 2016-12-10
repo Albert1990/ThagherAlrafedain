@@ -51,13 +51,15 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        AppUser me = DataStore.getInstance().getMe();
-        if(me == null) {
-            getMenuInflater().inflate(R.menu.menu_home, menu);
-        }else if(me.getUserType() == USER_TYPE.USER){
-            getMenuInflater().inflate(R.menu.menu_home_no_profile, menu);
-        }else
-            getMenuInflater().inflate(R.menu.menu_home, menu);
+
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+//        AppUser me = DataStore.getInstance().getMe();
+//        if(me == null) {
+//            getMenuInflater().inflate(R.menu.menu_home, menu);
+//        }else if(me.getUserType() == USER_TYPE.USER){
+//            getMenuInflater().inflate(R.menu.menu_home_no_profile, menu);
+//        }else
+//            getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
             }else{
-                i = new Intent(MainActivity.this, RegisterActivity.class);
+                i = new Intent(MainActivity.this,WorkshopDetails.class);
                 startActivity(i);
             }
 //            Intent i = new Intent(MainActivity.this,WorkshopDetails.class);
