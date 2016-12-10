@@ -28,12 +28,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppThemeNoActionBar" >
+            android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,40 +49,35 @@
         <activity
             android:name=".MapActivity"
             android:theme="@style/AppThemeNoActionBar" />
-
         <activity android:name=".RegisterActivity" />
-
-        <activity android:name=".WorkshopDetails"
-                  android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".PhotoPickerActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".WorkshopDetails"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PhotoPickerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ScrollingActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider721986314644284"
             android:exported="true"
-            tools:ignore="ExportedContentProvider"/>
+            tools:ignore="ExportedContentProvider" />
 
         <!--
             The API key for Google Maps-based APIs is defined as a string resource.
@@ -96,6 +91,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".BrandDetailsActivity"></activity>
     </application>
 
 </manifest>
