@@ -537,7 +537,10 @@ public class DataStore {
     }
 
     public void setMeLastLocation(Location meLastLocation) {
+
         this.meLastLocation = meLastLocation;
+        myLocationLatitude = (float) meLastLocation.getLatitude();
+        myLocationLongitude = (float) meLastLocation.getLongitude();
     }
 
     public boolean isUserLoggedIn() {

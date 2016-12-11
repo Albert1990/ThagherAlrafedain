@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        ThagherApp.requestLastUserKnownLocation();
     }
 
     @Override

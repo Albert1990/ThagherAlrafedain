@@ -131,6 +131,9 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvBrands);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         brandsAdapter = new AppsAdapter(this);

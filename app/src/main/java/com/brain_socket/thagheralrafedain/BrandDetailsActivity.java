@@ -59,7 +59,8 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
         categoryPickerDialog = new DiagCategoryPicker(this,categoryPickerCallback);
         loadingDialog = ThagherApp.getNewLoadingDilaog(this);
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     private DiagCategoryPicker.CategoryDiagCallBack categoryPickerCallback = new DiagCategoryPicker.CategoryDiagCallBack() {

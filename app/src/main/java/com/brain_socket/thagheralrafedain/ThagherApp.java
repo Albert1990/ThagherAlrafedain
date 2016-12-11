@@ -30,6 +30,8 @@ import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
@@ -42,9 +44,9 @@ import java.util.Locale;
 /**
  * Created by Albert on 11/24/16.
  */
-public class ThagherApp extends Application implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class ThagherApp extends Application implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    public enum SUPPORTED_LANGUAGE{AR, EN}
+    public enum SUPPORTED_LANGUAGE{EN, AR}
 
     public static ThagherApp appContext;
     private static Gson sharedGsonParser;
@@ -243,9 +245,51 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
      */
     @Override
     public void onConnected(Bundle connectionHint) {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(1000 * 60);
+        locationRequest.setFastestInterval(10000);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             DataStore.getInstance().setMeLastLocation(mLastLocation);
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i("Google Api connection", "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        mGoogleApiClient.connect();
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (location != null) {
+            DataStore.getInstance().setMeLastLocation(location);
+        }
+    }
+
+    public static void requestLastUserKnownLocation() {
+        if (mGoogleApiClient == null) {
+            // init google apis client
+            mGoogleApiClient = new GoogleApiClient.Builder(ThagherApp.getAppContext())
+                    .addConnectionCallbacks(ThagherApp.getAppContext())
+                    .addOnConnectionFailedListener(ThagherApp.getAppContext())
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+        if (!mGoogleApiClient.isConnected())
+            mGoogleApiClient.connect();
+    }
+
+    public static void disconnectGoogleApiClient() {
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
         }
     }
 
@@ -283,29 +327,6 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         return null;
     }
 
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        Log.i("Google Api connection", "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        mGoogleApiClient.connect();
-    }
-
-    public static void requestLastUserKnownLocation() {
-        if(mGoogleApiClient == null) {
-            // init google apis client
-            mGoogleApiClient = new GoogleApiClient.Builder(ThagherApp.getAppContext())
-                    .addConnectionCallbacks(ThagherApp.getAppContext())
-                    .addOnConnectionFailedListener(ThagherApp.getAppContext())
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-        if(!mGoogleApiClient.isConnected())
-            mGoogleApiClient.connect();
-    }
-
     public static boolean isNullOrEmpty(String str){
         if(str == null)
             return true;
@@ -316,12 +337,6 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
 
     public static void Toast(String msg){
         Toast.makeText(getAppContext(),msg,Toast.LENGTH_LONG).show();
-    }
-
-    public static void disconnectGoogleApiClient(){
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-        }
     }
 
 }
