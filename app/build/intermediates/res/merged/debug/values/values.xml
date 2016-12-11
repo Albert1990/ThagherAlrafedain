@@ -485,6 +485,8 @@
     <string name="login_progress_signing_in">Login in progress</string>
     <string name="login_with_fb">Login with Facebook</string>
     <string name="login_with_gmail">Login with Gmail</string>
+    <string name="main_prod_price">price</string>
+    <string name="main_prod_view_product">View Product</string>
     <string name="menu_action_done">OK</string>
     <string name="messenger_send_button_text">Send</string>
     <string name="pick_photo_cam">Camera</string>
@@ -494,6 +496,8 @@
     <string name="place_autocomplete_clear_button">Clear search</string>
     <string name="place_autocomplete_search_hint">Search</string>
     <string name="place_holder">---</string>
+    <string name="prod_details_more_title">More products</string>
+    <string name="prod_details_price">Price</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="workshop_details_show_room">Showroom</string>
     <string name="workshop_details_workshop">Workshop</string>

@@ -89,7 +89,7 @@ public class PhotoProvider
                     .build();
 
             optionsNormal = new DisplayImageOptions.Builder()
-                    .showImageOnLoading(R.drawable.shape_transparent)
+                    .showImageOnLoading(R.drawable.shape_cover_place_holder)
                     .showImageForEmptyUri(R.drawable.shape_transparent)
                     .showImageOnFail(R.drawable.shape_transparent)
                     .considerExifParams(true)

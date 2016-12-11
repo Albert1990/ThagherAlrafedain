@@ -75,4 +75,12 @@
     <string name="login_add_your_workshop_ok">Register Business</string>
     <string name="login_add_your_workshop_cancel">No</string>
 
+    <!-- main-->
+    <string name="main_prod_price">price</string>
+    <string name="main_prod_view_product">View Product</string>
+
+    <!-- prod details -->
+    <string name="prod_details_more_title">More products</string>
+    <string name="prod_details_price">Price</string>
+
 </resources>

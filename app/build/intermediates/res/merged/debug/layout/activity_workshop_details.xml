@@ -19,6 +19,7 @@
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:title=""
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:background="#e2e2e2"
             app:contentScrim="?attr/colorPrimary">

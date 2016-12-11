@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -42,21 +43,30 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TextView tvBrandName = (TextView) findViewById(R.id.tvBrandName);
         TextView tvPrice = (TextView) findViewById(R.id.tvPrice);
         WebView wvDescription = (WebView) findViewById(R.id.wvDescription);
+        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
 
         int selectedBrandPosition = getIntent().getIntExtra("selectedBrandPosition",-1);
         int selectedProductPosition = getIntent().getIntExtra("selectedProductPosition",-1);
+
         if(selectedBrandPosition >= 0 && selectedProductPosition >= 0) {
             BrandModel selectedBrand = DataStore.getInstance().getBrands().get(selectedBrandPosition);
             products = selectedBrand.getProducts();
             ProductModel selectedProduct = selectedBrand.getProducts().get(selectedProductPosition);
+
+            // fill data in views
             PhotoProvider.getInstance().displayPhotoNormal(selectedProduct.getImage(), ivProduct);
             tvProductName.setText(selectedProduct.getName());
             tvPrice.setText(selectedProduct.getPriceWithUnit());
             tvBrandName.setText(selectedBrand.getName());
+            tvTitle.setText(selectedBrand.getName());
+            // WebView
             String decodedHtml = Html.fromHtml(selectedProduct.getDescription()).toString();
             wvDescription.loadData(decodedHtml,"text/html; charset=UTF-8", null);
 
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+
             rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
             productsAdapter = new ProductsRecycleViewAdapter(this);
             rvProducts.setAdapter(productsAdapter);
@@ -65,7 +75,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     }
 
-    private class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
+
+    class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {
         private LayoutInflater inflater;
 
         View.OnClickListener onItemClickListner = new View.OnClickListener() {
@@ -74,7 +91,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 try {
                     int itemPosition = (int)v.getTag();
                     Intent myIntent = new Intent(ProductDetailsActivity.this, ProductDetailsActivity.class);
-                    //myIntent.putExtra("key", value); //Optional parameters
+//                    myIntent.putExtra("selectedBrandPosition", selectedBrandPosition);
+//                    myIntent.putExtra("selectedProductPosition", itemPosition);
                     startActivity(myIntent);
                 } catch (Exception ex) {
                     ex.printStackTrace();

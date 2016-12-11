@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f2f0f3">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -13,24 +14,24 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/gradient_app_theme"
             app:collapsedTitleTextAppearance="@style/collapced_title_appreance"
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleTextAppearance="@style/expandable_title_apperance"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:background="@drawable/gradient_app_theme">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="30dp">
 
                 <com.brain_socket.thagheralrafedain.view.CarousellViewPager
                     android:id="@+id/vpBrands"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="-100dp"
-                    android:layout_marginRight="-100dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"></com.brain_socket.thagheralrafedain.view.CarousellViewPager>
+                    android:layout_marginRight="-100dp"/>
 
             </FrameLayout>
 
@@ -42,6 +43,16 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin">
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="190dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start|left"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_nav_logo"/>
+                </FrameLayout>
 
             </android.support.v7.widget.Toolbar>
 
@@ -56,22 +67,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/txt_gray"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:textSize="20dp"
-            app:fontId="1"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/activity_main_products_title"/>
+            android:text="@string/activity_main_products_title"
+            android:textColor="@color/txt_gray"
+            android:textSize="20dp"
+            app:fontId="1"/>
 
         <com.brain_socket.thagheralrafedain.view.AppAnimatedGrid
             android:id="@+id/rvProducts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layoutAnimation="@anim/anim_grid_layout_anim"/>
     </LinearLayout>
 

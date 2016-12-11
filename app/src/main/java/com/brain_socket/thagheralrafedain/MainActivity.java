@@ -270,7 +270,8 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 holder.root.setTag(position);
                 holder.tvName.setText(productModel.getName());
                 String strPrice = productModel.getPriceWithUnit();
-                holder.tvPrice.setText(strPrice);
+                holder.tvPrice.setText(R.string.main_prod_view_product);
+                holder.tvBrand.setText(getString(R.string.main_prod_price) + strPrice);
                 PhotoProvider.getInstance().displayPhotoNormal(productModel.getImage(), holder.ivProduct);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -290,12 +291,14 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         public ImageView ivProduct;
         public TextView tvName;
         public TextView tvPrice;
+        public TextView tvBrand;
 
         public ProductViewHolderItem(View v) {
             super(v);
             root = v;
             tvName = (TextView) v.findViewById(R.id.tvName);
             tvPrice = (TextView) v.findViewById(R.id.tvPrice);
+            tvBrand = (TextView) v.findViewById(R.id.tvBrand);
             ivProduct = (RoundedImageView) v.findViewById(R.id.ivProduct);
         }
     }
