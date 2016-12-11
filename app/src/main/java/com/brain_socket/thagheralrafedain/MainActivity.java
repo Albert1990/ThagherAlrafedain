@@ -67,15 +67,8 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         try {
             AppUser user = DataStore.getInstance().getMe();
             Intent i =null;
-            if(user == null) {
-                i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-            }else{
-                i = new Intent(MainActivity.this,WorkshopDetails.class);
-                startActivity(i);
-            }
-//            Intent i = new Intent(MainActivity.this,WorkshopDetails.class);
-//            startActivity(i);
+            i = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(i);
 
         } catch (Exception ex) {
             ex.printStackTrace();
