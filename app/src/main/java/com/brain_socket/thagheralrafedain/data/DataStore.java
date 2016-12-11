@@ -255,14 +255,14 @@ public class DataStore {
         }).start();
     }
 
-    public void attemptUpdateUser(final String fullName,final String phone,final String type, final float lat, final float lng, final String address, final String imagePath, final DataRequestCallback callback){
+    public void attemptUpdateUser(final String fullName,final String phone,final String type, final float lat, final float lng, final String address, final String imagePath, final ArrayList<String> selectedBrandsIds, final DataRequestCallback callback){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
                 AppUser currentUser = getMe();
                 ServerResult result = serverHandler.updateUser(currentUser.getId(),fullName,currentUser.getEmail(),
-                        phone,address,String.valueOf(lat), String.valueOf(lng), imagePath, type);
+                        phone,address,String.valueOf(lat), String.valueOf(lng), imagePath, type, selectedBrandsIds);
                 if (result.connectionFailed()) {
                     success = false;
                 } else {

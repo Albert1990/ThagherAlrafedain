@@ -113,19 +113,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     DataStore.DataRequestCallback attemptLoginCallback = new DataStore.DataRequestCallback() {
         @Override
         public void onDataReady(ServerResult result, boolean success) {
-            loadingDialog.dismiss();
+            loadingDialog.hide();
             if(success){
-                if(result.containsKey("msg"))
-                    ThagherApp.Toast((String)result.getValue("msg"));
-            }else { // login success
-                AppUser me = DataStore.getInstance().getMe();
-                if(me != null && me.getUserType() != USER_TYPE.USER) {
-                    // logged in successfully as workshop or showroom
-                    Intent intent = new Intent(LoginActivity.this, WorkshopDetails.class);
-                    startActivity(intent);
+                if(result.containsKey("msg")) {
+                    ThagherApp.Toast((String) result.getValue("msg"));
+                }else{ // login success
+                    AppUser me = DataStore.getInstance().getMe();
+                    if(me != null && me.getUserType() != USER_TYPE.USER) {
+                        // logged in successfully as workshop or showroom
+                        Intent intent = new Intent(LoginActivity.this, WorkshopDetails.class);
+                        startActivity(intent);
+                    }
+                    setResult(RESULT_OK);
+                    finish();
                 }
-                setResult(RESULT_OK);
-                finish();
+            }else {
+                Toast.makeText(LoginActivity.this, R.string.err_check_connection, Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -187,7 +190,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     DataStore.DataRequestCallback attemptSocialLoginCallback = new DataStore.DataRequestCallback() {
         @Override
         public void onDataReady(ServerResult result, boolean success) {
-            loadingDialog.dismiss();
+            loadingDialog.hide();
             AppUser me = DataStore.getInstance().getMe();
 
             // if user logged in successfully, and is not a workshop owner already, ask him to enter workshop details

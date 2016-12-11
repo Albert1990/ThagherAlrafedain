@@ -71,8 +71,12 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
         @Override
         public void onDataReady(ServerResult result, boolean success) {
             loadingDialog.dismiss();
-            if(!success)
-                Toast.makeText(WorkshopDetails.this, R.string.err_check_connection,Toast.LENGTH_LONG).show();
+            if(!success) {
+                Toast.makeText(WorkshopDetails.this, R.string.err_check_connection, Toast.LENGTH_LONG).show();
+            }else{
+                setResult(RESULT_OK);
+                finish();
+            }
         }
     };
 
@@ -158,6 +162,9 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
             spinnerUserType.setSelection(selectedUserTypePosition);
             if(user.getLogo() != null && !user.getLogo().isEmpty())
                 PhotoProvider.getInstance().displayPhotoFade(user.getLogo(), ivLogo);
+
+            lat = user.getLatitude()!= null?Float.valueOf(user.getLatitude()):0.0f;
+            lng = user.getLongitude()!= null?Float.valueOf(user.getLongitude()):0.0f;
         }
     }
 
@@ -211,7 +218,7 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
 
             if(!cancel){
                 loadingDialog.show();
-                DataStore.getInstance().attemptUpdateUser(fullName, phone, type, lat, lng, address, imgPath, updateUserCallback );
+                DataStore.getInstance().attemptUpdateUser(fullName, phone, type, lat, lng, address, imgPath, selectedBrandsIds, updateUserCallback );
             }
 
         }catch (Exception ex){

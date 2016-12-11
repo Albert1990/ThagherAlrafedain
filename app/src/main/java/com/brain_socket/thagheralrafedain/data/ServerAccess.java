@@ -337,7 +337,7 @@ public class ServerAccess {
         return result;
     }
 
-    public ServerResult updateUser(String userId,String fullName,String email,String phone,String address,String lon,String lat, String imagePath, String type){
+    public ServerResult updateUser(String userId,String fullName,String email,String phone,String address,String lon,String lat, String imagePath, String type, ArrayList<String> selectedBrandsIds){
         ServerResult result = new ServerResult();
         AppUser me = null;
         try{
@@ -364,6 +364,13 @@ public class ServerAccess {
                 }
             }catch (Exception e){
                 e.printStackTrace();
+            }
+
+            // selected Brands ids
+            if(selectedBrandsIds != null){
+                String commaSeperatedArray = selectedBrandsIds.toString();
+                commaSeperatedArray = commaSeperatedArray.replace("[", "").replace("]", "").replaceAll("\\s", "").trim();
+                jsonPairs.put("brands",commaSeperatedArray);
             }
 
             ApiRequestResult apiResult = httpRequest(url,jsonPairs,"post",null);

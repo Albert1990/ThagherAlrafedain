@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/product_badge"/>
+    <solid android:color="#e7b254"/>
 
     <corners
-        android:bottomLeftRadius="20dp"
-        android:topLeftRadius="20dp"
-        android:bottomRightRadius="20dp"
-        android:topRightRadius="20dp"/>
+        android:bottomLeftRadius="7dp"
+        android:topLeftRadius="7dp"
+        android:bottomRightRadius="7dp"
+        android:topRightRadius="7dp"/>
 </shape>
