@@ -51,7 +51,7 @@ public class WorkshopModel extends AppBaseModel {
 
     @Override
     public String getId() {
-        return null;
+        return String.valueOf(id);
     }
 
     public String getName() {

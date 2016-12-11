@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/product_details_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:gravity="left"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_collapseMode="pin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="title"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ts_title_normal"
+                    app:fontId="1"/>
+
+                <ImageView
+                    android:id="@+id/ivLocation"
+                    android:layout_width="44dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="6dp"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_marker_white"/>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Nokia 7710"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ts_title_big"
+                android:textStyle="bold"
+                app:fontId="1"/>
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvBrandName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvProductName"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Nokia"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/ts_text_big"
+                app:fontId="1"/>
+
+
+            <ImageView
+                android:id="@+id/ivProduct"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/tvBrandName"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/layer1"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivProduct"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_product_price_badge"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="5dp"
+                >
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="@string/prod_details_price"
+                    android:textColor="@color/txt_white"
+                    android:textSize="@dimen/ts_text_small"
+                    app:fontId="1"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="300$"
+                    android:textColor="@color/txt_white"
+                    android:textSize="@dimen/ts_title_big"
+                    android:textStyle="bold"
+                    app:fontId="1"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="16dp"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ts_text_normal"
+                app:fontId="1"/>
+
+
+            <WebView
+                android:id="@+id/wvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"></WebView>
+
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/prod_details_more_title"
+                android:textColor="@color/black"/>
+
+
+            <com.brain_socket.thagheralrafedain.view.AppAnimatedGrid
+                android:id="@+id/rvProducts"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layoutAnimation="@anim/anim_grid_layout_anim"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
