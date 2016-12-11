@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         @Override
         public void onClick(View v) {
             int selectedBrandIndex = (Integer) v.getTag();
-            selectedBrandIndex--;
+            //selectedBrandIndex--;
             selectedBrandIndex = selectedBrandIndex < 0 ? 0 : selectedBrandIndex;
             Intent i = new Intent(MainActivity.this,BrandDetailsActivity.class);
             i.putExtra("brand",brands.get(selectedBrandIndex).getJsonString());
