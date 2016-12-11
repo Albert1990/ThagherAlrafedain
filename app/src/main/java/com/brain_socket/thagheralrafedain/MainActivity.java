@@ -51,13 +51,15 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        AppUser me = DataStore.getInstance().getMe();
-        if(me == null) {
-            getMenuInflater().inflate(R.menu.menu_home, menu);
-        }else if(me.getUserType() == USER_TYPE.USER){
-            getMenuInflater().inflate(R.menu.menu_home_no_profile, menu);
-        }else
-            getMenuInflater().inflate(R.menu.menu_home, menu);
+
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+//        AppUser me = DataStore.getInstance().getMe();
+//        if(me == null) {
+//            getMenuInflater().inflate(R.menu.menu_home, menu);
+//        }else if(me.getUserType() == USER_TYPE.USER){
+//            getMenuInflater().inflate(R.menu.menu_home_no_profile, menu);
+//        }else
+//            getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
             }else{
-                i = new Intent(MainActivity.this, RegisterActivity.class);
+                i = new Intent(MainActivity.this,WorkshopDetails.class);
                 startActivity(i);
             }
 //            Intent i = new Intent(MainActivity.this,WorkshopDetails.class);
@@ -222,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         invalidateOptionsMenu();
     }
 
-    class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {
+    private class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {
         private LayoutInflater inflater;
 
         View.OnClickListener onItemClickListner = new View.OnClickListener() {
@@ -298,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         }
     }
 
-    class SliderAdapter extends PagerAdapter {
+    class SliderAdapter extends PagerAdapter implements View.OnClickListener {
         private Context context;
         private LayoutInflater inflater;
 
@@ -325,6 +327,8 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 TextView tvBrandName = (TextView) v.findViewById(R.id.tvBrandName);
                 TextView tvProductsCount = (TextView) v.findViewById(R.id.tvProductsCount);
                 TextView tvCategory = (TextView) v.findViewById(R.id.tvCategory);
+                v.setTag(position);
+                v.setOnClickListener(this);
 
                 BrandModel selectedBrand = brands.get(position);
                 tvBrandName.setText(selectedBrand.getName());
@@ -359,5 +363,14 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             container.removeView((View) view);
         }
 
+        @Override
+        public void onClick(View v) {
+            int selectedBrandIndex = (Integer) v.getTag();
+            selectedBrandIndex--;
+            selectedBrandIndex = selectedBrandIndex < 0 ? 0 : selectedBrandIndex;
+            Intent i = new Intent(MainActivity.this,BrandDetailsActivity.class);
+            i.putExtra("brandIndex",selectedBrandIndex);
+            startActivity(i);
+        }
     }
 }

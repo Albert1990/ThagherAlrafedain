@@ -64,7 +64,9 @@
         <activity
             android:name="com.brain_socket.thagheralrafedain.MapActivity"
             android:theme="@style/AppThemeNoActionBar" />
-        <activity android:name="com.brain_socket.thagheralrafedain.RegisterActivity" />
+        <activity
+            android:name="com.brain_socket.thagheralrafedain.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.brain_socket.thagheralrafedain.WorkshopDetails"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -73,8 +75,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.brain_socket.thagheralrafedain.ScrollingActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -106,6 +107,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name="com.brain_socket.thagheralrafedain.BrandDetailsActivity" />
         <activity
             android:name="com.google.android.gms.common.api.GoogleApiActivity"
             android:exported="false"

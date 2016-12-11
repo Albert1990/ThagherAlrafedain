@@ -6,6 +6,7 @@ import android.os.Handler;
 import com.brain_socket.thagheralrafedain.ThagherApp;
 import com.brain_socket.thagheralrafedain.model.AppUser;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
+import com.brain_socket.thagheralrafedain.model.CategoryModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.model.WorkshopModel;
 import com.google.android.gms.location.places.Place;
@@ -47,6 +48,7 @@ public class DataStore {
 
     // Home screen data
     private ArrayList<BrandModel> brands;
+    private ArrayList<CategoryModel> categories;
     private ArrayList<WorkshopModel> workshops;
 
 
@@ -104,6 +106,8 @@ public class DataStore {
     public void getLocalData() {
         DataCacheProvider cache = DataCacheProvider.getInstance();
 
+        categories = cache.getStoredArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_CATEGORIES, new TypeToken<ArrayList<CategoryModel>>() {
+        }.getType());
         brands = cache.getStoredArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_BRANDS, new TypeToken<ArrayList<BrandModel>>() {
         }.getType());
         workshops = cache.getStoredArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_WORKSHOPS, new TypeToken<ArrayList<WorkshopModel>>() {
@@ -136,6 +140,7 @@ public class DataStore {
     Runnable runnableUpdate = new Runnable() {
         @Override
         public void run() {
+            requestCategories();
             requestBrandsWithProducts(null);
             requestWorkshops("", null);
 
@@ -189,9 +194,7 @@ public class DataStore {
 
     //--------------------
     // Login
-    //-------------------------------------------
-
-
+    //--------------------
     public void attemptSignUp(final String email, final String password, final String fullName,
                               final String phone, final String userType, final DataRequestCallback callback) {
 
@@ -200,9 +203,11 @@ public class DataStore {
             public void run() {
                 boolean success = true;
                 String md5Password = ThagherApp.MD5(password);
-                ServerResult result = serverHandler.registerUser(email, md5Password,fullName,phone,userType);
-                if (result.connectionFailed()) {
-                    success = false;
+                ServerResult result = serverHandler.registerUser(email, md5Password, fullName, phone, userType);
+                if (result.isValid() && !result.containsKey("msg") && result.containsKey("appUser")) {
+                    me = (AppUser) result.getPairs().get("appUser");
+                    setMe(me);
+                    broadcastloginStateChange();
                 }
                 invokeCallback(callback, success, result); // invoking the callback
             }
@@ -215,11 +220,9 @@ public class DataStore {
             public void run() {
                 boolean success = true;
                 String md5Password = ThagherApp.MD5(password);
-                ServerResult result = serverHandler.login(email,md5Password);
+                ServerResult result = serverHandler.login(email, md5Password);
                     if (result.isValid() && !result.containsKey("msg")) {
                         me = (AppUser) result.getPairs().get("appUser");
-                        //apiAccessToken = me.getAccessToken();
-                        //setApiAccessToken(apiAccessToken);
                         setMe(me);
                         broadcastloginStateChange();
                     }
@@ -233,7 +236,7 @@ public class DataStore {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.socialLogin(fullName, email,providerName,providerId);
+                ServerResult result = serverHandler.socialLogin(fullName, email, providerName, providerId);
                 if (result.isValid() && !result.containsKey("msg")) {
                     me = (AppUser) result.getPairs().get("appUser");
                     //apiAccessToken = me.getAccessToken();
@@ -268,15 +271,12 @@ public class DataStore {
                 if (result.connectionFailed()) {
                     success = false;
                 } else {
-                    if (result.isValid()) {
-                        ArrayList<BrandModel> arrayRecieved = (ArrayList<BrandModel>) result.get("brands");
-                        if (arrayRecieved != null && !arrayRecieved.isEmpty()) {
-                            brands = arrayRecieved;
-                            DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_BRANDS, arrayRecieved);
-                        }
+                    if (result.isValid() && !result.containsKey("msg") && result.containsKey("appUser")) {
+                        me = (AppUser) result.getPairs().get("appUser");
+                        setMe(me);
+                        broadcastloginStateChange();
                     }
                 }
-                //broadcastDataStoreUpdate();
                 invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();
@@ -396,12 +396,12 @@ public class DataStore {
         }).start();
     }
 
-    public void requestBrandProducts(final String brandId, final DataRequestCallback callback) {
+    public void requestProducts(final String brandId,final String lang,final ArrayList<String> categoriesIds, final DataRequestCallback callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.getBrandProducts(brandId);
+                ServerResult result = serverHandler.getProducts(brandId,lang,categoriesIds);
                 if (result.connectionFailed()) {
                     success = false;
                 } else {
@@ -410,6 +410,24 @@ public class DataStore {
                     }
                 }
                 invokeCallback(callback, success, result); // invoking the callback
+            }
+        }).start();
+    }
+
+    public void requestCategories() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = true;
+                ServerResult result = serverHandler.getCategories();
+                if (result.connectionFailed()) {
+                    success = false;
+                } else {
+                    if (result.isValid()) {
+                        categories = (ArrayList<CategoryModel>) result.get("categories");
+                        DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_CATEGORIES, categories);
+                    }
+                }
             }
         }).start();
     }
@@ -469,6 +487,8 @@ public class DataStore {
     {
         return brands;
     }
+
+    public ArrayList<CategoryModel> getCategories() { return categories; }
 
     public ArrayList<WorkshopModel> getWorkshops() {
         return workshops;

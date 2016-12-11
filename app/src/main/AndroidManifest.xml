@@ -49,13 +49,17 @@
         <activity
             android:name=".MapActivity"
             android:theme="@style/AppThemeNoActionBar" />
-        <activity android:name=".RegisterActivity" />
-        <activity
-            android:name=".WorkshopDetails"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".PhotoPickerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".RegisterActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+            />
+
+        <activity android:name=".WorkshopDetails"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".PhotoPickerActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".ScrollingActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>

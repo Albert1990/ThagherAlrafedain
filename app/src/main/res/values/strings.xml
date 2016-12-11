@@ -10,9 +10,12 @@
     <string name="activity_workshop_details_workshop_phone">Your business phone</string>
     <string name="activity_workshop_details_workshop_location">Your business location</string>
     <string name="activity_workshop_details_workshop_brands">Select brands you work with</string>
-
     <string name="activity_workshop_details_missing_data_msg">Please Fill your business info first</string>
     <string name="activity_workshop_details_missing_field">Please, Fill this field</string>
+
+    <!-- Brand Details Activity -->
+    <string name="activity_brand_details_no_data">No products that match your filter</string>
+    <string name="activity_brand_details_products">Products :</string>
 
     <!-- register activity -->
     <string name="activity_register_full_name">Full Name</string>
@@ -53,6 +56,11 @@
     <string name="pick_photo_cam">Camera</string>
     <string name="pick_photo_cancel">Cancel</string>
 
+    <!-- Category Picker Dialog -->
+    <string name="diag_category_picker_filter">Filter</string>
+    <string name="diag_category_picker_title">Filter By Category</string>
+
+    <!-- don't manipulate the order of items in this list, check workshop details attemptUpdate-->
     <string-array name="workshop_array">
         <item>Workshop</item>
         <item>Show Room</item>
@@ -63,5 +71,8 @@
     <string name="login_progress_signing_in">Login in progress</string>
     <string name="login_with_fb">Login with Facebook</string>
     <string name="login_with_gmail">Login with Gmail</string>
+    <string name="login_add_your_workshop_msg">Welcome to Thagher Alrafedain, Do you own a Home Appliances Repair-shop or Showroom?</string>
+    <string name="login_add_your_workshop_ok">Register Business</string>
+    <string name="login_add_your_workshop_cancel">No</string>
 
 </resources>

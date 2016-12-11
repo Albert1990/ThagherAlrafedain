@@ -56,14 +56,13 @@
             app:fontId="1"/>
 
         <LinearLayout
-            android:id="@+id/btnAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
-                android:id="@+id/tvAddress"
+            <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+                android:id="@+id/etAddress"
                 android:layout_width="0dp"
                 android:layout_height="69dp"
                 android:layout_weight="1"
@@ -77,11 +76,14 @@
                 android:textSize="@dimen/ts_text_big"
                 app:fontId="1"/>
 
-            <ImageView
-                android:layout_width="21dp"
-                android:layout_height="30dp"
+            <TextView
+                android:id="@+id/btnAddress"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:padding="5dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_has_details"/>
+                android:src="@drawable/ic_pick_location"
+                android:background="@drawable/ic_pick_location"/>
 
         </LinearLayout>
 

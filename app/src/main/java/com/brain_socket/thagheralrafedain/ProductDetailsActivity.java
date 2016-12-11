@@ -65,7 +65,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     }
 
-    class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {
+    private class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {
         private LayoutInflater inflater;
 
         View.OnClickListener onItemClickListner = new View.OnClickListener() {

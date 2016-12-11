@@ -84,14 +84,6 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         return res;
     }
 
-    public final static boolean isValidEmail(String target) {
-        if (TextUtils.isEmpty(target)) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
-    }
-
     private static final long oneDayMillies = 24 * 60 * 60 * 1000;
     private static final long oneHourMillies = 60 * 60 * 1000;
     private static final long oneMinuteMillies = 60 * 1000;

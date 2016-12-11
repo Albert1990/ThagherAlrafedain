@@ -1,6 +1,9 @@
 package com.brain_socket.thagheralrafedain;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,8 @@ import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.FacebookProvider;
 import com.brain_socket.thagheralrafedain.data.FacebookProviderListener;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
+import com.brain_socket.thagheralrafedain.model.AppUser;
+import com.brain_socket.thagheralrafedain.model.AppUser.USER_TYPE;
 import com.facebook.Profile;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -112,6 +117,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(success){
                 if(result.containsKey("msg"))
                     ThagherApp.Toast((String)result.getValue("msg"));
+            }else { // login success
+                AppUser me = DataStore.getInstance().getMe();
+                if(me != null && me.getUserType() != USER_TYPE.USER) {
+                    // logged in successfully as workshop or showroom
+                    Intent intent = new Intent(LoginActivity.this, WorkshopDetails.class);
+                    startActivity(intent);
+                }
+                setResult(RESULT_OK);
+                finish();
             }
         }
     };
@@ -130,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             linkWithFB = true;
             FacebookProvider.getInstance().unregisterListener();
-            DataStore.getInstance().attemptSocialLogin(fullName,email,"facebook",id,attemptSocialLoginCallback);
+            DataStore.getInstance().attemptSocialLogin(fullName,email,"facebook",id, attemptSocialLoginCallback);
         }
 
         @Override
@@ -174,6 +188,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         public void onDataReady(ServerResult result, boolean success) {
             loadingDialog.dismiss();
+            AppUser me = DataStore.getInstance().getMe();
+
+            // if user logged in successfully, and is not a workshop owner already, ask him to enter workshop details
+            if(me != null && me.getUserType() == USER_TYPE.USER) {
+                new AlertDialog.Builder(LoginActivity.this)
+                        .setCancelable(false)
+                        .setMessage(R.string.login_add_your_workshop_msg)
+                        .setNegativeButton(R.string.login_add_your_workshop_cancel, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        })
+                        .setPositiveButton(R.string.login_add_your_workshop_ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(LoginActivity.this, WorkshopDetails.class);
+                                startActivity(intent);
+                                dialogInterface.dismiss();
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }).show();
+            }else{
+                if(me != null){ // user registered successfully and he is already a workshop owner
+                    setResult(RESULT_OK);
+                    finish();
+                }else{ // register failure
+                    ThagherApp.Toast(getString(R.string.err_check_connection));
+                }
+            }
         }
     };
 
@@ -219,8 +266,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        switch(viewId)
-        {
+        switch(viewId){
             case R.id.btnLogin:
                 attemptLogin();
                 break;

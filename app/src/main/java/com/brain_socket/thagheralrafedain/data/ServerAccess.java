@@ -9,6 +9,7 @@ import android.util.Log;
 import com.brain_socket.thagheralrafedain.ThagherApp;
 import com.brain_socket.thagheralrafedain.model.AppUser;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
+import com.brain_socket.thagheralrafedain.model.CategoryModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.model.WorkshopModel;
 
@@ -19,6 +20,9 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -155,10 +159,16 @@ public class ServerAccess {
             result.setStatusCode(apiResult.getStatusCode());
             result.setApiError(apiResult.getApiError());
             JSONArray jsonResponse = new JSONArray(apiResult.response);
-            if(jsonResponse != null && jsonResponse.length() > 0) {
+            if(jsonResponse != null && jsonResponse.length() > 0)
+            {
                 JSONObject jsonObject = jsonResponse.getJSONObject(0);
-                if(jsonObject.has("msg"))
+                if(jsonObject.has("msg")) {
                     result.addPair("msg", jsonObject.get("msg"));
+                }
+                else{ // check if response is empty
+                    me = AppUser.fromJson(jsonObject);
+                    result.addPair("appUser",me);
+                }
             }
         } catch (Exception e) {
             result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);
@@ -257,25 +267,28 @@ public class ServerAccess {
         return result;
     }
 
-    public ServerResult getBrandProducts(String brandId){
+    public ServerResult getProducts(String brandId,String lang,ArrayList<String> categoriesIds){
         ServerResult serverResult = new ServerResult();
-        ArrayList<ProductModel> brandProducts = null;
+        ArrayList<ProductModel> products = null;
         try{
             String url = BASE_SERVICE_URL+"/getProducts.php";
             JSONObject jsonPairs = new JSONObject();
             jsonPairs.put("brandID",brandId);
+            jsonPairs.put("lang",lang);
+            if(categoriesIds != null && categoriesIds.size() > 0)
+                jsonPairs.put("categories",categoriesIds);
             ApiRequestResult apiResult = httpRequest(url,jsonPairs,"post",null);
             JSONArray jsonResponse = apiResult.getResponseJsonArray();
             if(jsonResponse != null){
-                brandProducts = new ArrayList<>();
+                products = new ArrayList<>();
                 for(int i=0;i<jsonResponse.length();i++){
-                    brandProducts.add(ProductModel.fromJson(jsonResponse.getJSONObject(i)));
+                    products.add(ProductModel.fromJson(jsonResponse.getJSONObject(i)));
                 }
             }
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        serverResult.addPair("products",brandProducts);
+        serverResult.addPair("products",products);
         return serverResult;
     }
 
@@ -328,8 +341,30 @@ public class ServerAccess {
         return result;
     }
 
+    public ServerResult getCategories() {
+        ServerResult result = new ServerResult();
+        ArrayList<CategoryModel> categories = null;
+        try{
+            String url = BASE_SERVICE_URL+"/getCategories.php";
+            ApiRequestResult apiResult = httpRequest(url,null,"get",null);
+            JSONArray jsonResponse = apiResult.getResponseJsonArray();
+            if(jsonResponse != null){
+                categories = new ArrayList<>();
+                for(int i=0;i<jsonResponse.length();i++){
+                    categories.add(CategoryModel.fromJson(jsonResponse.getJSONObject(i)));
+                }
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        result.addPair("categories",categories);
+        return result;
+    }
+
     public ServerResult updateUser(String userId,String fullName,String email,String phone,String address,String lon,String lat, String imagePath, String type){
         ServerResult result = new ServerResult();
+        AppUser me = null;
         try{
             String url = BASE_SERVICE_URL+"/userUpdate.php";
             JSONObject jsonPairs = new JSONObject();
@@ -345,7 +380,7 @@ public class ServerAccess {
             // image
             try{
                 if(imagePath != null) {
-                    Bitmap bm = BitmapFactory.decodeFile(imagePath);
+                    Bitmap bm = decodeFile(new File(imagePath), 400, 400);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.JPEG, 80, baos); //bm is the bitmap object
                     byte[] byteArrayImage = baos.toByteArray();
@@ -355,14 +390,20 @@ public class ServerAccess {
             }catch (Exception e){
                 e.printStackTrace();
             }
+
             ApiRequestResult apiResult = httpRequest(url,jsonPairs,"post",null);
-            JSONArray jsonResponse = apiResult.getResponseJsonArray();
-            if(jsonResponse != null && jsonResponse.length() > 0){
+            result.setStatusCode(apiResult.getStatusCode());
+            result.setApiError(apiResult.getApiError());
+            JSONArray jsonResponse = new JSONArray(apiResult.response);
+            if(jsonResponse != null && jsonResponse.length() > 0)
+            {
                 JSONObject jsonObject = jsonResponse.getJSONObject(0);
                 if(jsonObject.has("msg")) {
-                    String msg = jsonObject.getString("msg");
-                    if(!msg.equals("1"))
-                        result.addPair("msg", msg);
+                    result.addPair("msg", jsonObject.get("msg"));
+                }
+                else{ // check if response is empty
+                    me = AppUser.fromJson(jsonObject);
+                    result.addPair("appUser", me);
                 }
             }
         }catch (Exception ex){
@@ -554,6 +595,27 @@ public class ServerAccess {
     }
 
 
+    private static Bitmap decodeFile(File f,int WIDTH,int HIGHT){
+        try {
+            //Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f),null,o);
 
+            //The new size we want to scale to
+            final int REQUIRED_WIDTH=WIDTH;
+            final int REQUIRED_HIGHT=HIGHT;
+            //Find the correct scale value. It should be the power of 2.
+            int scale=1;
+            while(o.outWidth/scale/2>=REQUIRED_WIDTH && o.outHeight/scale/2>=REQUIRED_HIGHT)
+                scale*=2;
+
+            //Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize=scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {}
+        return null;
+    }
 
 }

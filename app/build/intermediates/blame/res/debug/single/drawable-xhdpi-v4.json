@@ -292,6 +292,10 @@
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_email.png"
     },
     {
+        "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_pick_location.png",
+        "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_pick_location.png"
+    },
+    {
         "merged": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_arrow_down.png",
         "source": "/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/src/main/res/drawable-xhdpi/ic_arrow_down.png"
     },
