@@ -48,6 +48,7 @@ public class DataStore {
 
     // Home screen data
     private ArrayList<BrandModel> brands;
+    private ArrayList<BrandModel> allBrands;
     private ArrayList<CategoryModel> categories;
     private ArrayList<WorkshopModel> workshops;
 
@@ -63,6 +64,8 @@ public class DataStore {
             updateListeners = new ArrayList<DataStoreUpdateListener>();
             serverHandler = ServerAccess.getInstance();
             getLocalData();
+            requestCategories();
+            requestAllBrands(null);
         } catch (Exception ignored) {
         }
     }
@@ -110,6 +113,8 @@ public class DataStore {
         }.getType());
         brands = cache.getStoredArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_BRANDS, new TypeToken<ArrayList<BrandModel>>() {
         }.getType());
+        allBrands = cache.getStoredArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_ALL_BRANDS, new TypeToken<ArrayList<BrandModel>>() {
+        }.getType());
         workshops = cache.getStoredArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_WORKSHOPS, new TypeToken<ArrayList<WorkshopModel>>() {
         }.getType());
         me = DataCacheProvider.getInstance().getStoredObjectWithKey(DataCacheProvider.KEY_APP_USER_ME, new TypeToken<AppUser>() {
@@ -140,10 +145,8 @@ public class DataStore {
     Runnable runnableUpdate = new Runnable() {
         @Override
         public void run() {
-            requestCategories();
             requestBrandsWithProducts(null);
             requestWorkshops("", null);
-
             if (isUserLoggedIn()) {
 
             }
@@ -370,6 +373,28 @@ public class DataStore {
         }).start();
     }
 
+    public void requestAllBrands(final DataRequestCallback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = true;
+                ServerResult result = serverHandler.getAllBrands();
+                if (result.connectionFailed()) {
+                    success = false;
+                } else {
+                    if (result.isValid()) {
+                        ArrayList<BrandModel> arrayRecieved = (ArrayList<BrandModel>) result.get("brands");
+                        if (arrayRecieved != null && !arrayRecieved.isEmpty()) {
+                            brands = arrayRecieved;
+                            DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_ALL_BRANDS, arrayRecieved);
+                        }
+                    }
+                }
+                invokeCallback(callback, success, result); // invoking the callback
+            }
+        }).start();
+    }
+
     //--------------------
     // Brands with products
     //----------------------------------------------
@@ -486,6 +511,11 @@ public class DataStore {
     public ArrayList<BrandModel> getBrands()
     {
         return brands;
+    }
+
+    public ArrayList<BrandModel> getAllBrands()
+    {
+        return allBrands;
     }
 
     public ArrayList<CategoryModel> getCategories() { return categories; }

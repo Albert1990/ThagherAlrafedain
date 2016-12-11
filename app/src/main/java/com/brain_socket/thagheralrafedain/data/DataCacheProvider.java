@@ -26,6 +26,7 @@ public class DataCacheProvider {
     public static final String KEY_APP_LAST_KNOWN_LON = "lastKnownLon";
     public static final String KEY_APP_ARRAY_WORKSHOPS = "workshops";
     public static final String KEY_APP_ARRAY_BRANDS = "brands";
+    public static final String KEY_APP_ARRAY_ALL_BRANDS = "allBrands";
     public static final String KEY_APP_ARRAY_CATEGORIES = "categories";
     public static final String KEY_APP_ARRAY_PICKED_PRODUCTS = "pickedProduct";
     public static final String KEY_APP_ACCESS_MODE = "accessMode";

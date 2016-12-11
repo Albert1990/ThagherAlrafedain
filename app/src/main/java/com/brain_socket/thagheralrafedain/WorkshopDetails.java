@@ -138,7 +138,7 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
 
         loadingDialog = ThagherApp.getNewLoadingDilaog(this);
         user = DataStore.getInstance().getMe();
-        brands = DataStore.getInstance().getBrands();
+        brands = DataStore.getInstance().getAllBrands();
         selectedBrandsIds = new ArrayList<>();
 
         btnAddress.setOnClickListener(this);

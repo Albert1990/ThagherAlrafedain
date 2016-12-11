@@ -313,6 +313,26 @@ public class ServerAccess {
         return result;
     }
 
+    public ServerResult getAllBrands() {
+        ServerResult result = new ServerResult();
+        ArrayList<BrandModel> brands = null;
+        try{
+            String url = BASE_SERVICE_URL+"/getAllBrands.php";
+            ApiRequestResult apiResult = httpRequest(url,null,"get",null);
+            JSONArray jsonResponse = apiResult.getResponseJsonArray();
+            if(jsonResponse != null){
+                brands = new ArrayList<>();
+                for(int i=0;i<jsonResponse.length();i++){
+                    brands.add(BrandModel.fromJson(jsonResponse.getJSONObject(i)));
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        result.addPair("brands",brands);
+        return result;
+    }
+
     //////////////////
     // Brands with products
     /////////////////
