@@ -1,8 +1,7 @@
 <resources>
-    <string name="facebook_app_id">721986314644284</string>
-    <string name="app_name">Thagher Alrafedain</string>
-    <string name="activity_main_products_title">Brand Products</string>
-    <string name="place_holder">---</string>
+
+    <string name="app_name">ثغر الرافدين</string>
+    <string name="activity_main_products_title">المنتجات</string>
 
     <!-- workshop activity -->
     <string name="activity_workshop_details_workshop_name">Your business name</string>
@@ -64,9 +63,8 @@
     <string name="diag_forget_password_title">Forget Password</string>
     <string name="diag_forget_password_email_hint">Your Email</string>
     <string name="diag_forget_password_email_required">Email is required</string>
-    <string name="diag_forget_password_btn_done">Send</string>
+    <string name="diag_forget_password_btn_done">Done</string>
     <string name="diag_forget_password_invalid_email">Invalid email</string>
-    <string name="diag_forget_password_description">Put your email to reset your password</string>
 
     <!-- don't manipulate the order of items in this list, check workshop details attemptUpdate-->
     <string-array name="workshop_array">
@@ -87,21 +85,20 @@
     <string name="login_check_your_mail_box">Done, Check your mail box</string>
 
     <!-- main-->
-    <string name="main_prod_price">price</string>
-    <string name="main_prod_view_product">View Product</string>
+    <string name="main_prod_price">السعر</string>
+    <string name="main_prod_view_product">عرض المنتج</string>
 
     <!-- prod details -->
     <string name="prod_details_more_title">More products</string>
-    <string name="prod_details_price">Price</string>
+    <string name="prod_details_price">السعر</string>
 
     <string name="settings_lang_ar">العربية</string>
     <string name="settings_lang_en">English</string>
-    <string name="settings_lang">Language</string>
-    <string name="settings_logout">Logout</string>
-    <string name="settings_upgrade_to_workshop">Register your workshop or showroom with us.</string>
-    <string name="settings_edit_workshop">Edit Workshop info</string>
-    <string name="settings_change_psw">Change Password</string>
-    <string name="settings_login">Login</string>
-
+    <string name="settings_lang">اللغة</string>
+    <string name="settings_logout">تسجيل الخروج</string>
+    <string name="settings_upgrade_to_workshop">تسجيل مؤسستك معنا</string>
+    <string name="settings_edit_workshop">تعديل معلومات المؤسسة</string>
+    <string name="settings_change_psw">تغير كلمة المرور</string>
+    <string name="settings_login">تسجيل الدخول</string>
 
 </resources>

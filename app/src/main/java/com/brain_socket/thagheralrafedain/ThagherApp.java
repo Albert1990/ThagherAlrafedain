@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Build;
@@ -17,12 +18,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.brain_socket.thagheralrafedain.data.DataCacheProvider;
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -41,11 +44,15 @@ import java.util.Locale;
  */
 public class ThagherApp extends Application implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    public enum SUPPORTED_LANGUAGE{AR, EN}
+
     public static ThagherApp appContext;
     private static Gson sharedGsonParser;
     private static GoogleApiClient mGoogleApiClient;
 
     public static final int PERMISSIONS_REQUEST_LOCATION = 33;
+
+    private static SUPPORTED_LANGUAGE currentLanguage = null;
 
     @Override
     public void onCreate() {
@@ -53,6 +60,20 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         appContext = this;
         sharedGsonParser = new Gson();
         DataStore.getInstance().startScheduledUpdates();
+
+        SUPPORTED_LANGUAGE userSelectedLang = SUPPORTED_LANGUAGE.values()[DataCacheProvider.getInstance().getStoredIntWithKey(DataCacheProvider.KEY_APP_LANG)];
+        if(userSelectedLang == null) {
+            //is user didnt inforce locale before then get default device locale
+            Resources res = this.getResources();
+            android.content.res.Configuration conf = res.getConfiguration();
+            String langCode = conf.locale.getDisplayLanguage();
+            if (langCode.equalsIgnoreCase("ar"))
+                setLanguage(SUPPORTED_LANGUAGE.AR);
+            else
+                setLanguage(SUPPORTED_LANGUAGE.EN);
+        }else{
+            setLanguage(userSelectedLang);
+        }
     }
 
     public static ThagherApp getAppContext() {
@@ -61,6 +82,46 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
 
     public static Gson getSharedGsonParser() {
         return sharedGsonParser;
+    }
+
+    public static SUPPORTED_LANGUAGE getCurrentLanguage() {
+        return currentLanguage;
+    }
+
+    public static void setLanguage(SUPPORTED_LANGUAGE newLang){
+        try {
+            if (newLang != null) {
+                if (newLang != currentLanguage) {
+                    ThagherApp.currentLanguage = newLang;
+                    DataCacheProvider.getInstance().storeIntWithKey(DataCacheProvider.KEY_APP_LANG,newLang.ordinal());
+                    Resources res = getAppContext().getResources();
+                    // Change locale settings in the app.
+                    DisplayMetrics dm = res.getDisplayMetrics();
+                    android.content.res.Configuration conf = res.getConfiguration();
+                    String locale = getLocale();
+                    conf.locale = new Locale(locale.toLowerCase());
+                    res.updateConfiguration(conf, dm);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static String getLocale(){
+        String locale ;
+        switch (currentLanguage) {
+            case AR:
+                locale = "ar";
+                break;
+            case EN:
+                locale = "en";
+                break;
+            default:
+                locale = "ar";
+                break;
+        }
+        return locale;
     }
 
     public static long getTimestampNow() {

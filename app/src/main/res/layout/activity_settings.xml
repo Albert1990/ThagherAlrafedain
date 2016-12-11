@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.brain_socket.thagheralrafedain.SettingsActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="42dp"
+                android:layout_marginRight="42dp"
+                android:gravity="center"
+                android:text="title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_title_normal"
+                app:fontId="1"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="#efeff4"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/txtLang"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/settings_lang"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ts_text_small"
+                    app:fontId="2"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/ivCheckEnglish"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_radio"/>
+
+                    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                        android:id="@+id/tvCheckEnglish"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="@string/settings_lang_en"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ts_text_small"
+                        app:fontId="1"/>
+
+                    <ImageView
+                        android:id="@+id/ivCheckArabic"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_radio"/>
+
+                    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                        android:id="@+id/tvCheckArabic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="@string/settings_lang_ar"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ts_text_small"
+                        app:fontId="1"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:background="@color/txt_gray"/>
+
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/shape_frame_white"
+                    android:text="Login"
+                    android:textColor="@color/txt_gray"/>
+
+                <LinearLayout
+                    android:id="@+id/vLogedInOptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                        android:id="@+id/txtWorskhop"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_centerInParent="true"
+                        android:background="@color/white"
+                        android:drawableEnd="@drawable/ic_has_details"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/ic_has_details"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/settings_upgrade_to_workshop"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ts_text_small"
+                        app:fontId="2"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="@color/txt_gray"/>
+
+                    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                        android:id="@+id/txtChangePsw"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_centerInParent="true"
+                        android:background="@color/white"
+                        android:drawableEnd="@drawable/ic_has_details"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/ic_has_details"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/settings_change_psw"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ts_text_small"
+                        app:fontId="2"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="@color/txt_gray"/>
+
+                    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                        android:id="@+id/txtLogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_centerInParent="true"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/settings_logout"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ts_text_small"
+                        app:fontId="2"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="200dp"
+                    android:layout_height="125dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="55dp"
+                    android:src="@drawable/ic_options_logo"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
