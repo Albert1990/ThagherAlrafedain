@@ -179,7 +179,6 @@ public class ServerAccess {
 
     public ServerResult forgetPassword(String email) {
         ServerResult result = new ServerResult();
-        AppUser me  = null ;
         try {
             // parameters
             JSONObject jsonPairs = new JSONObject();
@@ -190,12 +189,10 @@ public class ServerAccess {
             // send request
             ApiRequestResult apiResult = httpRequest(url, jsonPairs, "post", null);
             result.setStatusCode(apiResult.getStatusCode());
-            result.setApiError(apiResult.getApiError());
-            JSONArray jsonResponse = new JSONArray(apiResult.response);
-            if(jsonResponse != null && jsonResponse.length() > 0) {
-                JSONObject jsonObject = jsonResponse.getJSONObject(0);
-                if(jsonObject.has("msg"))
-                    result.addPair("msg", jsonObject.get("msg"));
+            JSONObject jsonResponse = new JSONObject(apiResult.response);
+            if(jsonResponse != null) {
+                if(jsonResponse.has("msg"))
+                    result.addPair("msg", jsonResponse.get("msg"));
             }
         } catch (Exception e) {
             result.setStatusCode(RESPONCE_FORMAT_ERROR_CODE);

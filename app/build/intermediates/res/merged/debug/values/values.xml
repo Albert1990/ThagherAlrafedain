@@ -461,7 +461,8 @@
     <string name="default_web_client_id" translatable="false">1080827400507-nki4u4ev05cjoqtv875vg8hg2fddalur.apps.googleusercontent.com</string>
     <string name="diag_category_picker_filter">Filter</string>
     <string name="diag_category_picker_title">Filter By Category</string>
-    <string name="diag_forget_password_btn_done">Done</string>
+    <string name="diag_forget_password_btn_done">Send</string>
+    <string name="diag_forget_password_description">Put your email to reset your password</string>
     <string name="diag_forget_password_email_hint">Your Email</string>
     <string name="diag_forget_password_email_required">Email is required</string>
     <string name="diag_forget_password_invalid_email">Invalid email</string>

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private ProductsRecycleViewAdapter productsAdapter;
     private ArrayList<ProductModel> products;
     private ArrayList<BrandModel> brands;
-    private int selectedBrandPosition = 0;
+    private BrandModel selectedBrand;
     private ViewPager vpBrands;
     private Dialog loadingDialog;
 
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 public void onPageSelected(int position) {
                     position++;
                     if(position <= brands.size()) {
-                        selectedBrandPosition = position;
+                        selectedBrand = brands.get(position);
                         products = brands.get(position).getProducts();
                         productsAdapter.updateAdapter();
                     }
@@ -233,9 +233,15 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                 try {
                     int itemPosition = (int) v.getTag();
                     Intent myIntent = new Intent(MainActivity.this, ProductDetailsActivity.class);
-                    myIntent.putExtra("selectedBrandPosition", selectedBrandPosition);
-                    myIntent.putExtra("selectedProductPosition", itemPosition);
-                    startActivity(myIntent);
+                    if(selectedBrand != null)
+                    {
+                    ProductModel selectedProduct = selectedBrand.getProducts().get(itemPosition);
+                        if(selectedProduct != null){
+                            myIntent.putExtra("selectedBrand", selectedBrand.getJsonString());
+                            myIntent.putExtra("selectedProduct", selectedProduct.getJsonString());
+                            startActivity(myIntent);
+                        }
+                    }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

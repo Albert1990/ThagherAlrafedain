@@ -2,7 +2,11 @@ package com.brain_socket.thagheralrafedain;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,6 +20,8 @@ public class DiagForgetPassword extends Dialog {
 
     public DiagForgetPassword(Context context,ForgetPasswordDiagCallback callback){
         super(context);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.diag_forget_password);
         this.context = context;
         this.callback = callback;
         init();
@@ -25,7 +31,6 @@ public class DiagForgetPassword extends Dialog {
         final TextView tvEmail = (TextView)findViewById(R.id.tvEmail);
         View btnDone = findViewById(R.id.btnDone);
 
-        setTitle(context.getString(R.string.diag_forget_password_title));
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

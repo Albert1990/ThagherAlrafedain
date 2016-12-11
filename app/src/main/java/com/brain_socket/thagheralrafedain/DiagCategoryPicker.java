@@ -36,9 +36,10 @@ public class DiagCategoryPicker extends Dialog{
 
     public DiagCategoryPicker(Context context,CategoryDiagCallBack callback) {
         super(context);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.diag_pick_category);
         this.context = context;
         this.callback = callback;
-        setContentView(R.layout.diag_pick_category);
         init();
         bindUserData();
     }
@@ -57,7 +58,6 @@ public class DiagCategoryPicker extends Dialog{
         rvCategories.setLayoutManager(new GridLayoutManager(context, 1));
         categoriesAdapter = new AppsAdapter(context);
         rvCategories.setAdapter(categoriesAdapter);
-        setTitle(context.getString(R.string.diag_category_picker_title));
 
 
         // window params

@@ -64,8 +64,9 @@
     <string name="diag_forget_password_title">Forget Password</string>
     <string name="diag_forget_password_email_hint">Your Email</string>
     <string name="diag_forget_password_email_required">Email is required</string>
-    <string name="diag_forget_password_btn_done">Done</string>
+    <string name="diag_forget_password_btn_done">Send</string>
     <string name="diag_forget_password_invalid_email">Invalid email</string>
+    <string name="diag_forget_password_description">Put your email to reset your password</string>
 
     <!-- don't manipulate the order of items in this list, check workshop details attemptUpdate-->
     <string-array name="workshop_array">

@@ -23,6 +23,14 @@ public class ProductModel extends AppBaseModel{
         return new ProductModel();
     }
 
+    public static ProductModel fromJsonString(String json) {
+        try {
+            ProductModel productModel = ThagherApp.getSharedGsonParser().fromJson(json, ProductModel.class);
+            return productModel;
+        }catch (Exception ignored){}
+        return new ProductModel();
+    }
+
     @Override
     public String getId() {
         return id;
