@@ -74,6 +74,17 @@
                     android:background="@drawable/shape_frame_white"
                     android:textColor="@color/white"
                     android:text="Login"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/btnForgetPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:textSize="@dimen/ts_text_normal"
+                    android:textColor="@color/txt_white"
+                    android:text="@string/login_forget_pass"
+                    app:fontId="1"/>
             </LinearLayout>
 
             <LinearLayout

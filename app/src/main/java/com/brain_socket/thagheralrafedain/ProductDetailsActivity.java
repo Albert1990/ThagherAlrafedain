@@ -31,47 +31,47 @@ public class ProductDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_details);
+        //setContentView(R.layout.activity_product_details);
         init();
     }
 
     private void init(){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.product_details_bar);
-        RecyclerView rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
-        ImageView ivProduct = (ImageView) findViewById(R.id.ivProduct);
-        TextView tvProductName = (TextView) findViewById(R.id.tvProductName);
-        TextView tvBrandName = (TextView) findViewById(R.id.tvBrandName);
-        TextView tvPrice = (TextView) findViewById(R.id.tvPrice);
-        WebView wvDescription = (WebView) findViewById(R.id.wvDescription);
-        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
-
-        int selectedBrandPosition = getIntent().getIntExtra("selectedBrandPosition",-1);
-        int selectedProductPosition = getIntent().getIntExtra("selectedProductPosition",-1);
-
-        if(selectedBrandPosition >= 0 && selectedProductPosition >= 0) {
-            BrandModel selectedBrand = DataStore.getInstance().getBrands().get(selectedBrandPosition);
-            products = selectedBrand.getProducts();
-            ProductModel selectedProduct = selectedBrand.getProducts().get(selectedProductPosition);
-
-            // fill data in views
-            PhotoProvider.getInstance().displayPhotoNormal(selectedProduct.getImage(), ivProduct);
-            tvProductName.setText(selectedProduct.getName());
-            tvPrice.setText(selectedProduct.getPriceWithUnit());
-            tvBrandName.setText(selectedBrand.getName());
-            tvTitle.setText(selectedBrand.getName());
-            // WebView
-            String decodedHtml = Html.fromHtml(selectedProduct.getDescription()).toString();
-            wvDescription.loadData(decodedHtml,"text/html; charset=UTF-8", null);
-
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-            rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
-            productsAdapter = new ProductsRecycleViewAdapter(this);
-            rvProducts.setAdapter(productsAdapter);
-            rvProducts.scheduleLayoutAnimation();
-        }
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.product_details_bar);
+//        RecyclerView rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
+//        ImageView ivProduct = (ImageView) findViewById(R.id.ivProduct);
+//        TextView tvProductName = (TextView) findViewById(R.id.tvProductName);
+//        TextView tvBrandName = (TextView) findViewById(R.id.tvBrandName);
+//        TextView tvPrice = (TextView) findViewById(R.id.tvPrice);
+//        WebView wvDescription = (WebView) findViewById(R.id.wvDescription);
+//        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
+//
+//        int selectedBrandPosition = getIntent().getIntExtra("selectedBrandPosition",-1);
+//        int selectedProductPosition = getIntent().getIntExtra("selectedProductPosition",-1);
+//
+//        if(selectedBrandPosition >= 0 && selectedProductPosition >= 0) {
+//            BrandModel selectedBrand = DataStore.getInstance().getBrands().get(selectedBrandPosition);
+//            products = selectedBrand.getProducts();
+//            ProductModel selectedProduct = selectedBrand.getProducts().get(selectedProductPosition);
+//
+//            // fill data in views
+//            PhotoProvider.getInstance().displayPhotoNormal(selectedProduct.getImage(), ivProduct);
+//            tvProductName.setText(selectedProduct.getName());
+//            tvPrice.setText(selectedProduct.getPriceWithUnit());
+//            tvBrandName.setText(selectedBrand.getName());
+//            tvTitle.setText(selectedBrand.getName());
+//            // WebView
+//            String decodedHtml = Html.fromHtml(selectedProduct.getDescription()).toString();
+//            wvDescription.loadData(decodedHtml,"text/html; charset=UTF-8", null);
+//
+//            setSupportActionBar(toolbar);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//
+//            rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
+//            productsAdapter = new ProductsRecycleViewAdapter(this);
+//            rvProducts.setAdapter(productsAdapter);
+//            rvProducts.scheduleLayoutAnimation();
+//        }
 
     }
 

@@ -40,8 +40,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String FbToken = null;
     private boolean linkWithFB = false;
     private View btnFBLogin;
+    private View btnForgetPassword;
     private static final int RC_SIGN_IN = 007;
     private GoogleApiClient mGoogleApiClient;
+    private Dialog forgetPasswordDiag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +60,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tvLoginStatusMessage = (TextView)findViewById(R.id.tvLoginStatusMessage);
         btnFBLogin = findViewById(R.id.btnFBLogin);
         View btnGmailLogin = findViewById(R.id.btnGmailLogin);
+        btnForgetPassword = findViewById(R.id.btnForgetPassword);
 
+        forgetPasswordDiag = new DiagForgetPassword(this,forgetPasswordDiagCallback);
         btnGmailLogin.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         tvSignup.setOnClickListener(this);
         btnFBLogin.setOnClickListener(this);
         loadingDialog = ThagherApp.getNewLoadingDilaog(this);
+        btnForgetPassword.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -78,6 +83,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //googleSigninButton.setSize(SignInButton.SIZE_STANDARD);
         //googleSigninButton.setScopes(gso.getScopeArray());
     }
+
+    private DiagForgetPassword.ForgetPasswordDiagCallback forgetPasswordDiagCallback = new DiagForgetPassword.ForgetPasswordDiagCallback() {
+        @Override
+        public void onClose(String email) {
+            loadingDialog.show();
+            DataStore.getInstance().requestForgetPassword(email,forgetPasswordCallback);
+        }
+    };
 
     private void attemptLogin(){
         boolean cancel = false;
@@ -179,8 +192,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(success)
             {
                 String msg = result.getValue("msg").toString();
-                if(msg.equals("1"))
-                    ThagherApp.Toast("Done");
+                if(msg.equals("1")) {
+                    loadingDialog.dismiss();
+                    ThagherApp.Toast(getString(R.string.login_check_your_mail_box));
+                }
                 else
                     ThagherApp.Toast(msg);
             }
@@ -266,6 +281,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    private void forgetPassword(){
+        forgetPasswordDiag.show();
+    }
+
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -279,9 +298,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnGmailLogin:
                 googleSignin();
                 break;
-            case 22:
-                loadingDialog.show();
-                DataStore.getInstance().requestForgetPassword("",forgetPasswordCallback);
+            case R.id.btnForgetPassword:
+                forgetPassword();
                 break;
             case R.id.tvSignup:
                 Intent i = new Intent(LoginActivity.this,RegisterActivity.class);

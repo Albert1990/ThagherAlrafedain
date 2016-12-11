@@ -1,2 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/Albert/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.1.1_e8f6d293a4454abd4e7d77d2c1b152c4d085f646/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="7da84426d876216ed4cdddd85e739be5ecabdd04">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-9.0.0_c09a87eb21aa4fd4e1dc6b2522ca36511a748a61/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="cc178928721f3222b3b06bdfbd9497378ccb9792">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.0.0_0d52782cdd33fa4a69143b786159cd805b2815c5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="42df48c7305b08b14fa0e84561091b0c24d70d26">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.0.0_ab1dd93ea5abdee5ff027aa915fb4e96d553150f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="59cca9b91688dc2467754d36793b3d23bebd21a9">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-9.0.0_e79a1b73a31825ea5a32db5ad6dafeee8d8dff66/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-android-1.2.0_7f1c1a444db9d97e7b8e038f195fdfe35945fd74/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6f65c144283b31b4b9a70e6e7aa4c4a1c897d4b8">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.0.0_75e9bc796872d50cbc45c75faa5e54d488eb47a5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.1.1_dade9ca3c8859a6e81bcdff9388a579ab03f3df4/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.1_05505501067005aa8129dfa59346c89283286727/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5f289d24a23c6876a6be84d53482fd1795483b9b">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_7968ceca61af35596674f6c4495f880a4fca498c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ea4b54dcbfe5ac05efb0a314105f07258118d3a7">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.0.0_579c0777fd9345757158504310132434470c057c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4caf75b2cfb7ec6e80a57d0ee64fc102ad3578b8">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gcm-9.0.0_d47fc7d3fdb7b1ae8d735f44eae6ca1046a06e48/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="b8bedab61b3b5238cd9a07d3b04449d7fecdbc3b">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-9.0.0_244ef21fc93e4cdee125beeda696de7c27db59b3/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics-impl/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="373cd65725af2781d100ddc193c7d3f14464a774">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-impl-9.0.0_2c00dc518f68dccae5017e5aadf94638182c8826/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c7a0255c45e9751d4b9fe58872083ac5433c3177">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_ea8cd906a8a601b899cc8e3f6f5fcceda1006c32/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/f1bc476cc167b18e66c297df599b2377131a8947/gson-2.6.2.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.6.2_cf6b727d26a8c4ed4d639ec0e182f9f99ea29465/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="379d1834afa3c08f43be23a23b103053537b65b5">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.0.0_b17b7321473b0d107356080180f51e785bfc153b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="0dc8ab07eeceda5e99b305c8069765056b6e5c9d">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.0.0_a7789060ca6aea12e7e0142dcbaa1a1c4607f580/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/glide-3.7.0_bbb4c29508df24726baddc0e2b60cfc770284ebc/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.1.1_59930daf70fa2e59f4ef08740a3ee6302ab13162/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a819aae4f0c711e50b4fd633922a3c1a176cb51e">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-maps-9.0.0_86c0b16ab9bb42092447c6a57a790dd4ecbaad87/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4ef8ab5fee042023018249474bc93bd4b2b9c17e">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.0.0_be6032dd514ced5513d43e0cbb9aa16d72e59638/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="71a1c9453be81003c09c74773f8eb98b93344e22">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.facebook.android-facebook-android-sdk-4.1.2_d3fcd0e57fcaa767619671f64350b89ba0c0fc05/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth-base/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="7a23185c9b1c100e7d1a32275017e4712e31c796">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-base-9.0.0_362aba95f360a1da5221c54c80ea15959d3aad8f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.1.1_da1987a308b4dded80b2a2b52b6dfcda7e0f3662/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1941832901fc4e7a93300b53762e9f65d7650b99">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.0.0_52382d6e594a6551e6afbf749bbf34383c92545c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.4/dd9eeb557650c4ad7394df23f0f5cf27a7cfc697/universal-image-loader-1.9.4.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="dd9eeb557650c4ad7394df23f0f5cf27a7cfc697">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/universal-image-loader-1.9.4_348d0c22f6f1b866caff18540df3ba84496f11ff/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/Albert/AndroidStudioProjects/ThagherAlrafedain/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.1.1_bffd357df38d6252964ca457a5abce999836d8c2/classes.dex" />
+    </item>
+
+</items>

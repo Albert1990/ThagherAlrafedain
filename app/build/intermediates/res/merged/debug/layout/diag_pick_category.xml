@@ -16,6 +16,9 @@
         android:id="@+id/btnDone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_product_price_badge"
+        android:textColor="@color/txt_white"
         android:text="@string/diag_category_picker_filter"/>
 
 </LinearLayout>

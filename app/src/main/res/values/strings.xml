@@ -60,6 +60,13 @@
     <string name="diag_category_picker_filter">Filter</string>
     <string name="diag_category_picker_title">Filter By Category</string>
 
+    <!-- Forget Password Dialog -->
+    <string name="diag_forget_password_title">Forget Password</string>
+    <string name="diag_forget_password_email_hint">Your Email</string>
+    <string name="diag_forget_password_email_required">Email is required</string>
+    <string name="diag_forget_password_btn_done">Done</string>
+    <string name="diag_forget_password_invalid_email">Invalid email</string>
+
     <!-- don't manipulate the order of items in this list, check workshop details attemptUpdate-->
     <string-array name="workshop_array">
         <item>Workshop</item>
@@ -68,12 +75,15 @@
 
     <string name="action_settings">Settings</string>
 
+    <!-- login activity -->
     <string name="login_progress_signing_in">Login in progress</string>
     <string name="login_with_fb">Login with Facebook</string>
     <string name="login_with_gmail">Login with Gmail</string>
     <string name="login_add_your_workshop_msg">Welcome to Thagher Alrafedain, Do you own a Home Appliances Repair-shop or Showroom?</string>
     <string name="login_add_your_workshop_ok">Register Business</string>
     <string name="login_add_your_workshop_cancel">No</string>
+    <string name="login_forget_pass">Forget Password?</string>
+    <string name="login_check_your_mail_box">Done, Check your mail box</string>
 
     <!-- main-->
     <string name="main_prod_price">price</string>

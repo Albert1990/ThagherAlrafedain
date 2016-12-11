@@ -38,7 +38,6 @@ public class DiagCategoryPicker extends Dialog{
         super(context);
         this.context = context;
         this.callback = callback;
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.diag_pick_category);
         init();
         bindUserData();

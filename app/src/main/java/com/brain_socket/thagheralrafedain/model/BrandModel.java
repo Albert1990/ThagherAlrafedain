@@ -25,6 +25,14 @@ public class BrandModel extends AppBaseModel{
         return new BrandModel();
     }
 
+    public static BrandModel fromJsonString(String json) {
+        try {
+            BrandModel brand = ThagherApp.getSharedGsonParser().fromJson(json, BrandModel.class);
+            return brand;
+        }catch (Exception ignored){}
+        return new BrandModel();
+    }
+
     @Override
     public String getId() {
         return id;

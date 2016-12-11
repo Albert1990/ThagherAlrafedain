@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             selectedBrandIndex--;
             selectedBrandIndex = selectedBrandIndex < 0 ? 0 : selectedBrandIndex;
             Intent i = new Intent(MainActivity.this,BrandDetailsActivity.class);
-            i.putExtra("brandIndex",selectedBrandIndex);
+            i.putExtra("brand",brands.get(selectedBrandIndex).getJsonString());
             startActivity(i);
         }
     }

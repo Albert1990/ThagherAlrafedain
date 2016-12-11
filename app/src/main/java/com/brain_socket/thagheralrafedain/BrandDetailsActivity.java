@@ -21,6 +21,8 @@ import com.brain_socket.thagheralrafedain.model.CategoryModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class BrandDetailsActivity extends AppCompatActivity implements View.OnClickListener{
@@ -80,16 +82,12 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
     };
 
     private void bindUserData(){
-        int brandIndex = getIntent().getIntExtra("brandIndex",0);
-        if(brandIndex >= 0) {
-            ArrayList<BrandModel> brands = DataStore.getInstance().getBrands();
-            if(brands != null && brands.size() > 0) {
-                brand = brands.get(brandIndex);
-                loadingDialog.show();
-                DataStore.getInstance().requestProducts(brand.getId(),null,null,requestProductsCallback);
-                //products = brand.getProducts();
-                //productsAdapter.updateAdapter();
-            }
+        String brandJsonStr = getIntent().getStringExtra("brand");
+        brand = BrandModel.fromJsonString(brandJsonStr);
+
+        if(brand != null) {
+            loadingDialog.show();
+            DataStore.getInstance().requestProducts(brand.getId(), null, null, requestProductsCallback);
             PhotoProvider.getInstance().displayPhotoNormal(brand.getLogo(), ivBrand);
         }
     }
