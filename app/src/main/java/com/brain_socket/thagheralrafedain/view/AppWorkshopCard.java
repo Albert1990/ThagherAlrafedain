@@ -58,10 +58,12 @@ public class AppWorkshopCard extends FrameLayout implements OnClickListener {
                 tvName = (TextView) findViewById(R.id.tvName);
                 tvType = (TextView) findViewById(R.id.tvType);
                 tvPhone = (TextView) findViewById(R.id.tvPhone);
-                tvAddress = (TextView) findViewById(R.id.tvType);
+                tvAddress = (TextView) findViewById(R.id.tvAddress);
                 ivLogo = (ImageView) findViewById(R.id.ivLogo);
+                btnLocation = findViewById(R.id.btnLocation);
 
                 tvPhone.setOnClickListener(this);
+                btnLocation.setOnClickListener(this);
             }
         } catch (Exception e) {
         }
@@ -112,24 +114,26 @@ public class AppWorkshopCard extends FrameLayout implements OnClickListener {
     /**
      * opens Google Maps App to show the user how to get from the current location to the Provider location
      */
-    private void showNavigateToProvider() {
-//        SearchActivity activity = (SearchActivity) getContext();
-//        Intent i = new Intent(getContext(), MapActivity.class);
-//        i.putExtras(MapActivity.getLauncherBundle(FragMap.MAP_TYPE.BRAND, item));
-//        getContext().startActivity(i);
-//        activity.openProvidersMap(item);
+    private void showNavigateToProvider(){
+        try{
+            String url = "http://maps.google.com/maps?f=d&daddr="+item.getLat()+","+item.getLon();
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
+            getContext().startActivity(intent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onClick(View v) {
         try {
             switch (v.getId()) {
-                case R.id.btnCall:
+                case R.id.tvPhone:
                     callPhone();
                     break;
-//                case R.id.btnLocation:
-//                    showNavigateToProvider();
-//                    break;
+                case R.id.btnLocation:
+                    showNavigateToProvider();
+                    break;
             }
         } catch (Exception e) {
         }
