@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f2f0f3">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradient_app_theme"
+                app:collapsedTitleTextAppearance="@style/collapced_title_appreance"
+                app:contentScrim="@color/colorPrimary"
+                app:expandedTitleTextAppearance="@style/expandable_title_apperance"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="30dp">
+
+                    <com.brain_socket.thagheralrafedain.view.CarousellViewPager
+                        android:id="@+id/vpBrands"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="-100dp"
+                        android:layout_marginRight="-100dp"/>
+
+                </FrameLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:gravity="left|start"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:layout_collapseMode="pin">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="start|left"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_nav_logo"/>
+                    </FrameLayout>
+
+                </android.support.v7.widget.Toolbar>
+
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/activity_main_products_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ts_text_big"
+                app:fontId="2"/>
+
+            <com.brain_socket.thagheralrafedain.view.AppAnimatedGrid
+                android:id="@+id/rvProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layoutAnimation="@anim/anim_grid_layout_anim"/>
+        </LinearLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!--  Navigation Drawer-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navi_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|top"
+        android:background="#000000">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <com.brain_socket.thagheralrafedain.view.RoundedImageView
+                android:id="@+id/ivNavHeader"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="90dp"
+                android:background="@drawable/shape_frame_golden"
+                android:padding="3dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/login_logo"
+                app:corner_radius="5dp"/>
+
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/txtNotLoggedIn"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="250dp"
+                android:gravity="center"
+                android:text="@string/settings_not_logged"
+                android:textColor="@color/white"
+                app:fontId="1"/>
+
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="290dp"
+                android:drawableLeft="@drawable/ic_pick_location"
+                android:drawablePadding="16dp"
+                android:drawableStart="@drawable/ic_login"
+                android:gravity="center_vertical"
+                android:text="@string/settings_login"
+                android:textColor="@color/white"
+                app:fontId="1"/>
+
+            <LinearLayout
+                android:id="@+id/vLoggedInOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="250dp"
+                android:orientation="vertical">
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/btnWorkshop"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:drawableLeft="@drawable/ic_pick_location"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_profile"
+                    android:gravity="center_vertical"
+                    android:text="@string/settings_upgrade_to_workshop"
+                    android:textColor="@color/white"
+                    app:fontId="1"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/btnChangePsw"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_pick_location"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_login"
+                    android:gravity="center_vertical"
+                    android:text="@string/settings_change_psw"
+                    android:textColor="@color/white"
+                    app:fontId="1"/>
+
+                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                    android:id="@+id/btnLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_pick_location"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_logout"
+                    android:gravity="center_vertical"
+                    android:text="@string/settings_logout"
+                    android:textColor="@color/white"
+                    app:fontId="1"/>
+
+            </LinearLayout>
+
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/btnArabic"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:background="@drawable/shape_frame_white"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/settings_lang_ar"
+                android:textColor="@color/white"
+                app:fontId="1"/>
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/btnEnglish"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:background="@drawable/shape_frame_white"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/settings_lang_en"
+                android:textColor="@color/white"
+                app:fontId="1"/>
+
+        </FrameLayout>
+
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>
