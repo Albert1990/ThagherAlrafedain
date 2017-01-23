@@ -207,39 +207,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     DataStore.DataRequestCallback attemptSocialLoginCallback = new DataStore.DataRequestCallback() {
         @Override
         public void onDataReady(ServerResult result, boolean success) {
-            loadingDialog.hide();
-            AppUser me = DataStore.getInstance().getMe();
+            try{
+                loadingDialog.hide();
+                AppUser me = DataStore.getInstance().getMe();
 
-            // if user logged in successfully, and is not a workshop owner already, ask him to enter workshop details
-            if(me != null && me.getUserType() == USER_TYPE.USER) {
-                new AlertDialog.Builder(LoginActivity.this)
-                        .setCancelable(false)
-                        .setMessage(R.string.login_add_your_workshop_msg)
-                        .setNegativeButton(R.string.login_add_your_workshop_cancel, new OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                setResult(RESULT_OK);
-                                finish();
-                            }
-                        })
-                        .setPositiveButton(R.string.login_add_your_workshop_ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent(LoginActivity.this, WorkshopDetails.class);
-                                startActivity(intent);
-                                dialogInterface.dismiss();
-                                setResult(RESULT_OK);
-                                finish();
-                            }
-                        }).show();
-            }else{
-                if(me != null){ // user registered successfully and he is already a workshop owner
-                    setResult(RESULT_OK);
-                    finish();
-                }else{ // register failure
-                    ThagherApp.Toast(getString(R.string.err_check_connection));
+                // if user logged in successfully, and is not a workshop owner already, ask him to enter workshop details
+                if(me != null && me.getUserType() == USER_TYPE.USER) {
+                    new AlertDialog.Builder(LoginActivity.this,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
+                            .setCancelable(false)
+                            .setMessage(R.string.login_add_your_workshop_msg)
+                            .setNegativeButton(R.string.login_add_your_workshop_cancel, new OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                    setResult(RESULT_OK);
+                                    finish();
+                                }
+                            })
+                            .setPositiveButton(R.string.login_add_your_workshop_ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Intent intent = new Intent(LoginActivity.this, WorkshopDetails.class);
+                                    startActivity(intent);
+                                    dialogInterface.dismiss();
+                                    setResult(RESULT_OK);
+                                    finish();
+                                }
+                            })
+                            .show();
+                }else{
+                    if(me != null){ // user registered successfully and he is already a workshop owner
+                        setResult(RESULT_OK);
+                        finish();
+                    }else{ // register failure
+                        ThagherApp.Toast(getString(R.string.err_check_connection));
+                    }
                 }
+            }catch (Exception ex){
+                ex.printStackTrace();
             }
         }
     };
@@ -253,10 +258,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
-        if(resultCode == RESULT_OK){
-            setResult(RESULT_OK);
-            finish();
-        }
+//        if(resultCode == RESULT_OK){
+//            setResult(RESULT_OK);
+//            finish();
+//        }
         //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
     }
 
