@@ -33,6 +33,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
+
+    public static final int REQ_CODE_SIGNUP = 203;
     private EditText etEmail;
     private EditText etPassword;
     private Dialog loadingDialog;
@@ -303,7 +305,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tvSignup:
                 Intent i = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(i);
+                startActivityForResult(i, REQ_CODE_SIGNUP);
                 break;
         }
     }

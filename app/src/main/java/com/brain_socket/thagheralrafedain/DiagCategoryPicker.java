@@ -46,7 +46,8 @@ public class DiagCategoryPicker extends Dialog{
 
     private void init(){
         RecyclerView rvCategories = (RecyclerView)findViewById(R.id.rvCategories);
-        Button btnDone = (Button)findViewById(R.id.btnDone);
+        TextView btnDone = (TextView)findViewById(R.id.btnDone);
+        TextView btnCancel = (TextView)findViewById(R.id.btnCancel);
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,17 @@ public class DiagCategoryPicker extends Dialog{
                 dismiss();
             }
         });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedCategoriesIds = new ArrayList<String>();
+                categoriesAdapter.notifyDataSetChanged();
+                callback.onClose(selectedCategoriesIds);
+                dismiss();
+            }
+        });
+
         rvCategories.setLayoutManager(new GridLayoutManager(context, 1));
         categoriesAdapter = new AppsAdapter(context);
         rvCategories.setAdapter(categoriesAdapter);

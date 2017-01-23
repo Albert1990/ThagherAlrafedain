@@ -1,120 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@drawable/gradient_app_theme"
-             tools:context="com.brain_socket.thagheralrafedain.LoginActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_app_theme"
+            android:fillViewport="true"
+            tools:context="com.brain_socket.thagheralrafedain.LoginActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="16dp">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/login_logo"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_margin="15dp"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="16dp"
-            android:layout_marginBottom="100dp"
-            tools:context="com.brain_socket.thageralforat.LoginActivity">
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="15dp">
 
-            <ImageView
-                android:layout_width="250dp"
-                android:layout_height="120dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/login_logo"/>
-
-            <LinearLayout
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="15dp">
+                android:gravity="center"
+                android:text="@string/activity_register_new_account"
+                android:textColor="@color/txt_light_purple"
+                android:textSize="@dimen/ts_text_big"
+                app:fontId="1"/>
 
-                <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/activity_register_new_account"
-                    android:textColor="@color/txt_light_purple"
-                    android:textSize="@dimen/ts_text_big"
-                    app:fontId="1"/>
+            <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+                android:id="@+id/etFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/activity_register_full_name"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_light_purple"
+                android:textSize="@dimen/ts_text_big"/>
 
-                <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
-                    android:id="@+id/etFullName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="@string/activity_register_full_name"
-                    android:textColor="@color/txt_white"
-                    android:textColorHint="@color/txt_light_purple"
-                    android:textSize="@dimen/ts_text_big"/>
+            <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_register_email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_light_purple"
+                android:textSize="@dimen/ts_text_big"/>
 
-                <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
-                    android:id="@+id/etEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/activity_register_email"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/txt_white"
-                    android:textColorHint="@color/txt_light_purple"
-                    android:textSize="@dimen/ts_text_big"/>
-
-                <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
-                    android:id="@+id/etPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/activity_register_phone"
-                    android:inputType="phone"
-                    android:textColor="@color/txt_white"
-                    android:textColorHint="@color/txt_light_purple"
-                    android:textSize="@dimen/ts_text_big"/>
+            <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_register_phone"
+                android:inputType="phone"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_light_purple"
+                android:textSize="@dimen/ts_text_big"/>
 
 
-                <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
-                    android:id="@+id/etPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/activity_register_password"
-                    android:inputType="textPassword"
-                    android:textColor="@color/txt_white"
-                    android:textColorHint="@color/txt_light_purple"
-                    android:textSize="@dimen/ts_text_big"/>
+            <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_register_password"
+                android:inputType="textPassword"
+                android:textColor="@color/txt_white"
+                android:textColorHint="@color/txt_light_purple"
+                android:textSize="@dimen/ts_text_big"/>
 
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/cbWorkshop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/activity_register_workshop_type"
-                    android:textColor="@color/txt_white"
-                    android:theme="@drawable/custom_checkbox"/>
-
-
-            </LinearLayout>
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cbWorkshop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/activity_register_workshop_type"
+                android:textColor="@color/txt_white"
+                android:theme="@drawable/custom_checkbox"/>
 
 
         </LinearLayout>
-    </ScrollView>
 
-    <Button
-        android:id="@+id/btnSignup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="@drawable/shape_frame_white"
-        android:text="@string/activity_register_signup"
-        android:textColor="@color/txt_white"/>
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_frame_light_purple"
+            android:text="@string/activity_register_signup"
+            android:textColor="@color/txt_white"/>
 
-</FrameLayout>
+    </LinearLayout>
+</ScrollView>
+
+

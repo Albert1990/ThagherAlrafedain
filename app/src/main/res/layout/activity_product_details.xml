@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f2f0f3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,12 +39,12 @@
 
                 <ImageView
                     android:id="@+id/ivLocation"
-                    android:layout_width="44dp"
+                    android:layout_width="46dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="6dp"
                     android:padding="7dp"
-                    android:visibility="invisible"
-                    android:src="@drawable/ic_marker_white"/>
+                    android:src="@drawable/ic_marker_white"
+                    android:visibility="invisible"/>
 
 
             </LinearLayout>
@@ -65,11 +66,11 @@
                 android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:maxLines="2"
-                android:text="Nokia 7710"
+                android:text="-----"
                 android:textColor="@color/black"
                 android:textSize="@dimen/ts_title_big"
                 android:textStyle="bold"
-                app:fontId="1"/>
+                app:fontId="2"/>
 
             <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
                 android:id="@+id/tvBrandName"
@@ -80,7 +81,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Nokia"
+                android:text="--"
                 android:textColor="@color/txt_gray"
                 android:textSize="@dimen/ts_text_big"
                 app:fontId="1"/>
@@ -91,8 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@id/tvBrandName"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:layout_marginTop="12dp"
                 android:src="@drawable/layer1"/>
 
@@ -129,11 +130,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="300$"
+                    android:text="---"
                     android:textColor="@color/txt_white"
                     android:textSize="@dimen/ts_title_big"
                     android:textStyle="bold"
-                    app:fontId="1"/>
+                    app:fontId="2"/>
             </LinearLayout>
 
 
@@ -153,18 +154,33 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="16dp"
-                android:text="Description"
+                android:text="@string/prod_details_description"
                 android:textColor="@color/black"
                 android:textSize="@dimen/ts_text_normal"
-                app:fontId="1"/>
+                app:fontId="2"/>
 
 
-            <WebView
-                android:id="@+id/wvDescription"
+            <!--<WebView-->
+                <!--android:id="@+id/wvDescription"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_marginRight="15dp"></WebView>-->
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"></WebView>
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                android:textSize="@dimen/ts_text_normal"
+                android:text="@string/prod_details_more_title"
+                android:textColor="@color/txt_gray"
+                android:background="@color/white"
+                app:fontId="1"/>
 
 
             <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
@@ -175,13 +191,15 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/prod_details_more_title"
-                android:textColor="@color/black"/>
+                android:textSize="@dimen/ts_text_normal"
+                android:textColor="@color/black"
+                app:fontId="2"/>
 
 
             <com.brain_socket.thagheralrafedain.view.AppAnimatedGrid
                 android:id="@+id/rvProducts"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="380dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layoutAnimation="@anim/anim_grid_layout_anim"/>

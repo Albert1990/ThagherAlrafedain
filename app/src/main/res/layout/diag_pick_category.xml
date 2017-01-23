@@ -1,24 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="350dp"
+              android:orientation="vertical">
+
+
+    <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/filters_categories_title"
+        android:textColor="@color/txt_black"
+        android:textSize="@dimen/ts_title_small"
+        app:fontId="2"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCategories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:clipToPadding="false"
         android:overScrollMode="always"
         android:scrollbars="none"/>
 
-    <Button
-        android:id="@+id/btnDone"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/shape_frame_white"
-        android:textColor="@color/light_purple"
-        android:text="@string/diag_category_picker_filter"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
+
+        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rounded_golden"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/filters_cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_text_small"
+            app:fontId="1"/>
+
+        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+            android:id="@+id/btnDone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rounded_golden"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/filters_ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_text_small"
+            app:fontId="1"/>
+
+    </LinearLayout>
 
 </LinearLayout>

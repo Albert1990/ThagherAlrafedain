@@ -4,6 +4,8 @@ import com.brain_socket.thagheralrafedain.ThagherApp;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by Albert on 11/24/16.
  */
@@ -22,6 +24,7 @@ public class AppUser extends AppBaseModel{
     private String logo;
     private String type;
     private String active;
+    private ArrayList<BrandModel> brands;
 
 
     public static AppUser fromJson(JSONObject json) {
@@ -120,6 +123,19 @@ public class AppUser extends AppBaseModel{
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+    public ArrayList<BrandModel> getBrands() {
+        return brands;
+    }
+
+    public ArrayList<String> getBrandsIds() {
+        ArrayList<String> ids = new ArrayList<>();
+        if(brands != null)
+            for (BrandModel brand : brands) {
+                ids.add(brand.getId());
+            }
+        return ids;
     }
 
     public USER_TYPE getUserType() {

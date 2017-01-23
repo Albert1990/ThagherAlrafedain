@@ -59,6 +59,15 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/btnMyLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location_btn"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="14dp"
+        android:layout_marginRight="16dp"/>
+
 
     <com.brain_socket.thagheralrafedain.view.AppWorkshopCard
         android:id="@+id/vProviderPreview"

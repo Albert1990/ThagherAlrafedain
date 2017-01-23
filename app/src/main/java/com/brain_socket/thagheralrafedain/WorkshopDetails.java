@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -37,7 +38,7 @@ import com.google.android.gms.location.places.ui.PlacePicker.IntentBuilder;
 import java.io.File;
 import java.util.ArrayList;
 
-public class WorkshopDetails extends AppCompatActivity implements View.OnClickListener{
+public class WorkshopDetails extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQ_CODE_PICK_LOCATION = 445;
     public static final int REQUEST_FROM_CAMERA = 5001;
@@ -55,7 +56,8 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
     private Dialog loadingDialog;
     private ImageView ivLogo;
     private AppsAdapter brandsAdapter;
-    private TextView btnAddress;
+    private View btnSetCoords;
+    private TextView tvCoords;
 
     boolean isFirstRegister;
 
@@ -71,9 +73,9 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
         @Override
         public void onDataReady(ServerResult result, boolean success) {
             loadingDialog.dismiss();
-            if(!success) {
+            if (!success) {
                 Toast.makeText(WorkshopDetails.this, R.string.err_check_connection, Toast.LENGTH_LONG).show();
-            }else{
+            } else {
                 setResult(RESULT_OK);
                 finish();
             }
@@ -90,7 +92,7 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_workshop_details, menu);
+        //getMenuInflater().inflate(R.menu.menu_workshop_details, menu);
         return true;
     }
 
@@ -100,7 +102,7 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
         switch (id) {
             case R.id.home:
             case android.R.id.home:
-                if(!isFirstRegister)
+                if (!isFirstRegister)
                     finish();
                 else
                     Toast.makeText(this, R.string.activity_workshop_details_missing_data_msg, Toast.LENGTH_LONG).show();
@@ -114,25 +116,28 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        if(isFirstRegister)
+        if (isFirstRegister)
             return;
         super.onBackPressed();
     }
 
-    private void init(){
-        etFullName = (EditText)findViewById(R.id.etFullName);
+    private void init() {
+        etFullName = (EditText) findViewById(R.id.etFullName);
         etEmail = (EditText) findViewById(R.id.etEmail);
-        etPhone = (EditText)findViewById(R.id.etPhone);
-        spinnerUserType = (Spinner)findViewById(R.id.spinnerUserType);
+        etPhone = (EditText) findViewById(R.id.etPhone);
+        spinnerUserType = (Spinner) findViewById(R.id.spinnerUserType);
         etAddress = (EditText) findViewById(R.id.etAddress);
         ivLogo = (ImageView) findViewById(R.id.ivLogo);
-        btnAddress = (TextView) findViewById(R.id.btnAddress);
+        btnSetCoords = findViewById(R.id.btnSetCoords);
+        tvCoords = (TextView) findViewById(R.id.tvCoords);
+        View btnSave = findViewById(R.id.btnSave);
         View fabPickPhoto = findViewById(R.id.fabPickPhoto);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle("");
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvBrands);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -144,12 +149,14 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
         brands = DataStore.getInstance().getAllBrands();
         selectedBrandsIds = new ArrayList<>();
 
-        btnAddress.setOnClickListener(this);
+        btnSetCoords.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
         fabPickPhoto.setOnClickListener(this);
+        ivLogo.setOnClickListener(this);
     }
 
-    private void bindUserData(){
-        if(user != null) {
+    private void bindUserData() {
+        if (user != null) {
             etFullName.setText(user.getFullname());
             etAddress.setText(user.getAddress());
             etEmail.setText(user.getEmail());
@@ -157,22 +164,27 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
             int selectedUserTypePosition = 0;
             String[] userTypes = getResources().getStringArray(R.array.workshop_array);
             for (int i = 0; i < userTypes.length; i++) {
-                if (userTypes[i].substring(0,1).equalsIgnoreCase(user.getType())) {
+                if (userTypes[i].substring(0, 1).equalsIgnoreCase(user.getType())) {
                     selectedUserTypePosition = i;
                     break;
                 }
             }
+            ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.workshop_array, R.layout.item_spinner);
+            spinnerUserType.setAdapter(adapter);
             spinnerUserType.setSelection(selectedUserTypePosition);
-            if(user.getLogo() != null && !user.getLogo().isEmpty())
+            if (user.getLogo() != null && !user.getLogo().isEmpty())
                 PhotoProvider.getInstance().displayPhotoFade(user.getLogo(), ivLogo);
 
-            lat = user.getLatitude()!= null?Float.valueOf(user.getLatitude()):0.0f;
-            lng = user.getLongitude()!= null?Float.valueOf(user.getLongitude()):0.0f;
+            lat = (user.getLatitude() != null && !user.getLatitude().isEmpty()) ? Float.valueOf(user.getLatitude()) : 0.0f;
+            lng = (user.getLongitude() != null && !user.getLongitude().isEmpty()) ? Float.valueOf(user.getLongitude()) : 0.0f;
+
+            selectedBrandsIds = user.getBrandsIds();
+            brandsAdapter.notifyDataSetChanged();
         }
     }
 
-    private void attemptUpdateUser(){
-        try{
+    private void attemptUpdateUser() {
+        try {
             boolean cancel = false;
             View focusView = null;
             String fullName = etFullName.getText().toString();
@@ -180,62 +192,66 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
             String email = etEmail.getText().toString().trim();
             String address = etAddress.getText().toString();
             String type = "W";
-            if(spinnerUserType.getSelectedItemPosition() == 1)
+            if (spinnerUserType.getSelectedItemPosition() == 1)
                 type = "S";
 
+            // reset error indicators
             etEmail.setError(null);
             etAddress.setError(null);
             etFullName.setError(null);
             etPhone.setError(null);
+            tvCoords.setError(null);
 
-            if(ThagherApp.isNullOrEmpty(fullName)){
+            // validate form and mark missing fields
+            if (ThagherApp.isNullOrEmpty(fullName)) {
                 cancel = true;
                 etFullName.setError(getString(R.string.error_required_field));
                 focusView = etFullName;
             }
 
-            if(ThagherApp.isNullOrEmpty(phone)){
+            if (ThagherApp.isNullOrEmpty(phone)) {
                 cancel = true;
                 etPhone.setError(getString(R.string.error_required_field));
                 focusView = etPhone;
             }
 
-            if(ThagherApp.isNullOrEmpty(email) || !ThagherApp.isValidEmail(email)){
+            if (ThagherApp.isNullOrEmpty(email) || !ThagherApp.isValidEmail(email)) {
                 cancel = true;
                 etEmail.setError(getString(R.string.error_required_field));
                 focusView = etEmail;
             }
 
-
-            if(address == null || address.isEmpty()){
+            if (address == null || address.isEmpty()) {
                 cancel = true;
                 etAddress.setError(getString(R.string.error_required_field));
                 focusView = etAddress;
             }
 
-            if(lat == 0 && lng == 0){
+            if (lat == 0 && lng == 0) {
                 cancel = true;
-                btnAddress.setError(getString(R.string.error_required_field));
-                focusView = btnAddress;
+                tvCoords.setError(getString(R.string.error_required_field));
+                focusView = btnSetCoords;
             }
 
-            if(!cancel){
+            // if no error found
+            // trigger the update request
+            if (!cancel) {
                 loadingDialog.show();
-                DataStore.getInstance().attemptUpdateUser(fullName, phone, type, lat, lng, address, imgPath, selectedBrandsIds, updateUserCallback );
+                DataStore.getInstance().attemptUpdateUser(fullName, phone, type, lat, lng, address, imgPath, selectedBrandsIds, updateUserCallback);
             }
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void triggerPickLocation(){
+    private void triggerPickLocation() {
         PlacePicker.IntentBuilder builder = new IntentBuilder();
         try {
             Intent i = builder.build(this);
             startActivityForResult(i, REQ_CODE_PICK_LOCATION);
-        }catch (Exception e){
-            Toast.makeText(this, "Please, Update yor Google play services",Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Please, Update yor Google play services", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -244,7 +260,7 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
     ///
 
     /**
-     *  checks for required permissions before launching photo picker
+     * checks for required permissions before launching photo picker
      */
     private void pickPhotos() {
         /// on android M we need to ask the user for permission at runtime to red the sd card
@@ -290,20 +306,18 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQ_CODE_PICK_LOCATION){
-            if(resultCode == RESULT_OK){
-                if(data != null) {
+        if (requestCode == REQ_CODE_PICK_LOCATION) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
                     Place place = PlacePicker.getPlace(this, data);
                     if (place != null) {
-                        address = place.getAddress().toString();
                         lat = (float) place.getLatLng().latitude;
                         lng = (float) place.getLatLng().longitude;
-                        etAddress.setText(place.getAddress());
                     }
                 }
             }
-        }else if(requestCode == REQUEST_FROM_GALLERY){
-            if(data != null && data.hasExtra("all_path")) {
+        } else if (requestCode == REQUEST_FROM_GALLERY) {
+            if (data != null && data.hasExtra("all_path")) {
                 String[] all_path = data.getStringArrayExtra("all_path");
                 if (all_path != null && all_path.length > 0) {
                     for (String strUri : all_path) {
@@ -313,7 +327,7 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
                     }
                 }
             }
-        }else if(requestCode == REQUEST_FROM_CAMERA){
+        } else if (requestCode == REQUEST_FROM_CAMERA) {
             if (uriImg != null) {
                 imgPath = uriImg.getPath();
                 ivLogo.setImageURI(uriImg);
@@ -324,12 +338,16 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        switch (viewId){
-            case R.id.btnAddress:
+        switch (viewId) {
+            case R.id.btnSetCoords:
                 triggerPickLocation();
                 break;
+            case R.id.ivLogo:
             case R.id.fabPickPhoto:
                 pickPhotos();
+                break;
+            case R.id.btnSave:
+                attemptUpdateUser();
                 break;
         }
     }
@@ -347,9 +365,9 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
             public void onClick(View view) {
                 int index = (Integer) view.getTag();
                 BrandModel type = brands.get(index);
-                if(selectedBrandsIds.contains(type.getId())){
+                if (selectedBrandsIds.contains(type.getId())) {
                     selectedBrandsIds.remove(type.getId());
-                }else{
+                } else {
                     selectedBrandsIds.add(type.getId());
                 }
                 brandsAdapter.notifyDataSetChanged();
@@ -375,9 +393,9 @@ public class WorkshopDetails extends AppCompatActivity implements View.OnClickLi
                 viewHolder.rootView.setTag(i);
                 viewHolder.tvBrandName.setText(model.getName());
                 PhotoProvider.getInstance().displayPhotoNormal(model.getLogo(), viewHolder.ivBrand);
-                if(selectedBrandsIds.contains(model.getId())) {
+                if (selectedBrandsIds.contains(model.getId())) {
                     viewHolder.ivIndicator.setImageResource(R.drawable.ic_check_active);
-                }else {
+                } else {
                     viewHolder.ivIndicator.setImageResource(R.drawable.ic_check);
                 }
             } catch (Exception ex) {

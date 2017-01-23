@@ -13,13 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
         <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
             android:id="@+id/etFullName"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:drawableLeft="@drawable/ic_workshop_name"
             android:drawablePadding="16dp"
             android:drawableStart="@drawable/ic_workshop_name"
@@ -32,7 +33,7 @@
         <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="16dp"
             android:drawableStart="@drawable/ic_email"
@@ -45,7 +46,7 @@
         <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:drawableLeft="@drawable/ic_phone"
             android:drawablePadding="16dp"
             android:drawableStart="@drawable/ic_phone"
@@ -55,37 +56,58 @@
             android:textSize="@dimen/ts_text_big"
             app:fontId="1"/>
 
-        <LinearLayout
+        <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
+            android:id="@+id/etAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_location"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_location"
+            android:gravity="center_vertical"
+            android:hint="@string/activity_workshop_details_workshop_address"
+            android:textColor="@color/txt_gray"
+            android:textColorHint="@color/txt_gray_light"
+            android:textSize="@dimen/ts_text_big"
+            app:fontId="1"/>
+
+        <FrameLayout
+            android:id="@+id/btnSetCoords"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
-            <com.brain_socket.thagheralrafedain.view.EditTextCustomFont
-                android:id="@+id/etAddress"
-                android:layout_width="0dp"
-                android:layout_height="69dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_location"
-                android:drawablePadding="16dp"
-                android:drawableStart="@drawable/ic_location"
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="32dp"
+                android:padding="5dp"
+                android:layout_gravity="center_vertical|start"
+                android:src="@drawable/ic_pick_location"/>
+
+            <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+                android:id="@+id/tvCoords"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|end"
                 android:gravity="center_vertical"
+                android:layout_marginLeft="45dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
                 android:hint="@string/activity_workshop_details_workshop_location"
                 android:textColor="@color/txt_gray"
                 android:textColorHint="@color/txt_gray_light"
                 android:textSize="@dimen/ts_text_big"
                 app:fontId="1"/>
 
-            <TextView
-                android:id="@+id/btnAddress"
-                android:layout_width="40dp"
-                android:layout_height="32dp"
-                android:padding="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_pick_location"
-                android:background="@drawable/ic_pick_location"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:padding="0dp"
+                android:layout_gravity="center_vertical|right|end"
+                android:src="@drawable/ic_has_details"/>
 
-        </LinearLayout>
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"
@@ -94,7 +116,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -111,7 +133,8 @@
                 android:id="@+id/spinnerUserType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/workshop_array"></Spinner>
+                style="@style/mySpinnerItemStyle"
+                android:entries="@array/workshop_array"/>
 
         </LinearLayout>
 
@@ -126,21 +149,37 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/activity_workshop_details_workshop_brands"
-            android:textColor="@color/txt_gray"
-            android:textSize="@dimen/ts_title_normal"
-            app:fontId="1"
+            android:textColor="@color/txt_black"
+            android:textSize="@dimen/ts_text_big"
+            app:fontId="2"
             />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvBrands"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="350dp"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
             android:clipToPadding="false"
             android:overScrollMode="always"
             android:paddingTop="15dp"
             android:scrollbars="none"/>
+
+        <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/shape_rounded_golden"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/filters_ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_text_small"
+            app:fontId="1"/>
 
     </LinearLayout>
 

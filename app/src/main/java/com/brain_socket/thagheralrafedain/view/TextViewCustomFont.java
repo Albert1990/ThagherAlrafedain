@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.brain_socket.thagheralrafedain.R;
+import com.brain_socket.thagheralrafedain.ThagherApp;
+import com.brain_socket.thagheralrafedain.ThagherApp.SUPPORTED_LANGUAGE;
 
 /**
  * <p> This is a normal TextView widget that can have a custom Font.
@@ -18,7 +20,7 @@ import com.brain_socket.thagheralrafedain.R;
  * <p> The fontId attribute can be set in the XML definition of the custom TextView
  * by setting app:fontId="id"
  *
- * @author Nabil Souk
+ * @author MolhamStein
  *
  */
 public class TextViewCustomFont extends TextView
@@ -64,14 +66,20 @@ public class TextViewCustomFont extends TextView
         catch (Exception ignored) {}
     }
 
-    public static Typeface getTFRegular(Context context)
-    {
+    public static void resetFonts(){
+        fontFaceRegular = null;
+        fontFaceBold = null;
+    }
+
+    public static Typeface getTFRegular(Context context){
         try {
+            String fontPath = "fonts/Roboto-Regular.ttf";
+            if(ThagherApp.getCurrentLanguage() == SUPPORTED_LANGUAGE.AR)
+                fontPath = "fonts/GE_Dinar_Two_Light.otf";
             if(fontFaceRegular == null) {
-                fontFaceRegular = Typeface.createFromAsset(context.getAssets(), "fonts/DroidKufi-Regular.ttf");
+                fontFaceRegular = Typeface.createFromAsset(context.getAssets(), fontPath);
             }
-        }
-        catch (Exception e) {
+        }catch (Exception e) {
             fontFaceRegular = Typeface.DEFAULT;
         }
         return fontFaceRegular;
@@ -79,14 +87,16 @@ public class TextViewCustomFont extends TextView
 
 
     /**
-     * Returns SC Duabi typeface used in the app
+     * Returns bold Typeface for the current language
      * @return
      */
-    public static Typeface getTFBold(Context context)
-    {
+    public static Typeface getTFBold(Context context){
+        String fontPath = "fonts/Roboto-Bold.ttf";
+        if(ThagherApp.getCurrentLanguage() == SUPPORTED_LANGUAGE.AR)
+            fontPath = "fonts/GE_Dinar_Two_Medium.otf";
         try {
             if(fontFaceBold == null) {
-                fontFaceBold = Typeface.createFromAsset(context.getAssets(), "fonts/DroidKufi-Bold.ttf");
+                fontFaceBold = Typeface.createFromAsset(context.getAssets(), fontPath);
             }
         }
         catch (Exception e) {

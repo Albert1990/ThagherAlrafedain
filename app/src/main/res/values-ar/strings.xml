@@ -4,101 +4,127 @@
     <string name="activity_main_products_title">المنتجات</string>
 
     <!-- workshop activity -->
-    <string name="activity_workshop_details_workshop_name">Your business name</string>
-    <string name="activity_workshop_details_workshop_email">Email Address</string>
-    <string name="activity_workshop_details_workshop_phone">Your business phone</string>
-    <string name="activity_workshop_details_workshop_location">Your business location</string>
-    <string name="activity_workshop_details_workshop_brands">Select brands you work with</string>
-    <string name="activity_workshop_details_missing_data_msg">Please Fill your business info first</string>
-    <string name="activity_workshop_details_missing_field">Please, Fill this field</string>
+    <string name="activity_workshop_details_workshop_name">اسم الشركة أو الورشة</string>
+    <string name="activity_workshop_details_workshop_email">البريد الالكتروني</string>
+    <string name="activity_workshop_details_workshop_phone">رقم الهاتف</string>
+    <string name="activity_workshop_details_workshop_location">الموقع على الخريطة</string>
+    <string name="activity_workshop_details_workshop_address">العنوان</string>
+    <string name="activity_workshop_details_workshop_brands">إختر العلامات التجارية التي تتعامل معها</string>
+    <string name="activity_workshop_details_missing_data_msg">الرجاء ملء معلومات المعلومات اولا</string>
+    <string name="activity_workshop_details_missing_field">الرجاء ملئ هذا الحقل</string>
+    <string name="activity_workshop_details_save">تحديث المعلومات</string>
 
     <!-- Brand Details Activity -->
-    <string name="activity_brand_details_no_data">No products that match your filter</string>
-    <string name="activity_brand_details_products">Products :</string>
+    <string name="activity_brand_details_no_data">لم يتم ايجاد منتجات</string>
+    <string name="activity_brand_details_products">المنتجات :</string>
 
     <!-- register activity -->
-    <string name="activity_register_full_name">Full Name</string>
-    <string name="activity_register_email">Email</string>
-    <string name="activity_register_phone">Phone</string>
-    <string name="activity_register_password">Password</string>
-    <string name="activity_register_signup">Sign up</string>
-    <string name="activity_register_success">Success, please check your inbox to activate your account</string>
+    <string name="activity_register_full_name">الاسم</string>
+    <string name="activity_register_email">البريد الالكتروني</string>
+    <string name="activity_register_phone">رقم الهاتف</string>
+    <string name="activity_register_password">كلمة المرور</string>
+    <string name="activity_register_signup">تسجيل حساب جديد</string>
+    <string name="activity_register_success">تم التسجيل, تحقق من بريدك الاكتروني لتفعيل الحساب</string>
 
     <!--filters -->
-    <string name="filters_title">Search Filters</string>
-    <string name="menu_action_done">OK</string>
-    <string name="filters_cancel">Cancel</string>
-    <string name="filters_ok">Ok</string>
-    <string name="filters_group_types">Choose category</string>
-    <string name="filters_select_all">Select all</string>
+    <string name="filters_title">خيارات التصفية</string>
+    <string name="menu_action_done">موافق</string>
+    <string name="filters_cancel">اعادة التعين</string>
+    <string name="filters_ok">موافق</string>
+    <string name="filters_group_types">الشركات</string>
+    <string name="filters_select_all">تحديد الكل</string>
+    <string name="filters_categories_title">اختر التصنيفات للبحث</string>
 
-    <string name="workshop_details_workshop">Workshop</string>
-    <string name="workshop_details_show_room">Showroom</string>
+    <string name="workshop_details_workshop">ورشة صيانة</string>
+    <string name="workshop_details_show_room">صالة عرض</string>
 
-    <string name="activity_register_new_account">Register new account</string>
-    <string name="activity_register_workshop_type">I am workshop Or showroom owner</string>
+    <string name="activity_register_new_account">تسجيل حساب جديد</string>
+    <string name="activity_register_workshop_type">أنا مالك ورشة صيانة أو صالة عرض</string>
 
     <!--errors-->
-    <string name="error_incorrect_email">Email is not valid</string>
-    <string name="error_required_field">Required field</string>
-    <string name="err_check_connection">Please, Check internet connection</string>
-    <string name="err_login_failed">Login failed</string>
-    <string name="err_operation_failed">Operation failed</string>
+    <string name="error_incorrect_email">البريد غير صالح</string>
+    <string name="error_required_field">حقل اجباري</string>
+    <string name="err_check_connection">الرجاء التحقق من الاتصال</string>
+    <string name="err_login_failed">فشل تسجيل الدخول</string>
+    <string name="err_operation_failed">فشلت العملية</string>
     <string name="err_fb_not_installed">Facebook app not installed</string>
     <string name="err_sharing_failed">Sharing failed</string>
 
     <!-- Photo picker -->
-    <string name="claim_form_pick_photos_gallery_ok">DONE</string>
-    <string name="claim_form_pick_photos_gallery_title"> Select files</string>
-    <string name="pick_photo_title">Choose photo source</string>
-    <string name="pick_photo_gallery">Photo Library</string>
-    <string name="pick_photo_cam">Camera</string>
-    <string name="pick_photo_cancel">Cancel</string>
+    <string name="claim_form_pick_photos_gallery_ok">موافق</string>
+    <string name="claim_form_pick_photos_gallery_title"> تحديد الصورة</string>
+    <string name="pick_photo_title">اختيار الصورة من</string>
+    <string name="pick_photo_gallery">معرض الصور</string>
+    <string name="pick_photo_cam">الكاميرا</string>
+    <string name="pick_photo_cancel">إلغاء</string>
 
     <!-- Category Picker Dialog -->
-    <string name="diag_category_picker_filter">Filter</string>
-    <string name="diag_category_picker_title">Filter By Category</string>
+    <string name="diag_category_picker_filter">التصفية</string>
+    <string name="diag_category_picker_title">التصفية حسب التصنيف</string>
 
     <!-- Forget Password Dialog -->
-    <string name="diag_forget_password_title">Forget Password</string>
-    <string name="diag_forget_password_email_hint">Your Email</string>
-    <string name="diag_forget_password_email_required">Email is required</string>
-    <string name="diag_forget_password_btn_done">Done</string>
-    <string name="diag_forget_password_invalid_email">Invalid email</string>
+    <string name="diag_forget_password_title">استرجاع كلمة المرور</string>
+    <string name="diag_forget_password_email_hint">بريدك الالكتروني</string>
+    <string name="diag_forget_password_email_required">يجب ملء البريد الالكتروني</string>
+    <string name="diag_forget_password_btn_done">موافق</string>
+    <string name="diag_forget_password_invalid_email">بريد الكتروني غير صالح</string>
+    <string name="diag_forget_password_description">قم بادخال بريدك الالكتروني لتصلك رسالة استرجاع كلمة المرور</string>
 
     <!-- don't manipulate the order of items in this list, check workshop details attemptUpdate-->
     <string-array name="workshop_array">
-        <item>Workshop</item>
-        <item>Show Room</item>
+        <item>ورشة صيانة</item>
+        <item>صالة عرض</item>
     </string-array>
 
     <string name="action_settings">Settings</string>
 
     <!-- login activity -->
-    <string name="login_progress_signing_in">Login in progress</string>
-    <string name="login_with_fb">Login with Facebook</string>
-    <string name="login_with_gmail">Login with Gmail</string>
-    <string name="login_add_your_workshop_msg">Welcome to Thagher Alrafedain, Do you own a Home Appliances Repair-shop or Showroom?</string>
-    <string name="login_add_your_workshop_ok">Register Business</string>
-    <string name="login_add_your_workshop_cancel">No</string>
-    <string name="login_forget_pass">Forget Password?</string>
-    <string name="login_check_your_mail_box">Done, Check your mail box</string>
+    <string name="login_progress_signing_in">جاري تسجيل الدخول</string>
+    <string name="login_with_fb">حساب الفيسبوك</string>
+    <string name="login_with_gmail">حساب جي مايل</string>
+    <string name="login_add_your_workshop_msg">أهلا بك في ثغر الرافدين, هل تملك ورشة صيانة أو صالة عرض؟</string>
+    <string name="login_add_your_workshop_ok">سجل معنا</string>
+    <string name="login_add_your_workshop_cancel">لا</string>
+    <string name="login_forget_pass">نسيت كلمة المرور؟</string>
+    <string name="login_check_your_mail_box">تم, تحقق من بريدك الالكتروني</string>
+    <string name="login_signup">انشاء حساب</string>
+    <string name="login_dont_have_accout">ليس لديك حساب؟ </string>
+    <string name="login_email_hint">البريد الالكتروني</string>
+    <string name="login_psw_hint">كلمة السر</string>
 
     <!-- main-->
     <string name="main_prod_price">السعر</string>
     <string name="main_prod_view_product">عرض المنتج</string>
 
     <!-- prod details -->
-    <string name="prod_details_more_title">More products</string>
+    <string name="prod_details_more_title">منتجات أخرى قد تعجبك</string>
+    <string name="prod_details_description">معلومات المنتج</string>
     <string name="prod_details_price">السعر</string>
 
+    <string name="settings_title">خيارات الحساب</string>
     <string name="settings_lang_ar">العربية</string>
     <string name="settings_lang_en">English</string>
     <string name="settings_lang">اللغة</string>
     <string name="settings_logout">تسجيل الخروج</string>
     <string name="settings_upgrade_to_workshop">تسجيل مؤسستك معنا</string>
-    <string name="settings_edit_workshop">تعديل معلومات المؤسسة</string>
+    <string name="settings_edit_workshop">تعديل المعلومات الشخصية</string>
     <string name="settings_change_psw">تغير كلمة المرور</string>
     <string name="settings_login">تسجيل الدخول</string>
+    <string name="settings_not_logged">لم تقم بتسجيل الدخول بعد</string>
+
+    <string name="change_psw_title">تغير كلمة المرور</string>
+    <string name="change_psw_old_psw">كلمة المرور الحالية</string>
+    <string name="change_psw_new_psw">كلمة المرور الجديدة</string>
+    <string name="change_psw_submit">ارسال</string>
+    <string name="change_psw_success">تم تغير كلمة المرور بنجاح</string>
+    <string name="change_psw_failed">فشل تغير كلمة المرور</string>
+
+    <string name="location_not_enabled_msg">Please, Enable Locations services for better results</string>
+    <string name="location_not_enabled_ok">Enable</string>
+    <string name="location_not_enabled_cancel">Cancel</string>
+
+    <string name="map_filter_workshop">الورشات</string>
+    <string name="map_filter_show_room">صالات العرض</string>
+    <string name="map_filter_brands">الشركات</string>
 
 </resources>

@@ -33,7 +33,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView tvProductName;
     private TextView tvBrandName;
     private TextView tvPrice;
-    private WebView wvDescription;
+    //private WebView wvDescription;
+    private TextView tvDescription;
     private TextView tvTitle;
 
 
@@ -53,7 +54,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
             tvProductName = (TextView) findViewById(R.id.tvProductName);
             tvBrandName = (TextView) findViewById(R.id.tvBrandName);
             tvPrice = (TextView) findViewById(R.id.tvPrice);
-            wvDescription = (WebView) findViewById(R.id.wvDescription);
+            //wvDescription = (WebView) findViewById(R.id.wvDescription);
+            tvDescription = (TextView) findViewById(R.id.tvDescription);
             tvTitle = (TextView) findViewById(R.id.tvTitle);
 
             setSupportActionBar(toolbar);
@@ -77,10 +79,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 tvProductName.setText(selectedProduct.getName());
                 tvPrice.setText(selectedProduct.getPriceWithUnit());
                 tvBrandName.setText(selectedBrand.getName());
-                tvTitle.setText(selectedBrand.getName());
+                tvTitle.setText(selectedProduct.getName());
                 // WebView
-                String decodedHtml = Html.fromHtml(selectedProduct.getDescription()).toString();
-                wvDescription.loadData(decodedHtml,"text/html; charset=UTF-8", null);
+                //String decodedHtml = Html.fromHtml(selectedProduct.getDescription()).toString();
+                //wvDescription.loadData(decodedHtml,"text/html; charset=UTF-8", null);
+                tvDescription.setText(selectedProduct.getDescription());
 
                 rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
                 productsAdapter = new ProductsRecycleViewAdapter(this);
@@ -108,8 +111,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 try {
                     int itemPosition = (int)v.getTag();
                     Intent myIntent = new Intent(ProductDetailsActivity.this, ProductDetailsActivity.class);
-//                    myIntent.putExtra("selectedBrandPosition", selectedBrandPosition);
-//                    myIntent.putExtra("selectedProductPosition", itemPosition);
+                    ProductModel selectedProduct = selectedBrand.getProducts().get(itemPosition);
+                    if(selectedProduct != null){
+                        myIntent.putExtra("selectedBrand", selectedBrand.getJsonString());
+                        myIntent.putExtra("selectedProduct", selectedProduct.getJsonString());
+                        startActivity(myIntent);
+                    }
                     startActivity(myIntent);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -143,9 +150,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
             try {
                 final ProductModel productModel = products.get(position);
                 holder.root.setTag(position);
-                holder.tvName.setText(productModel.getName());
+                holder.tvName.setText(productModel.getName().toUpperCase());
                 String strPrice = productModel.getPriceWithUnit();
-                holder.tvPrice.setText(strPrice);
+                holder.tvPrice.setText(R.string.main_prod_view_product);
+                holder.tvBrand.setText(getString(R.string.main_prod_price) + strPrice);
                 PhotoProvider.getInstance().displayPhotoNormal(productModel.getImage(), holder.ivProduct);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -165,12 +173,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         public ImageView ivProduct;
         public TextView tvName;
         public TextView tvPrice;
+        public TextView tvBrand;
 
         public ProductViewHolderItem(View v) {
             super(v);
             root = v;
             tvName = (TextView) v.findViewById(R.id.tvName);
             tvPrice = (TextView) v.findViewById(R.id.tvPrice);
+            tvBrand = (TextView) v.findViewById(R.id.tvBrand);
             ivProduct = (RoundedImageView) v.findViewById(R.id.ivProduct);
         }
     }

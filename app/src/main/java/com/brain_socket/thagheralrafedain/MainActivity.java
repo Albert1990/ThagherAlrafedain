@@ -1,12 +1,19 @@
 package com.brain_socket.thagheralrafedain;
 
+import android.Manifest.permission;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
-import android.provider.ContactsContract.Data;
+import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,10 +23,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.brain_socket.thagheralrafedain.ThagherApp.SUPPORTED_LANGUAGE;
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.PhotoProvider;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
@@ -29,11 +38,11 @@ import com.brain_socket.thagheralrafedain.model.AppUser.USER_TYPE;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
+import com.brain_socket.thagheralrafedain.view.TextViewCustomFont;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DataStore.DataStoreUpdateListener {
+public class MainActivity extends AppCompatActivity implements DataStore.DataStoreUpdateListener, OnClickListener {
     private SliderAdapter brandsSliderAdapter;
     private ProductsRecycleViewAdapter productsAdapter;
     private ArrayList<ProductModel> products;
@@ -42,12 +51,30 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private ViewPager vpBrands;
     private Dialog loadingDialog;
 
+    // nav drawer
+    private ImageView ivNavHeader;
+    private TextView txtNotLoggedIn;
+    private TextView btnLogin;
+    private TextView btnWorkshopProfile;
+    private TextView btnLogout;
+    private TextView btnChangePsw;
+    private View btnArabic;
+    private View btnEnglish;
+    private View vLoggedInOptionsContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        ThagherApp.requestLastUserKnownLocation();
+        if(ContextCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            ThagherApp.requestLastUserKnownLocation();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -84,9 +111,9 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.action_profile:
-                actionProfileClicked();
-                break;
+//            case R.id.action_profile:
+//                actionProfileClicked();
+//                break;
             case R.id.action_workshops:
                 Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
                 mapIntent.putExtras(MapActivity.getLauncherBundle(MAP_TYPE.SEARCH, null));
@@ -103,17 +130,23 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             RecyclerView rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
             vpBrands = (ViewPager) findViewById(R.id.vpBrands);
 
-            //brands = DataStore.getInstance().getBrands();
-            //addDummyCards2Brands();
+            // drawer
+            ivNavHeader = (ImageView) findViewById(R.id.ivNavHeader);
+            vLoggedInOptionsContainer = findViewById(R.id.vLoggedInOptions);
+            btnLogin = (TextView) findViewById(R.id.btnLogin);
+            btnWorkshopProfile = (TextView) findViewById(R.id.btnWorkshop);
+            btnLogout = (TextView) findViewById(R.id.btnLogout);
+            btnChangePsw = (TextView) findViewById(R.id.btnChangePsw);
+            btnArabic = findViewById(R.id.btnArabic);
+            btnEnglish= findViewById(R.id.btnEnglish);
+            txtNotLoggedIn = (TextView) findViewById(R.id.txtNotLoggedIn);
+
             brandsSliderAdapter = new SliderAdapter();
             vpBrands.setAdapter(brandsSliderAdapter);
             vpBrands.setPageMargin(ThagherApp.getPXSize(0));
             vpBrands.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
                 @Override
                 public void onPageSelected(int position) {
                     position++;
@@ -123,11 +156,8 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                         productsAdapter.updateAdapter();
                     }
                 }
-
                 @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
+                public void onPageScrollStateChanged(int state) {}
             });
 
             rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
@@ -135,10 +165,60 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             rvProducts.setAdapter(productsAdapter);
             rvProducts.scheduleLayoutAnimation();
 
+            btnArabic.setOnClickListener(this);
+            btnEnglish.setOnClickListener(this);
+            btnWorkshopProfile.setOnClickListener(this);
+            btnChangePsw.setOnClickListener(this);
+            btnLogout.setOnClickListener(this);
+            btnLogin.setOnClickListener(this);
+
             loadingDialog.show();
             DataStore.getInstance().requestBrandsWithProducts(requestBrandsWithProductsCallback);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            // configure drawer content
+            AppUser me = DataStore.getInstance().getMe();
+            if (me != null) {
+                vLoggedInOptionsContainer.setVisibility(View.VISIBLE);
+                btnLogin.setVisibility(View.GONE);
+                txtNotLoggedIn.setVisibility(View.GONE);
+                if (me.getUserType() == USER_TYPE.USER) {
+                    btnWorkshopProfile.setText(R.string.settings_upgrade_to_workshop);
+                } else {
+                    btnWorkshopProfile.setText(R.string.settings_edit_workshop);
+                }
+                PhotoProvider.getInstance().displayPhotoFade(me.getLogo(), ivNavHeader);
+            } else { // not logged in
+                ivNavHeader.setImageResource(R.drawable.login_logo);
+                vLoggedInOptionsContainer.setVisibility(View.GONE);
+                btnLogin.setVisibility(View.VISIBLE);
+                txtNotLoggedIn.setVisibility(View.VISIBLE);
+            }
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                public void onDrawerClosed(View view) {
+                    supportInvalidateOptionsMenu();
+                }
+
+                public void onDrawerOpened(View drawerView) {
+                    supportInvalidateOptionsMenu();
+                }
+
+                @Override
+                public void onDrawerSlide(View drawerView, float slideOffset) {}
+            };
+
+//            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+
+            // hide default app logo and name on the left of the toolbar
+            final ActionBar ab = getSupportActionBar();
+            ab.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
+            ab.setDisplayShowTitleEnabled(false); // disable the default title element here (for centered title)
+
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -199,14 +279,31 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         DataStore.getInstance().removeUpdateBroadcastListener(this);
     }
 
+    private void changeLanguage(SUPPORTED_LANGUAGE newLang) {
+        try {
+            if (newLang != null) {
+                if (newLang != ThagherApp.getCurrentLanguage()) {
+                    // to make sure fonts will be recreated for the new language
+                    TextViewCustomFont.resetFonts();
+                    DataStore.getInstance().triggerDataUpdate();
+                    ThagherApp.setLanguage(newLang);
+                    DataStore.getInstance().broadcastLanguageChange();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onDataStoreUpdate() {
         updateBody();
     }
 
     @Override
-    public void onNewEventNotificationsAvailable() {
-
+    public void onLanguageChanged() {
+        recreate();
+        //getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
     }
 
     @Override
@@ -215,7 +312,37 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         if(me!= null){
 
         }
-        invalidateOptionsMenu();
+        recreate();
+        //invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnArabic:
+                changeLanguage(SUPPORTED_LANGUAGE.AR);
+                break;
+            case R.id.btnEnglish:
+                changeLanguage(SUPPORTED_LANGUAGE.EN);
+                break;
+            case R.id.btnChangePsw:
+                Intent iChangePsw = new Intent(this, ChangePswActivity.class);
+                startActivity(iChangePsw);
+                break;
+            case R.id.btnLogout:
+                DataStore.getInstance().logout();
+                DataStore.getInstance().triggerDataUpdate();
+                recreate();
+                break;
+            case R.id.btnWorkshop:
+                Intent i = new Intent(this, WorkshopDetails.class);
+                startActivity(i);
+                break;
+            case R.id.btnLogin:
+                Intent intrent = new Intent(this, LoginActivity.class);
+                startActivity(intrent);
+                break;
+        }
     }
 
     private class ProductsRecycleViewAdapter extends RecyclerView.Adapter<ProductViewHolderItem> {
@@ -268,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             try {
                 final ProductModel productModel = products.get(position);
                 holder.root.setTag(position);
-                holder.tvName.setText(productModel.getName());
+                holder.tvName.setText(productModel.getName().toUpperCase());
                 String strPrice = productModel.getPriceWithUnit();
                 holder.tvPrice.setText(R.string.main_prod_view_product);
                 holder.tvBrand.setText(getString(R.string.main_prod_price) + strPrice);

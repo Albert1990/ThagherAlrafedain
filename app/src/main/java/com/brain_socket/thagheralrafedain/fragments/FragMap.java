@@ -20,11 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.brain_socket.thagheralrafedain.MapActivity;
 import com.brain_socket.thagheralrafedain.R;
 import com.brain_socket.thagheralrafedain.ThagherApp;
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.DataStore.DataRequestCallback;
+import com.brain_socket.thagheralrafedain.data.DataStore.DataStoreUpdateListener;
 import com.brain_socket.thagheralrafedain.data.ServerResult;
 import com.brain_socket.thagheralrafedain.fragments.DiagPickFilter.FiltersPickerCallback;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
@@ -56,11 +56,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class FragMap extends Fragment implements View.OnClickListener, OnMapReadyCallback, OnMarkerClickListener, GoogleMap.InfoWindowAdapter, FiltersPickerCallback{
+public class FragMap extends Fragment implements View.OnClickListener, OnMapReadyCallback, OnMarkerClickListener, GoogleMap.InfoWindowAdapter, FiltersPickerCallback, DataStoreUpdateListener {
 
 
     SupportMapFragment fragment;
     GoogleMap googleMap;
+    View btnMyLocation;
 
     public enum MAP_TYPE {SEARCH, BRAND}
 
@@ -83,6 +84,8 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
     BrandModel brandToShow;
 
     ArrayList<BrandModel> selectedBrands;
+    boolean enableWorkshops;
+    boolean enableShowrooms;
 
     public DataRequestCallback searchResultCallback = new DataRequestCallback() {
         @Override
@@ -107,7 +110,7 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
         Bundle extras = new Bundle();
         extras.putInt("type", type.ordinal());
 
-        if(brandToShow != null)
+        if (brandToShow != null)
             extras.putString("brand", brandToShow.getJsonString());
 
         frag.setArguments(extras);
@@ -117,7 +120,7 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
     public void resolveExtra(Bundle extra) {
         try {
             type = MAP_TYPE.values()[extra.getInt("type")];
-            if(extra.containsKey("brand")) {
+            if (extra.containsKey("brand")) {
                 String jsonStr = extra.getString("brand");
                 JSONObject jsonObject = new JSONObject(jsonStr);
                 brandToShow = BrandModel.fromJson(jsonObject);
@@ -138,22 +141,39 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkPlayServices(getActivity());
+        DataStore.getInstance().addUpdateBroadcastListener(this);
         requestLocationPermissionIfRequired();
         init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ThagherApp.requestLastUserKnownLocation();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        DataStore.getInstance().removeUpdateBroadcastListener(this);
     }
 
     private void init() {
 
         vItemDetailsPreview = (AppWorkshopCard) getView().findViewById(R.id.vProviderPreview);
+        btnMyLocation = getView().findViewById(R.id.btnMyLocation);
         View btnFilter = getView().findViewById(R.id.btnFilter);
         View btnClose = getView().findViewById(R.id.btnClose);
 
         focusMap = false;
         mapMarkerIdToLocatableProvider = new HashMap<>();
         handler = new Handler();
+        enableShowrooms = true;
+        enableWorkshops = true;
 
         btnClose.setOnClickListener(this);
         btnFilter.setOnClickListener(this);
+        btnMyLocation.setOnClickListener(this);
 
         // load Map Frag
         FragmentManager fm = getChildFragmentManager();
@@ -184,7 +204,8 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
         this.googleMap.setOnMarkerClickListener(this);
         if (ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             this.googleMap.setMyLocationEnabled(true);
-            this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+            //disabling location button, we are running our own location button to position it
+            this.googleMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
         // used to force Google maps bring
         // the marker to top onClick by showing an empty info window
@@ -221,9 +242,9 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
                             && locatableWorkshop.workshop.getId().equals(selectedLocatableWorkshop.workshop.getId());
 
                     locatableWorkshop.markerOptions = new MarkerOptions()
-                                    .position(brand.getCoords())
+                            .position(brand.getCoords())
                                     // if its the highlighted workshop then draw it with a different marker icon
-                                    .icon(BitmapDescriptorFactory.fromResource(isShowroom ? R.drawable.ic_marker_showroom : R.drawable.ic_marker_workshop));
+                            .icon(BitmapDescriptorFactory.fromResource(isShowroom ? R.drawable.ic_marker_showroom : R.drawable.ic_marker_workshop));
                     this.providers.add(locatableWorkshop);
                 }
                 // Map
@@ -235,6 +256,7 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
 
     /**
      * used to re draw all providers and update Camera position if required
+     *
      * @param providers array of providers that wil be represented on map with markers
      * @param focusMap: if true, we animated the map camera to fit all the markers in view
      */
@@ -256,16 +278,8 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
                     } catch (Exception e) {
                     }
                 }
-
                 if (focusMap) {
-                    //LatLngBounds bounds = builder.build();
-                    //focusMap(bounds);
-                    LatLng myLoc = new LatLng(DataStore.getInstance().getMyLocationLatitude(), DataStore.getInstance().getMyLocationLongitude());
-                    if(myLoc.latitude != 0 && myLoc.longitude != 0) {
-                        CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(myLoc, 12);
-                        googleMap.animateCamera(cu);
-                        this.focusMap = false;
-                    }
+                    focusMapToUserLocation();
                 }
             }
         } catch (Exception e) {
@@ -277,6 +291,15 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
         int padding = 50;
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
         googleMap.animateCamera(cu);
+    }
+
+    private void focusMapToUserLocation() {
+        LatLng myLoc = new LatLng(DataStore.getInstance().getMyLocationLatitude(), DataStore.getInstance().getMyLocationLongitude());
+        if (myLoc.latitude != 0 && myLoc.longitude != 0) {
+            CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(myLoc, 12);
+            googleMap.animateCamera(cu);
+            this.focusMap = false;
+        }
     }
 
     public void displayProviderDetailsPreview(LocatableWorkshop locatableWorkshop) {
@@ -367,7 +390,7 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
 
         radius = centerLoc.distanceTo(middlleSouthLocation);
         Log.i("Params", centerLat + "," + centerLon + "," + radius);
-        DataStore.getInstance().requestNearbyWorkshops((float) centerLat, (float) centerLon, radius, selectedBrands, searchResultCallback);
+        DataStore.getInstance().requestNearbyWorkshops((float) centerLat, (float) centerLon, radius, selectedBrands, enableWorkshops, enableShowrooms, searchResultCallback);
     }
 
     GoogleMap.OnCameraChangeListener onCameraChangeListener = new GoogleMap.OnCameraChangeListener() {
@@ -382,11 +405,30 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
     }
 
     @Override
-    public void onFiltersSelected(ArrayList<BrandModel> categories) {
+    public void onFiltersSelected(ArrayList<BrandModel> categories, boolean enableWorkshops, boolean enableShowrooms) {
         hidePreview();
-        setFocusMap(true);
+        //setFocusMap(true);
         this.selectedBrands = categories;
+        this.enableWorkshops = enableWorkshops;
+        this.enableShowrooms = enableShowrooms;
         getNearByBrands();
+    }
+
+    @Override
+    public void onDataStoreUpdate() {
+        // focus the map on the user location after the location is being received receive  if not focused before
+        if (focusMap) {
+            focusMapToUserLocation();
+        }
+    }
+
+    @Override
+    public void onLanguageChanged() {
+    }
+
+    @Override
+    public void onLoginStateChange() {
+
     }
 
     public static class LocatableWorkshop {
@@ -394,18 +436,23 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
         MarkerOptions markerOptions;
 
         enum MarkType {BRAND, BRANCH}
+
         MarkType type;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnClose:
                 getActivity().finish();
-            break;
+                break;
             case R.id.btnFilter:
-                DiagPickFilter diag = new DiagPickFilter(getContext(), selectedBrands, this);
+                DiagPickFilter diag = new DiagPickFilter(getContext(), selectedBrands,enableWorkshops, enableShowrooms, this);
                 diag.show();
+                break;
+            case R.id.btnMyLocation:
+                if(googleMap != null && ContextCompat.checkSelfPermission(this.getActivity(), permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                    focusMapToUserLocation();
                 break;
         }
     }
@@ -434,16 +481,21 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
         return true;
     }
 
-    public void requestLocationPermissionIfRequired(){
+    ///
+    /// ------ permissions -----
+    ///
+    public void requestLocationPermissionIfRequired() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(
-                        new String[]{permission.ACCESS_FINE_LOCATION},
-                        ThagherApp.PERMISSIONS_REQUEST_LOCATION);
+            if (ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{permission.ACCESS_FINE_LOCATION}, ThagherApp.PERMISSIONS_REQUEST_LOCATION);
+            } else {
+                ThagherApp.checkAndPromptForLocationServices(getActivity());
             }
+        } else {
+            ThagherApp.checkAndPromptForLocationServices(getActivity());
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -452,9 +504,13 @@ public class FragMap extends Fragment implements View.OnClickListener, OnMapRead
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     focusMap = true;
                     getNearByBrands();
-                    if(this.googleMap != null){
+                    if (this.googleMap != null) {
+                        // we are running our own location button to position it
+                        this.googleMap.getUiSettings().setMyLocationButtonEnabled(false);
                         this.googleMap.setMyLocationEnabled(true);
-                        this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                    }
+                    if (ContextCompat.checkSelfPermission(this.getActivity(), permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        ThagherApp.requestLastUserKnownLocation();
                     }
                 }
             }

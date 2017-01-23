@@ -30,15 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/lasyer2"/>
+        android:layout_marginBottom="15dp"/>
 
     <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
         android:id="@+id/tvBrandName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="15dp"
         android:gravity="center_horizontal"
         android:textColor="@color/txt_gray"
         android:textSize="@dimen/ts_text_normal"

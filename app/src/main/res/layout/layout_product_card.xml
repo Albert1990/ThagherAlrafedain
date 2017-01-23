@@ -17,6 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
             android:adjustViewBounds="true"
             app:corner_radius="0dp"/>
 
@@ -27,7 +30,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:lines="1"
+            android:lines="2"
             android:maxLines="2"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -35,7 +38,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/ts_text_small"
             android:textStyle="bold"
-            app:fontId="1"/>
+            app:fontId="2"/>
 
         <com.brain_socket.thagheralrafedain.view.TextViewCustomFont
             android:id="@+id/tvBrand"

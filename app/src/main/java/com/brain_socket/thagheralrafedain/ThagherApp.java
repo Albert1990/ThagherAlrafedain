@@ -1,6 +1,5 @@
 package com.brain_socket.thagheralrafedain;
 
-import android.Manifest;
 import android.Manifest.permission;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,14 +7,17 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -50,9 +52,10 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
 
     public static ThagherApp appContext;
     private static Gson sharedGsonParser;
-    private static GoogleApiClient mGoogleApiClient;
+    public static GoogleApiClient mGoogleApiClient;
 
     public static final int PERMISSIONS_REQUEST_LOCATION = 33;
+    public static final int REQ_CODE_ENABLE_LOCATION = 53;
 
     private static SUPPORTED_LANGUAGE currentLanguage = null;
 
@@ -101,7 +104,10 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
                     DisplayMetrics dm = res.getDisplayMetrics();
                     android.content.res.Configuration conf = res.getConfiguration();
                     String locale = getLocale();
-                    conf.locale = new Locale(locale.toLowerCase());
+                    Locale newLocale = new Locale(locale.toLowerCase());
+                    conf.locale = newLocale;
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                        conf.setLayoutDirection(newLocale);
                     res.updateConfiguration(conf, dm);
                 }
             }
@@ -240,20 +246,33 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         return true;
     }
 
+    public static void requestLastUserKnownLocation() {
+        if (mGoogleApiClient == null) {
+            // init google apis client
+            mGoogleApiClient = new GoogleApiClient.Builder(ThagherApp.getAppContext())
+                    .addConnectionCallbacks(ThagherApp.getAppContext())
+                    .addOnConnectionFailedListener(ThagherApp.getAppContext())
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+        if (!mGoogleApiClient.isConnected())
+            mGoogleApiClient.connect();
+        else
+            requestLocationUpdates();
+    }
+
+    public static void disconnectGoogleApiClient() {
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
     /**
      * Runs when a GoogleApiClient object successfully connects.
      */
     @Override
     public void onConnected(Bundle connectionHint) {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(1000 * 60);
-        locationRequest.setFastestInterval(10000);
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            DataStore.getInstance().setMeLastLocation(mLastLocation);
-        }
+        requestLocationUpdates();
     }
 
     @Override
@@ -266,30 +285,25 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
         mGoogleApiClient.connect();
     }
 
+    private static void requestLocationUpdates(){
+        if (ContextCompat.checkSelfPermission(ThagherApp.appContext, permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+            LocationRequest locationRequest = LocationRequest.create();
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            locationRequest.setNumUpdates(1);
+            locationRequest.setInterval(1000 * 60);
+            locationRequest.setFastestInterval(10000);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, ThagherApp.appContext);
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (mLastLocation != null) {
+                DataStore.getInstance().setMeLastLocation(mLastLocation);
+            }
+        }
+    }
 
     @Override
     public void onLocationChanged(Location location) {
         if (location != null) {
             DataStore.getInstance().setMeLastLocation(location);
-        }
-    }
-
-    public static void requestLastUserKnownLocation() {
-        if (mGoogleApiClient == null) {
-            // init google apis client
-            mGoogleApiClient = new GoogleApiClient.Builder(ThagherApp.getAppContext())
-                    .addConnectionCallbacks(ThagherApp.getAppContext())
-                    .addOnConnectionFailedListener(ThagherApp.getAppContext())
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-        if (!mGoogleApiClient.isConnected())
-            mGoogleApiClient.connect();
-    }
-
-    public static void disconnectGoogleApiClient() {
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
         }
     }
 
@@ -337,6 +351,39 @@ public class ThagherApp extends Application implements GoogleApiClient.Connectio
 
     public static void Toast(String msg){
         Toast.makeText(getAppContext(),msg,Toast.LENGTH_LONG).show();
+    }
+
+    public static void checkAndPromptForLocationServices(final Activity activity){
+        LocationManager lm = (LocationManager)ThagherApp.appContext.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+            dialog.setMessage(ThagherApp.appContext.getResources().getString(R.string.location_not_enabled_msg));
+            dialog.setPositiveButton(ThagherApp.appContext.getResources().getString(R.string.location_not_enabled_ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    activity.startActivity(myIntent);
+                    //get gps
+                }
+            });
+            dialog.setNegativeButton(ThagherApp.appContext.getString(R.string.location_not_enabled_cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {}
+            });
+            dialog.show();
+        }
     }
 
 }

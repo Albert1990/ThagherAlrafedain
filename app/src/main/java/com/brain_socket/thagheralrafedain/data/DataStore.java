@@ -66,6 +66,7 @@ public class DataStore {
             getLocalData();
             requestCategories();
             requestAllBrands(null);
+            requestBrands(null);
         } catch (Exception ignored) {
         }
     }
@@ -97,6 +98,7 @@ public class DataStore {
             DataCacheProvider.getInstance().clearCache();
             me = null;
             brands = null;
+            allBrands = null;
         } catch (Exception ignored) {
         }
     }
@@ -119,6 +121,9 @@ public class DataStore {
         }.getType());
         me = DataCacheProvider.getInstance().getStoredObjectWithKey(DataCacheProvider.KEY_APP_USER_ME, new TypeToken<AppUser>() {
         }.getType());
+
+        myLocationLatitude = DataCacheProvider.getInstance().getStoredFloatWithKey(DataCacheProvider.KEY_APP_LAST_KNOWN_LAT);
+        myLocationLongitude = DataCacheProvider.getInstance().getStoredFloatWithKey(DataCacheProvider.KEY_APP_LAST_KNOWN_LON);
     }
 
     //--------------------
@@ -155,6 +160,9 @@ public class DataStore {
     };
 
     public void triggerDataUpdate() {
+        requestCategories();
+        requestAllBrands(null);
+        requestBrands(null);
         // get Following list and cache it for later use
         if (isUserLoggedIn()) {
 
@@ -190,6 +198,17 @@ public class DataStore {
             public void run() {
                 for (DataStoreUpdateListener listener : updateListeners) {
                     listener.onLoginStateChange();
+                }
+            }
+        });
+    }
+
+    public void broadcastLanguageChange() {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                for (DataStoreUpdateListener listener : updateListeners) {
+                    listener.onLanguageChanged();
                 }
             }
         });
@@ -263,6 +282,23 @@ public class DataStore {
         }).start();
     }
 
+    public void attemptChangePsw(final String oldPsw,final String newPsw, final DataRequestCallback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = true;
+                String md5OldPassword = ThagherApp.MD5(oldPsw);
+                String md5NewPassword = ThagherApp.MD5(newPsw);
+                ServerResult result = serverHandler.changePassword(getMe().getId(),md5OldPassword, md5NewPassword);
+                if (!result.isValid()) {
+                    success = false;
+                }
+                invokeCallback(callback, success, result); // invoking the callback
+            }
+        }).start();
+    }
+
+
     public void attemptUpdateUser(final String fullName,final String phone,final String type, final float lat, final float lng, final String address, final String imagePath, final ArrayList<String> selectedBrandsIds, final DataRequestCallback callback){
         new Thread(new Runnable() {
             @Override
@@ -330,32 +366,16 @@ public class DataStore {
         }).start();
     }
 
-    /**
-     * get Product by Id this is used incase of opening product details activity through deeplinking
-     *
-     * @param prodId
-     * @param callback
-     */
-    public void requestProduct(final String prodId, final DataRequestCallback callback) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ServerResult result = serverHandler.getProductById(prodId);
-                broadcastDataStoreUpdate();
-                invokeCallback(callback, !result.connectionFailed(), result);
-            }
-        }).start();
-    }
 
     //--------------------
     // Brands
     //----------------------------------------------
-    public void requestBrands(final String keyWord, final DataRequestCallback callback) {
+    public void requestBrands(final DataRequestCallback callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.getBrands(keyWord);
+                ServerResult result = serverHandler.getBrands();
                 if (result.connectionFailed()) {
                     success = false;
                 } else {
@@ -385,7 +405,7 @@ public class DataStore {
                     if (result.isValid()) {
                         ArrayList<BrandModel> arrayRecieved = (ArrayList<BrandModel>) result.get("brands");
                         if (arrayRecieved != null && !arrayRecieved.isEmpty()) {
-                            brands = arrayRecieved;
+                            allBrands = arrayRecieved;
                             DataCacheProvider.getInstance().storeArrayWithKey(DataCacheProvider.KEY_APP_ARRAY_ALL_BRANDS, arrayRecieved);
                         }
                     }
@@ -416,7 +436,8 @@ public class DataStore {
                     }
                 }
                 //broadcastDataStoreUpdate();
-                invokeCallback(callback, success, result); // invoking the callback
+                if(callback != null)
+                    invokeCallback(callback, success, result); // invoking the callback
             }
         }).start();
     }
@@ -483,12 +504,12 @@ public class DataStore {
         }).start();
     }
 
-    public void requestNearbyWorkshops(final float centerLat, final float centerLng, final float radius, final ArrayList<BrandModel> brands, final DataRequestCallback callback) {
+    public void requestNearbyWorkshops(final float centerLat, final float centerLng, final float radius, final ArrayList<BrandModel> brands,final boolean workshopsEnabled, final boolean showRoomsEnabled, final DataRequestCallback callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean success = true;
-                ServerResult result = serverHandler.getNearbyWorkshops(centerLat, centerLng, radius, brands);
+                ServerResult result = serverHandler.getNearbyWorkshops(centerLat, centerLng, radius, brands, workshopsEnabled, showRoomsEnabled);
                 if (result.connectionFailed()) {
                     success = false;
                 } else {
@@ -537,10 +558,15 @@ public class DataStore {
     }
 
     public void setMeLastLocation(Location meLastLocation) {
+        if(meLastLocation != null) {
+            this.meLastLocation = meLastLocation;
+            myLocationLatitude = (float) meLastLocation.getLatitude();
+            myLocationLongitude = (float) meLastLocation.getLongitude();
 
-        this.meLastLocation = meLastLocation;
-        myLocationLatitude = (float) meLastLocation.getLatitude();
-        myLocationLongitude = (float) meLastLocation.getLongitude();
+            DataCacheProvider.getInstance().storeFloatWithKey(DataCacheProvider.KEY_APP_LAST_KNOWN_LAT, myLocationLatitude);
+            DataCacheProvider.getInstance().storeFloatWithKey(DataCacheProvider.KEY_APP_LAST_KNOWN_LON, myLocationLongitude);
+            broadcastDataStoreUpdate();
+        }
     }
 
     public boolean isUserLoggedIn() {
@@ -586,9 +612,7 @@ public class DataStore {
 
     public interface DataStoreUpdateListener {
         void onDataStoreUpdate();
-
-        void onNewEventNotificationsAvailable();
-
+        void onLanguageChanged();
         void onLoginStateChange();
     }
 

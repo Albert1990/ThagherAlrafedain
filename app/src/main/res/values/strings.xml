@@ -1,21 +1,23 @@
 <resources>
-    <string name="facebook_app_id">721986314644284</string>
+    <string name="facebook_app_id" translatable="false">721986314644284</string>
     <string name="app_name">Thagher Alrafedain</string>
-    <string name="activity_main_products_title">Brand Products</string>
-    <string name="place_holder">---</string>
+    <string name="activity_main_products_title">BRAND PRODUCTS</string>
+    <string name="place_holder" translatable="false">---</string>
 
     <!-- workshop activity -->
     <string name="activity_workshop_details_workshop_name">Your business name</string>
     <string name="activity_workshop_details_workshop_email">Email Address</string>
     <string name="activity_workshop_details_workshop_phone">Your business phone</string>
-    <string name="activity_workshop_details_workshop_location">Your business location</string>
+    <string name="activity_workshop_details_workshop_address">Your business Address</string>
+    <string name="activity_workshop_details_workshop_location">Your business location on map</string>
     <string name="activity_workshop_details_workshop_brands">Select brands you work with</string>
     <string name="activity_workshop_details_missing_data_msg">Please Fill your business info first</string>
     <string name="activity_workshop_details_missing_field">Please, Fill this field</string>
+    <string name="activity_workshop_details_save">Update Information</string>
 
     <!-- Brand Details Activity -->
     <string name="activity_brand_details_no_data">No products that match your filter</string>
-    <string name="activity_brand_details_products">Products :</string>
+    <string name="activity_brand_details_products">PRODUCTS :</string>
 
     <!-- register activity -->
     <string name="activity_register_full_name">Full Name</string>
@@ -28,10 +30,11 @@
     <!--filters -->
     <string name="filters_title">Search Filters</string>
     <string name="menu_action_done">OK</string>
-    <string name="filters_cancel">Cancel</string>
+    <string name="filters_cancel">Reset</string>
     <string name="filters_ok">Ok</string>
-    <string name="filters_group_types">Choose category</string>
+    <string name="filters_group_types">Brands</string>
     <string name="filters_select_all">Select all</string>
+    <string name="filters_categories_title">Select categories to filter</string>
 
     <string name="workshop_details_workshop">Workshop</string>
     <string name="workshop_details_show_room">Showroom</string>
@@ -71,7 +74,7 @@
     <!-- don't manipulate the order of items in this list, check workshop details attemptUpdate-->
     <string-array name="workshop_array">
         <item>Workshop</item>
-        <item>Show Room</item>
+        <item>Showroom</item>
     </string-array>
 
     <string name="action_settings">Settings</string>
@@ -85,23 +88,47 @@
     <string name="login_add_your_workshop_cancel">No</string>
     <string name="login_forget_pass">Forget Password?</string>
     <string name="login_check_your_mail_box">Done, Check your mail box</string>
+    <string name="login_signup">Sign up!</string>
+    <string name="login_dont_have_accout">Don\'t have an account? </string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_psw_hint">Password</string>
 
     <!-- main-->
-    <string name="main_prod_price">price</string>
+    <string name="main_prod_price">Price</string>
     <string name="main_prod_view_product">View Product</string>
 
     <!-- prod details -->
-    <string name="prod_details_more_title">More products</string>
+    <string name="prod_details_more_title">PRODUCTS YOU MAY LIKE</string>
+    <string name="prod_details_description">DESCRIPTION</string>
     <string name="prod_details_price">Price</string>
 
+    <string name="settings_title">Profile Options</string>
     <string name="settings_lang_ar">العربية</string>
     <string name="settings_lang_en">English</string>
     <string name="settings_lang">Language</string>
     <string name="settings_logout">Logout</string>
-    <string name="settings_upgrade_to_workshop">Register your workshop or showroom with us.</string>
+    <string name="settings_upgrade_to_workshop">Register your business with us.</string>
     <string name="settings_edit_workshop">Edit Workshop info</string>
     <string name="settings_change_psw">Change Password</string>
     <string name="settings_login">Login</string>
+    <string name="settings_not_logged">You are not logged-in</string>
 
+    <string name="change_psw_title">Change Password</string>
+    <string name="change_psw_old_psw">Your current password</string>
+    <string name="change_psw_new_psw">New password</string>
+    <string name="change_psw_submit">Submit</string>
+    <string name="change_psw_success">Changed password successfully</string>
+    <string name="change_psw_failed">Changing password failed</string>
+
+    <string name="location_not_enabled_msg">Please, Enable Locations services for better results</string>
+    <string name="location_not_enabled_ok">Enable</string>
+    <string name="location_not_enabled_cancel">Cancel</string>
+
+    <string name="map_filter_workshop">Workshops</string>
+    <string name="map_filter_show_room">Showrooms</string>
+    <string name="map_filter_brands">Brands</string>
+
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
 </resources>

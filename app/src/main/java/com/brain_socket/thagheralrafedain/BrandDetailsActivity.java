@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brain_socket.thagheralrafedain.data.DataStore;
 import com.brain_socket.thagheralrafedain.data.PhotoProvider;
@@ -44,13 +47,13 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
         bindUserData();
     }
 
+
     private void init(){
         ivBrand = (ImageView)findViewById(R.id.ivBrand);
         rvProducts = (RecyclerView)findViewById(R.id.rvProducts);
         ivFilter = findViewById(R.id.ivFilter);
         tvNoData = findViewById(R.id.tvNoData);
 
-        ivFilter.setOnClickListener(this);
         rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
         productsAdapter = new ProductsRecycleViewAdapter(this);
         rvProducts.setAdapter(productsAdapter);
@@ -59,15 +62,40 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
         categoryPickerDialog = new DiagCategoryPicker(this,categoryPickerCallback);
         loadingDialog = ThagherApp.getNewLoadingDilaog(this);
 
+        ivFilter.setOnClickListener(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_brand_details, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        switch (id) {
+            case R.id.home:
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.action_filter:
+                categoryPickerDialog.show();
+                break;
+
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     private DiagCategoryPicker.CategoryDiagCallBack categoryPickerCallback = new DiagCategoryPicker.CategoryDiagCallBack() {
         @Override
         public void onClose(ArrayList<String> selectedCategoriesIds) {
             loadingDialog.show();
-            DataStore.getInstance().requestProducts(brand.getId(), null, selectedCategoriesIds, requestProductsCallback);
+
+            DataStore.getInstance().requestProducts(brand.getId(), ThagherApp.getCurrentLanguage().toString(), selectedCategoriesIds, requestProductsCallback);
         }
     };
 
@@ -88,8 +116,9 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
 
         if(brand != null) {
             loadingDialog.show();
-            DataStore.getInstance().requestProducts(brand.getId(), null, null, requestProductsCallback);
+            DataStore.getInstance().requestProducts(brand.getId(), ThagherApp.getCurrentLanguage().toString(), null, requestProductsCallback);
             PhotoProvider.getInstance().displayPhotoNormal(brand.getLogo(), ivBrand);
+            setTitle(brand.getName());
         }
     }
 
@@ -111,8 +140,10 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
             public void onClick(View v) {
                 try {
                     int itemPosition = (int)v.getTag();
+                    ProductModel prod = products.get(itemPosition);
                     Intent myIntent = new Intent(BrandDetailsActivity.this, ProductDetailsActivity.class);
-                    //myIntent.putExtra("key", value); //Optional parameters
+                    myIntent.putExtra("selectedBrand", brand.getJsonString());
+                    myIntent.putExtra("selectedProduct", prod.getJsonString());
                     startActivity(myIntent);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -154,9 +185,10 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
             try {
                 final ProductModel productModel = products.get(position);
                 holder.root.setTag(position);
-                holder.tvName.setText(productModel.getName());
+                holder.tvName.setText(productModel.getName().toUpperCase());
                 String strPrice = productModel.getPriceWithUnit();
-                holder.tvPrice.setText(strPrice);
+                holder.tvPrice.setText(R.string.main_prod_view_product);
+                holder.tvBrand.setText(getString(R.string.main_prod_price) + strPrice);
                 PhotoProvider.getInstance().displayPhotoNormal(productModel.getImage(), holder.ivProduct);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -176,12 +208,14 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
         public ImageView ivProduct;
         public TextView tvName;
         public TextView tvPrice;
+        public TextView tvBrand;
 
         public ProductViewHolderItem(View v) {
             super(v);
             root = v;
             tvName = (TextView) v.findViewById(R.id.tvName);
             tvPrice = (TextView) v.findViewById(R.id.tvPrice);
+            tvBrand = (TextView) v.findViewById(R.id.tvBrand);
             ivProduct = (RoundedImageView) v.findViewById(R.id.ivProduct);
         }
     }

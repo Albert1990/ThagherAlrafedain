@@ -38,6 +38,10 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
     TextView selectButton, cancelButton, tvTitle;
     View vHeaderContainer;
 
+    ImageView ivCheckWorkshops, ivCheckShowrooms;
+
+    boolean workshopsEnabled, showroomsEnabled;
+
     FiltersPickerCallback callback;
 
     //Filterstypes
@@ -45,12 +49,14 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
     private ArrayList<BrandModel> brandsTypes;
     private ArrayList<BrandModel> selectedBrandsTypes;
 
-    public DiagPickFilter(Context context, ArrayList<BrandModel> selectedBrands, FiltersPickerCallback callback) {
+    public DiagPickFilter(Context context, ArrayList<BrandModel> selectedBrands, boolean workshops, boolean showrooms, FiltersPickerCallback callback) {
         super(context, R.style.full_screen_dialog);
         this.context = context;
         this.selectedBrandsTypes = selectedBrands;
-        if(selectedBrandsTypes == null)
+        if (selectedBrandsTypes == null)
             selectedBrandsTypes = new ArrayList<>();
+        workshopsEnabled = workshops;
+        showroomsEnabled = showrooms;
         this.callback = callback;
     }
 
@@ -67,12 +73,20 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
         vHeaderContainer = findViewById(R.id.vHeaderContainer);
         cancelButton = (TextView) findViewById(R.id.cancel);
         selectButton = (TextView) findViewById(R.id.select);
+        ivCheckWorkshops = (ImageView) findViewById(R.id.ivCheckWorkshops);
+        ivCheckShowrooms = (ImageView) findViewById(R.id.ivCheckShowRooms);
 
         cancelButton.setOnClickListener(this);
         selectButton.setOnClickListener(this);
+        ivCheckWorkshops.setOnClickListener(this);
+        ivCheckShowrooms.setOnClickListener(this);
 
         //Data
-        brandsTypes = DataStore.getInstance().getBrands();
+        brandsTypes = DataStore.getInstance().getAllBrands();
+
+        // workshop type filters initial state
+        ivCheckWorkshops.setImageResource(workshopsEnabled ? R.drawable.ic_check_active : R.drawable.ic_check);
+        ivCheckShowrooms.setImageResource(showroomsEnabled ? R.drawable.ic_check_active : R.drawable.ic_check);
 
         /// Note ----------
         // dont swipe the following 2 blocks of code, we need to get the data before creating the adapter;
@@ -95,11 +109,13 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
         wmlp.x = 0;
         wmlp.y = 0;
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        lvSelecter.expandGroup(0);
     }
 
     private void setFilters() {
         if (callback != null)
-            callback.onFiltersSelected(selectedBrandsTypes);
+            callback.onFiltersSelected(selectedBrandsTypes, workshopsEnabled, showroomsEnabled);
     }
 
     @Override
@@ -108,11 +124,27 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
         switch (id) {
             case R.id.select:
                 setFilters();
+                dismiss();
                 break;
             case R.id.cancel:
+                selectedBrandsTypes.clear();
+                showroomsEnabled = true;
+                workshopsEnabled = true;
+                ivCheckShowrooms.setImageResource(R.drawable.ic_check_active);
+                ivCheckWorkshops.setImageResource(R.drawable.ic_check_active);
+                setFilters();
+                dismiss();
                 break;
+            case R.id.ivCheckShowRooms:
+                showroomsEnabled = !showroomsEnabled;
+                ivCheckShowrooms.setImageResource(showroomsEnabled ? R.drawable.ic_check_active : R.drawable.ic_check);
+                break;
+            case R.id.ivCheckWorkshops:
+                workshopsEnabled = !workshopsEnabled;
+                ivCheckWorkshops.setImageResource(workshopsEnabled ? R.drawable.ic_check_active : R.drawable.ic_check);
+                break;
+
         }
-        dismiss();
     }
 
     @Override
@@ -230,20 +262,20 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
                         title = getContext().getString(R.string.filters_select_all);
                         if (selectedBrandsTypes == null || selectedBrandsTypes.isEmpty()) {
                             holder.ivIndicator.setImageResource(R.drawable.ic_check_active);
-                            holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg_active);
+                            //holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg_active);
                         } else {
                             holder.ivIndicator.setImageResource(R.drawable.ic_check);
-                            holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg);
+                            //holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg);
                         }
                     } else {
                         BrandModel type = brandsTypes.get(i1 - 1);
                         title = type.getName();
                         if (AppBaseModel.getById(selectedBrandsTypes, type.getId()) != null) {
                             holder.ivIndicator.setImageResource(R.drawable.ic_check_active);
-                            holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg_active);
+                            //holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg_active);
                         } else {
                             holder.ivIndicator.setImageResource(R.drawable.ic_check);
-                            holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg);
+                            //holder.vRowContainer.setBackgroundResource(R.color.filter_item_bg);
                         }
                     }
                     holder.btnInfo.setVisibility(View.GONE);
@@ -272,7 +304,7 @@ public class DiagPickFilter extends Dialog implements OnClickListener, OnChildCl
     }
 
     public interface FiltersPickerCallback {
-        void onFiltersSelected(ArrayList<BrandModel> categories);
+        void onFiltersSelected(ArrayList<BrandModel> categories, boolean workshopsEnabled, boolean showroomsEnabled);
     }
 
 }

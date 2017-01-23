@@ -2,6 +2,7 @@ package com.brain_socket.thagheralrafedain;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     TextView txtLogout;
     View vLogedInOptions;
     View btnLogin;
+    TextView txtTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,13 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         DataStore.getInstance().removeUpdateBroadcastListener(this);
     }
 
-    private void init(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateView();
+    }
+
+    private void init() {
         tvCheckLangAr = (TextView) findViewById(R.id.tvCheckArabic);
         tvCheckLangEn = (TextView) findViewById(R.id.tvCheckEnglish);
         ivCheckLangAr = (ImageView) findViewById(R.id.ivCheckArabic);
@@ -52,9 +60,9 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         TextView txtLang = (TextView) findViewById(R.id.txtLang);
         txtWorkshop = (TextView) findViewById(R.id.txtWorskhop);
         txtChangePsw = (TextView) findViewById(R.id.txtChangePsw);
-        TextView txtTitle = (TextView) findViewById(R.id.tvTitle);
+        txtTitle = (TextView) findViewById(R.id.tvTitle);
         txtLogout = (TextView) findViewById(R.id.txtLogout);
-        vLogedInOptions =findViewById(R.id.vLogedInOptions);
+        vLogedInOptions = findViewById(R.id.vLogedInOptions);
         btnLogin = findViewById(R.id.btnLogin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -70,14 +78,15 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        txtTitle.setText(R.string.settings_title);
 
         //set text
         txtLang.setText(R.string.settings_lang);
         txtChangePsw.setText(R.string.settings_change_psw);
         txtLogout.setText(R.string.settings_logout);
 
-        AppUser me= DataStore.getInstance().getMe();
-        if(me != null) {
+        AppUser me = DataStore.getInstance().getMe();
+        if (me != null) {
             vLogedInOptions.setVisibility(View.VISIBLE);
             btnLogin.setVisibility(View.GONE);
             txtTitle.setText(me.getFullname());
@@ -86,7 +95,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
             } else {
                 txtWorkshop.setText(R.string.settings_edit_workshop);
             }
-        }else{ // not logged in
+        } else { // not logged in
             vLogedInOptions.setVisibility(View.GONE);
             btnLogin.setVisibility(View.VISIBLE);
         }
@@ -103,15 +112,19 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
-    private void updateView(){
+    private void updateView() {
         SUPPORTED_LANGUAGE newLang = ThagherApp.getCurrentLanguage();
-        switch (newLang){
+        switch (newLang) {
             case AR:
                 ivCheckLangAr.setImageResource(R.drawable.ic_radio_active);
                 ivCheckLangEn.setImageResource(R.drawable.ic_radio);
                 txtChangePsw.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_has_details, 0, 0, 0);
-                txtWorkshop.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_has_details,0,0,0);
+                txtWorkshop.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_has_details, 0, 0, 0);
                 break;
             case EN:
                 ivCheckLangEn.setImageResource(R.drawable.ic_radio_active);
@@ -122,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         }
 
         AppUser me = DataStore.getInstance().getMe();
-        if(me != null) {
+        if (me != null) {
             vLogedInOptions.setVisibility(View.VISIBLE);
             btnLogin.setVisibility(View.GONE);
             if (me.getUserType() == USER_TYPE.USER) {
@@ -130,22 +143,25 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
             } else {
                 txtWorkshop.setText(R.string.settings_edit_workshop);
             }
-        }else{ // not logged in
+        } else { // not logged in
+            txtTitle.setText(R.string.settings_title);
             vLogedInOptions.setVisibility(View.GONE);
             btnLogin.setVisibility(View.VISIBLE);
         }
     }
 
-    private void changeLanguage(SUPPORTED_LANGUAGE newLang){
+    private void changeLanguage(SUPPORTED_LANGUAGE newLang) {
         try {
             if (newLang != null) {
                 if (newLang != ThagherApp.getCurrentLanguage()) {
                     ThagherApp.setLanguage(newLang);
                     init();
                     updateView();
+                    DataStore.getInstance().requestBrandsWithProducts(null);
+                    DataStore.getInstance().broadcastLanguageChange();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -161,7 +177,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     }
 
     @Override
-    public void onNewEventNotificationsAvailable() {
+    public void onLanguageChanged() {
 
     }
 
@@ -177,7 +193,8 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
                 changeLanguage(SUPPORTED_LANGUAGE.EN);
                 break;
             case R.id.txtChangePsw:
-
+                Intent iChangePsw = new Intent(this, ChangePswActivity.class);
+                startActivity(iChangePsw);
                 break;
             case R.id.txtLogout:
                 DataStore.getInstance().logout();

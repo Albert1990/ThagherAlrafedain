@@ -48,18 +48,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if(success){
                 if(result.containsKey("msg")) {
                     String msg = result.getValue("msg").toString();
-                    if(msg.equals("1")) {
-                        ThagherApp.Toast(getString(R.string.activity_register_success));
-                        finish();
-                    }
-                    else {
-                        ThagherApp.Toast(msg);
+                    ThagherApp.Toast(msg);
+
+                }else if(result.containsKey("appUser")){
+                    ThagherApp.Toast(getString(R.string.activity_register_success));
+                    // to make sure the login activity will close
+                    setResult(RESULT_OK);
+                    finish();
+
+                    // if signed up as workshop, open workshop details
+                    if(cbWorkshop.isChecked()) {
+                        Intent i = new Intent(RegisterActivity.this, WorkshopDetails.class);
+                        startActivity(i);
                     }
                 }
-//                else {
-//                    Intent i = new Intent(RegisterActivity.this,WorkshopDetails.class);
-//                    startActivity(i);
-//                }
             }
         }
     };
@@ -113,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             else
             {
                 loadingDialog.show();
-                DataStore.getInstance().attemptSignUp(email,password,fullName,phone,userType,attemptSignupCallback);
+                DataStore.getInstance().attemptSignUp(email, password, fullName, phone, userType, attemptSignupCallback);
             }
         }catch (Exception ex){
             ex.printStackTrace();
