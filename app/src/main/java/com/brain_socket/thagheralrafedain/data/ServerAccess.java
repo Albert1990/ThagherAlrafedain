@@ -401,7 +401,7 @@ public class ServerAccess {
         return result;
     }
 
-    public ServerResult updateUser(String userId, String fullName, String email, String phone, String address, String lon, String lat, String imagePath, String type, ArrayList<String> selectedBrandsIds) {
+    public ServerResult updateUser(String userId, String fullName, String email, String phone, String address,String lat, String lon, String imagePath, String type, ArrayList<String> selectedBrandsIds) {
         ServerResult result = new ServerResult();
         AppUser me = null;
         try {

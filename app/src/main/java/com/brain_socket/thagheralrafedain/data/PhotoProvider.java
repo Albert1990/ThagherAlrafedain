@@ -154,6 +154,7 @@ public class PhotoProvider
                 initImageLoader();
             }
 
+            iv.setImageResource(R.drawable.shape_cover_place_holder);
             imageLoader.displayImage(photoUrl, iv, optionsNormal);
         }
         catch (Exception ignored) {}

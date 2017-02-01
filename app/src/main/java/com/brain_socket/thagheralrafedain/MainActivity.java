@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
@@ -18,13 +21,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
+import android.support.v7.widget.RecyclerView.Recycler;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,12 +46,18 @@ import com.brain_socket.thagheralrafedain.model.AppUser;
 import com.brain_socket.thagheralrafedain.model.AppUser.USER_TYPE;
 import com.brain_socket.thagheralrafedain.model.BrandModel;
 import com.brain_socket.thagheralrafedain.model.ProductModel;
+import com.brain_socket.thagheralrafedain.view.RecyclerItemClickListener;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
 import com.brain_socket.thagheralrafedain.view.TextViewCustomFont;
+import com.github.florent37.viewanimator.ViewAnimator;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements DataStore.DataStoreUpdateListener, OnClickListener {
+
+    private static int maxHeaderHeight;
+    private static int minHeaderHeight;
+
     private SliderAdapter brandsSliderAdapter;
     private ProductsRecycleViewAdapter productsAdapter;
     private ArrayList<ProductModel> products;
@@ -50,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private BrandModel selectedBrand;
     private ViewPager vpBrands;
     private Dialog loadingDialog;
+    private RecyclerView rvProducts;
+    private TextView tvListTitle;
+    private View vHeaderContent;
+    private View vHeaderBg;
 
     // nav drawer
     private ImageView ivNavHeader;
@@ -61,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
     private View btnArabic;
     private View btnEnglish;
     private View vLoggedInOptionsContainer;
+
+    // used to accumulate the total scroll of the products grid
+    private int overallXScroll = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +149,11 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
             loadingDialog = ThagherApp.getNewLoadingDilaog(this);
-            RecyclerView rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
+            rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
             vpBrands = (ViewPager) findViewById(R.id.vpBrands);
+            vHeaderContent = findViewById(R.id.vHeaderContent);
+            tvListTitle = (TextView) findViewById(R.id.tvListTitle);
+            vHeaderBg = findViewById(R.id.vHeaderBg);
 
             // drawer
             ivNavHeader = (ImageView) findViewById(R.id.ivNavHeader);
@@ -218,8 +243,33 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             ab.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
             ab.setDisplayShowTitleEnabled(false); // disable the default title element here (for centered title)
 
+            // emulate scroll behaviour of the collapsingToolBar using a recyclerView scroll listener
+            // we had give away using the appBar because using the appbar and a pager inside it cased issues with click events
+            // of recyclerView cells
 
+            //set collapse effect params here
+            final TypedArray styledAttributes = this.getTheme().obtainStyledAttributes(new int[] { android.R.attr.actionBarSize });
+            styledAttributes.recycle();
+            minHeaderHeight = (int) styledAttributes.getDimension(0, 0);
+            maxHeaderHeight = ThagherApp.getPXSize(210);
+            rvProducts.addOnScrollListener(new OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    Log.d("scroll", "scrolled:" + rvProducts.getScrollY());
+                    overallXScroll += dy;
 
+                    // swipe the gridView up
+                    if (overallXScroll < maxHeaderHeight - minHeaderHeight) {
+                        //rvProducts.setTranslationY(-overallXScroll);
+                        float collapsePercent = 1 - ((float) overallXScroll / (maxHeaderHeight - minHeaderHeight));
+                        vHeaderContent.setTranslationY((int) (-overallXScroll * 0.7));
+                        tvListTitle.setTranslationY((int) (-overallXScroll));
+                        vHeaderContent.setAlpha(collapsePercent > 0.1 ? collapsePercent : 0);
+                        vHeaderBg.setTranslationY(-overallXScroll);
+                    }
+                }
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -356,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
                     Intent myIntent = new Intent(MainActivity.this, ProductDetailsActivity.class);
                     if(selectedBrand != null)
                     {
-                    ProductModel selectedProduct = selectedBrand.getProducts().get(itemPosition);
+                        ProductModel selectedProduct = selectedBrand.getProducts().get(itemPosition);
                         if(selectedProduct != null){
                             myIntent.putExtra("selectedBrand", selectedBrand.getJsonString());
                             myIntent.putExtra("selectedProduct", selectedProduct.getJsonString());
@@ -377,6 +427,9 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
             try {
                 if (products != null)
                     notifyDataSetChanged();
+
+                overallXScroll = 0;
+                rvProducts.scrollTo(0,0);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -386,20 +439,21 @@ public class MainActivity extends AppCompatActivity implements DataStore.DataSto
         public ProductViewHolderItem onCreateViewHolder(ViewGroup parent, int viewType) {
             View root = inflater.inflate(R.layout.layout_product_card, parent, false);
             ProductViewHolderItem holder = new ProductViewHolderItem(root);
-            root.setOnClickListener(onItemClickListner);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(ProductViewHolderItem holder, int position) {
+        public void onBindViewHolder(final ProductViewHolderItem holder, int position) {
             try {
                 final ProductModel productModel = products.get(position);
                 holder.root.setTag(position);
                 holder.tvName.setText(productModel.getName().toUpperCase());
                 String strPrice = productModel.getPriceWithUnit();
                 holder.tvPrice.setText(R.string.main_prod_view_product);
-                holder.tvBrand.setText(getString(R.string.main_prod_price) + strPrice);
+                holder.tvBrand.setText(getString(R.string.main_prod_price) + " " + strPrice);
                 PhotoProvider.getInstance().displayPhotoNormal(productModel.getImage(), holder.ivProduct);
+                holder.root.setOnClickListener(onItemClickListner);
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

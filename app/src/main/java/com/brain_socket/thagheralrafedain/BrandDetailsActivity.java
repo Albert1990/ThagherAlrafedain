@@ -188,7 +188,7 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
                 holder.tvName.setText(productModel.getName().toUpperCase());
                 String strPrice = productModel.getPriceWithUnit();
                 holder.tvPrice.setText(R.string.main_prod_view_product);
-                holder.tvBrand.setText(getString(R.string.main_prod_price) + strPrice);
+                holder.tvBrand.setText(getString(R.string.main_prod_price) + " " + strPrice);
                 PhotoProvider.getInstance().displayPhotoNormal(productModel.getImage(), holder.ivProduct);
             } catch (Exception ex) {
                 ex.printStackTrace();

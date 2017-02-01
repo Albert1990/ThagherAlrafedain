@@ -94,7 +94,7 @@
     <string name="login_psw_hint">Password</string>
 
     <!-- main-->
-    <string name="main_prod_price">Price</string>
+    <string name="main_prod_price">Price: </string>
     <string name="main_prod_view_product">View Product</string>
 
     <!-- prod details -->
