@@ -49,7 +49,6 @@ import com.brain_socket.thagheralrafedain.model.ProductModel;
 import com.brain_socket.thagheralrafedain.view.RecyclerItemClickListener;
 import com.brain_socket.thagheralrafedain.view.RoundedImageView;
 import com.brain_socket.thagheralrafedain.view.TextViewCustomFont;
-import com.github.florent37.viewanimator.ViewAnimator;
 
 import java.util.ArrayList;
 

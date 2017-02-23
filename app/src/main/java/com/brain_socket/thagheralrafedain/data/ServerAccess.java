@@ -318,7 +318,8 @@ public class ServerAccess {
             if (jsonResponse != null) {
                 brands = new ArrayList<>();
                 for (int i = 0; i < jsonResponse.length(); i++) {
-                    brands.add(BrandModel.fromJson(jsonResponse.getJSONObject(i)));
+                    JSONObject brandJsonObject = jsonResponse.getJSONObject(i);
+                    brands.add(BrandModel.fromJson(brandJsonObject));
                 }
             }
 
@@ -401,7 +402,7 @@ public class ServerAccess {
         return result;
     }
 
-    public ServerResult updateUser(String userId, String fullName, String email, String phone, String address,String lat, String lon, String imagePath, String type, ArrayList<String> selectedBrandsIds) {
+    public ServerResult updateUser(String userId, String fullName, String email, String phone, String address, String lon, String lat, String imagePath, String type, ArrayList<String> selectedBrandsIds) {
         ServerResult result = new ServerResult();
         AppUser me = null;
         try {

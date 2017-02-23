@@ -59,7 +59,6 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
         rvProducts.setAdapter(productsAdapter);
         rvProducts.scheduleLayoutAnimation();
 
-        categoryPickerDialog = new DiagCategoryPicker(this,categoryPickerCallback);
         loadingDialog = ThagherApp.getNewLoadingDilaog(this);
 
         ivFilter.setOnClickListener(this);
@@ -113,6 +112,7 @@ public class BrandDetailsActivity extends AppCompatActivity implements View.OnCl
     private void bindUserData(){
         String brandJsonStr = getIntent().getStringExtra("brand");
         brand = BrandModel.fromJsonString(brandJsonStr);
+        categoryPickerDialog = new DiagCategoryPicker(this,brand,categoryPickerCallback);
 
         if(brand != null) {
             loadingDialog.show();

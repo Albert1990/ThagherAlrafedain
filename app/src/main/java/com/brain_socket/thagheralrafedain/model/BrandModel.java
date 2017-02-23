@@ -2,9 +2,11 @@ package com.brain_socket.thagheralrafedain.model;
 
 import com.brain_socket.thagheralrafedain.ThagherApp;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Albert on 11/24/16.
@@ -15,6 +17,7 @@ public class BrandModel extends AppBaseModel{
     private String logo;
     private String status;
     private ArrayList<ProductModel> products;
+    private ArrayList<String> categories;
 
 
     public static BrandModel fromJson(JSONObject json) {
@@ -72,6 +75,10 @@ public class BrandModel extends AppBaseModel{
 
     public void setProducts(ArrayList<ProductModel> products) {
         this.products = products;
+    }
+
+    public ArrayList<String> getCategoriesIds(){
+        return categories;
     }
 
     public JSONObject getJsonObject(){

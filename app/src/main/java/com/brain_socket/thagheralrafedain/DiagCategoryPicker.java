@@ -30,16 +30,18 @@ import java.util.ArrayList;
 public class DiagCategoryPicker extends Dialog{
     private Context context;
     private CategoryDiagCallBack callback;
-    private ArrayList<CategoryModel> categories;
+    private ArrayList<CategoryModel> brandCategories;
     private ArrayList<String> selectedCategoriesIds;
     private AppsAdapter categoriesAdapter;
+    private BrandModel brand;
 
-    public DiagCategoryPicker(Context context,CategoryDiagCallBack callback) {
+    public DiagCategoryPicker(Context context,BrandModel brand,CategoryDiagCallBack callback) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.diag_pick_category);
         this.context = context;
         this.callback = callback;
+        this.brand = brand;
         init();
         bindUserData();
     }
@@ -88,8 +90,28 @@ public class DiagCategoryPicker extends Dialog{
 
     private void bindUserData(){
         selectedCategoriesIds = new ArrayList<>();
-        categories = DataStore.getInstance().getCategories();
+        brandCategories = new ArrayList<CategoryModel>();
+        ArrayList<CategoryModel> allCategoies = DataStore.getInstance().getCategories();
+        ArrayList<String> brandCategoriesIds = brand.getCategoriesIds();
+        if(brandCategoriesIds != null){
+            for(int i=0;i<brandCategoriesIds.size();i++){
+                CategoryModel categoryModel = getCategoryById(brandCategoriesIds.get(i),allCategoies);
+                if(categoryModel != null)
+                    brandCategories.add(categoryModel);
+            }
+        }
         categoriesAdapter.updateAdapter();
+    }
+
+    private CategoryModel getCategoryById(String id,ArrayList<CategoryModel> categories){
+        CategoryModel categoryModel = null;
+        for(int i=0;i<categories.size();i++){
+            if(categories.get(i).getId().equals(id)){
+                categoryModel = categories.get(i);
+                break;
+            }
+        }
+        return categoryModel;
     }
 
     public interface CategoryDiagCallBack{
@@ -108,7 +130,7 @@ public class DiagCategoryPicker extends Dialog{
             @Override
             public void onClick(View view) {
                 int index = (Integer) view.getTag();
-                CategoryModel model = categories.get(index);
+                CategoryModel model = brandCategories.get(index);
                 if(selectedCategoriesIds.contains(model.getId())){
                     selectedCategoriesIds.remove(model.getId());
                 }else{
@@ -133,7 +155,7 @@ public class DiagCategoryPicker extends Dialog{
         @Override
         public void onBindViewHolder(AppViewHolder viewHolder, int i) {
             try {
-                CategoryModel model = categories.get(i);
+                CategoryModel model = brandCategories.get(i);
                 viewHolder.rootView.setTag(i);
                 viewHolder.tvCategoryName.setText(model.getName());
                 PhotoProvider.getInstance().displayPhotoNormal(model.getIcon(), viewHolder.ivCategory);
@@ -149,14 +171,14 @@ public class DiagCategoryPicker extends Dialog{
 
         @Override
         public int getItemCount() {
-            if (categories != null)
-                return categories.size();
+            if (brandCategories != null)
+                return brandCategories.size();
             return 0;
         }
 
         public void updateAdapter() {
             try {
-                if(categories != null)
+                if(brandCategories != null)
                     notifyDataSetChanged();
             } catch (Exception ex) {
                 ex.printStackTrace();
